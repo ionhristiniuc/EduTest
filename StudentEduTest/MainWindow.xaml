@@ -3,17 +3,355 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:StudentEduTest"
+        xmlns:menu="clr-namespace:StudentEduTest.ContentWindow.Menu"
+        xmlns:panel="clr-namespace:StudentEduTest.ContentWindow.Panel"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="130"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="8*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <StackPanel x:Name="MenuStackPanel">
+        <TreeView FontSize="13px">
+            <TreeViewItem Header="Prolog">
+                <TreeViewItem Header="Modul 1">
+                    <TreeViewItem Header="Capitol 1">
+                        <TreeViewItem Header="Tema 1">
+                            <TreeViewItem Header="Test 1">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 2">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 3">
+                            </TreeViewItem>
+                        </TreeViewItem>
+                        <TreeViewItem Header="Tema 2">
+                            <TreeViewItem Header="Test 1">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 2">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 3">
+                            </TreeViewItem>
+                        </TreeViewItem>
+                    </TreeViewItem>
+                    <TreeViewItem Header="Capitol 2">
+                        <TreeViewItem Header="Tema 1">
+                            <TreeViewItem Header="Test 1">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 2">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 3">
+                            </TreeViewItem>
+                        </TreeViewItem>
+                        <TreeViewItem Header="Tema 2">
+                            <TreeViewItem Header="Test 1">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 2">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 3">
+                            </TreeViewItem>
+                        </TreeViewItem>
+                    </TreeViewItem>
+                </TreeViewItem>
+                    
+                <TreeViewItem Header="Modul 2">
+                    <TreeViewItem Header="Capitol 1">
+                        <TreeViewItem Header="Tema 1">
+                            <TreeViewItem Header="Test 1">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 2">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 3">
+                            </TreeViewItem>
+                        </TreeViewItem>
+                        <TreeViewItem Header="Tema 2">
+                            <TreeViewItem Header="Test 1">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 2">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 3">
+                            </TreeViewItem>
+                        </TreeViewItem>
+                    </TreeViewItem>
+                    <TreeViewItem Header="Capitol 2">
+                        <TreeViewItem Header="Tema 1">
+                            <TreeViewItem Header="Test 1">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 2">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 3">
+                            </TreeViewItem>
+                        </TreeViewItem>
+                        <TreeViewItem Header="Tema 2">
+                            <TreeViewItem Header="Test 1">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 2">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 3">
+                            </TreeViewItem>
+                        </TreeViewItem>
+                    </TreeViewItem>
+                </TreeViewItem>
+            </TreeViewItem>
+
+            <TreeViewItem Header="Grafica">
+                <TreeViewItem Header="Modul 1">
+                    <TreeViewItem Header="Capitol 1">
+                        <TreeViewItem Header="Tema 1">
+                            <TreeViewItem Header="Test 1">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 2">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 3">
+                            </TreeViewItem>
+                        </TreeViewItem>
+                        <TreeViewItem Header="Tema 2">
+                            <TreeViewItem Header="Test 1">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 2">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 3">
+                            </TreeViewItem>
+                        </TreeViewItem>
+                    </TreeViewItem>
+                    <TreeViewItem Header="Capitol 2">
+                        <TreeViewItem Header="Tema 1">
+                            <TreeViewItem Header="Test 1">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 2">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 3">
+                            </TreeViewItem>
+                        </TreeViewItem>
+                        <TreeViewItem Header="Tema 2">
+                            <TreeViewItem Header="Test 1">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 2">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 3">
+                            </TreeViewItem>
+                        </TreeViewItem>
+                    </TreeViewItem>
+                </TreeViewItem>
+
+                <TreeViewItem Header="Modul 2">
+                    <TreeViewItem Header="Capitol 1">
+                        <TreeViewItem Header="Tema 1">
+                            <TreeViewItem Header="Test 1">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 2">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 3">
+                            </TreeViewItem>
+                        </TreeViewItem>
+                        <TreeViewItem Header="Tema 2">
+                            <TreeViewItem Header="Test 1">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 2">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 3">
+                            </TreeViewItem>
+                        </TreeViewItem>
+                    </TreeViewItem>
+                    <TreeViewItem Header="Capitol 2">
+                        <TreeViewItem Header="Tema 1">
+                            <TreeViewItem Header="Test 1">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 2">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 3">
+                            </TreeViewItem>
+                        </TreeViewItem>
+                        <TreeViewItem Header="Tema 2">
+                            <TreeViewItem Header="Test 1">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 2">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 3">
+                            </TreeViewItem>
+                        </TreeViewItem>
+                    </TreeViewItem>
+                </TreeViewItem>
+            </TreeViewItem>
+
+
+            <TreeViewItem Header="Sisteme de Operare">
+                <TreeViewItem Header="Modul 1">
+                    <TreeViewItem Header="Capitol 1">
+                        <TreeViewItem Header="Tema 1">
+                            <TreeViewItem Header="Test 1">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 2">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 3">
+                            </TreeViewItem>
+                        </TreeViewItem>
+                        <TreeViewItem Header="Tema 2">
+                            <TreeViewItem Header="Test 1">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 2">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 3">
+                            </TreeViewItem>
+                        </TreeViewItem>
+                    </TreeViewItem>
+                    <TreeViewItem Header="Capitol 2">
+                        <TreeViewItem Header="Tema 1">
+                            <TreeViewItem Header="Test 1">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 2">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 3">
+                            </TreeViewItem>
+                        </TreeViewItem>
+                        <TreeViewItem Header="Tema 2">
+                            <TreeViewItem Header="Test 1">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 2">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 3">
+                            </TreeViewItem>
+                        </TreeViewItem>
+                    </TreeViewItem>
+                </TreeViewItem>
+
+                <TreeViewItem Header="Modul 2">
+                    <TreeViewItem Header="Capitol 1">
+                        <TreeViewItem Header="Tema 1">
+                            <TreeViewItem Header="Test 1">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 2">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 3">
+                            </TreeViewItem>
+                        </TreeViewItem>
+                        <TreeViewItem Header="Tema 2">
+                            <TreeViewItem Header="Test 1">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 2">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 3">
+                            </TreeViewItem>
+                        </TreeViewItem>
+                    </TreeViewItem>
+                    <TreeViewItem Header="Capitol 2">
+                        <TreeViewItem Header="Tema 1">
+                            <TreeViewItem Header="Test 1">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 2">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 3">
+                            </TreeViewItem>
+                        </TreeViewItem>
+                        <TreeViewItem Header="Tema 2">
+                            <TreeViewItem Header="Test 1">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 2">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 3">
+                            </TreeViewItem>
+                        </TreeViewItem>
+                    </TreeViewItem>
+                </TreeViewItem>
+            </TreeViewItem>
+
+
+            <TreeViewItem Header="Etica">
+                <TreeViewItem Header="Modul 1">
+                    <TreeViewItem Header="Capitol 1">
+                        <TreeViewItem Header="Tema 1">
+                            <TreeViewItem Header="Test 1">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 2">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 3">
+                            </TreeViewItem>
+                        </TreeViewItem>
+                        <TreeViewItem Header="Tema 2">
+                            <TreeViewItem Header="Test 1">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 2">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 3">
+                            </TreeViewItem>
+                        </TreeViewItem>
+                    </TreeViewItem>
+                    <TreeViewItem Header="Capitol 2">
+                        <TreeViewItem Header="Tema 1">
+                            <TreeViewItem Header="Test 1">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 2">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 3">
+                            </TreeViewItem>
+                        </TreeViewItem>
+                        <TreeViewItem Header="Tema 2">
+                            <TreeViewItem Header="Test 1">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 2">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 3">
+                            </TreeViewItem>
+                        </TreeViewItem>
+                    </TreeViewItem>
+                </TreeViewItem>
+
+                <TreeViewItem Header="Modul 2">
+                    <TreeViewItem Header="Capitol 1">
+                        <TreeViewItem Header="Tema 1">
+                            <TreeViewItem Header="Test 1">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 2">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 3">
+                            </TreeViewItem>
+                        </TreeViewItem>
+                        <TreeViewItem Header="Tema 2">
+                            <TreeViewItem Header="Test 1">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 2">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 3">
+                            </TreeViewItem>
+                        </TreeViewItem>
+                    </TreeViewItem>
+                    <TreeViewItem Header="Capitol 2">
+                        <TreeViewItem Header="Tema 1">
+                            <TreeViewItem Header="Test 1">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 2">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 3">
+                            </TreeViewItem>
+                        </TreeViewItem>
+                        <TreeViewItem Header="Tema 2">
+                            <TreeViewItem Header="Test 1">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 2">
+                            </TreeViewItem>
+                            <TreeViewItem Header="Test 3">
+                            </TreeViewItem>
+                        </TreeViewItem>
+                    </TreeViewItem>
+                </TreeViewItem>
+            </TreeViewItem>
+
+        </TreeView>
+
+        <Grid Name="ContentWindowGrid" Grid.Column="1">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"></RowDefinition>
+                <RowDefinition Height="14*"></RowDefinition>
+            </Grid.RowDefinitions>
             
-        </StackPanel>
+            <Grid.ColumnDefinitions>
+            </Grid.ColumnDefinitions>
+
+
+            <menu:MainContentMenu Grid.Row="0" Margin="10,0,10,10"/>
+            <WrapPanel Name="TestPanel" Grid.Row="1" Margin="10,0,10,10"/>
+        </Grid>
+        
     </Grid>
 </Window>
