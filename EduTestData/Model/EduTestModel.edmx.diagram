@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="79810df76e2c4448a37c868aef34115d" Name="Diagram1" ZoomLevel="101">
+        <EntityTypeShape EntityType="EduTestModel.AnswerBase" Width="1.5" PointX="12" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="EduTestModel.Chapter" Width="1.5" PointX="5.25" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EduTestModel.Course" Width="1.5" PointX="0.75" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EduTestModel.Module" Width="1.5" PointX="3" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EduTestModel.QuestionBase" Width="1.5" PointX="9.75" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EduTestModel.Role" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EduTestModel.Test" Width="1.5" PointX="10.25" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EduTestModel.TestInstance" Width="1.5" PointX="12.625" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EduTestModel.TextareaAnswer" Width="1.5" PointX="14.25" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EduTestModel.TextareaQuestion" Width="1.5" PointX="7.625" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EduTestModel.Topic" Width="1.5" PointX="7.5" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EduTestModel.User" Width="1.5" PointX="3.875" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EduTestModel.Variant" Width="1.5" PointX="14.75" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EduTestModel.VariantAnswer" Width="1.5" PointX="18.25" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EduTestModel.VariantQuestion" Width="1.5" PointX="12" PointY="14.375" IsExpanded="true" />
+        <AssociationConnector Association="EduTestModel.fk_AnswerBase_QuestionBase1" ManuallyRouted="false" />
+        <AssociationConnector Association="EduTestModel.fk_AnswerBase_TestInstance1" ManuallyRouted="false" />
+        <AssociationConnector Association="EduTestModel.fk_TextAreaAnswer_AnswerBase" ManuallyRouted="false" />
+        <AssociationConnector Association="EduTestModel.fk_VariantAnswer_AnswerBase" ManuallyRouted="false" />
+        <AssociationConnector Association="EduTestModel.fk_Chapter_Module1" ManuallyRouted="false" />
+        <AssociationConnector Association="EduTestModel.fk_Topic_Chapter1" ManuallyRouted="false" />
+        <AssociationConnector Association="EduTestModel.fk_module_course" ManuallyRouted="false" />
+        <AssociationConnector Association="EduTestModel.fk_QuestionBase_Topic1" ManuallyRouted="false" />
+        <AssociationConnector Association="EduTestModel.fk_QuestionBase_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="EduTestModel.fk_TextAreaQuestion" ManuallyRouted="false" />
+        <AssociationConnector Association="EduTestModel.fk_VariantQuestion_QuestionBase" ManuallyRouted="false" />
+        <AssociationConnector Association="EduTestModel.fk_Test_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="EduTestModel.fk_TestInstance_Test1" ManuallyRouted="false" />
+        <AssociationConnector Association="EduTestModel.fk_TestInstance_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="EduTestModel.fk_Variant_VariantQuestion1" ManuallyRouted="false" />
+        <AssociationConnector Association="EduTestModel.fk_VariantAnswer_Variant1" ManuallyRouted="false" />
+        <AssociationConnector Association="EduTestModel.questionbase_has_test" ManuallyRouted="false" />
+        <AssociationConnector Association="EduTestModel.user_has_course" ManuallyRouted="false" />
+        <AssociationConnector Association="EduTestModel.user_has_role" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

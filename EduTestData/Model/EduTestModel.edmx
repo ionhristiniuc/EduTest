@@ -1,0 +1,1196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="EduTestModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="answerbase">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QuestionBaseId" Type="int" Nullable="false" />
+          <Property Name="TestInstanceId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="chapter">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ModuleId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="course">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="module">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CourseId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="questionbase">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Content" Type="text" Nullable="false" />
+          <Property Name="Enabled" Type="bit" Nullable="false" />
+          <Property Name="Type" Type="enum" Nullable="false" />
+          <Property Name="Order" Type="int" Nullable="false" />
+          <Property Name="TopicId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="questionbase_has_test">
+          <Key>
+            <PropertyRef Name="QuestionBase_Id" />
+            <PropertyRef Name="Test_Id" />
+          </Key>
+          <Property Name="QuestionBase_Id" Type="int" Nullable="false" />
+          <Property Name="Test_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="test">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EnvType" Type="enum" Nullable="false" />
+          <Property Name="Timeout" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="CreateDateTime" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="UpdateDateTime" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="Type" Type="enum" Nullable="false" />
+          <Property Name="ParentId" Type="int" Nullable="false" />
+          <Property Name="CreatedById" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="testinstance">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TestId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="StartDateTime" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="EndDateTime" Type="datetime" Precision="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="textareaanswer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Body" Type="text" />
+        </EntityType>
+        <EntityType Name="textareaquestion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="TextLimit" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="topic">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ChapterId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user_has_course">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="CourseId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="CourseId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user_has_role">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="variant">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Body" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Correct" Type="bit" Nullable="false" />
+          <Property Name="VariantQuestionId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="variantanswer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="VariantId" Type="int" />
+        </EntityType>
+        <EntityType Name="variantquestion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="CheckboxQuestioncol" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <Association Name="fk_AnswerBase_QuestionBase1">
+          <End Role="questionbase" Type="Self.questionbase" Multiplicity="1" />
+          <End Role="answerbase" Type="Self.answerbase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="questionbase">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="answerbase">
+              <PropertyRef Name="QuestionBaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_AnswerBase_TestInstance1">
+          <End Role="testinstance" Type="Self.testinstance" Multiplicity="1" />
+          <End Role="answerbase" Type="Self.answerbase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="testinstance">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="answerbase">
+              <PropertyRef Name="TestInstanceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Chapter_Module1">
+          <End Role="module" Type="Self.module" Multiplicity="1" />
+          <End Role="chapter" Type="Self.chapter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="module">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="chapter">
+              <PropertyRef Name="ModuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_module_course">
+          <End Role="course" Type="Self.course" Multiplicity="1" />
+          <End Role="module" Type="Self.module" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="course">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="module">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_QuestionBase_has_Test_QuestionBase1">
+          <End Role="questionbase" Type="Self.questionbase" Multiplicity="1" />
+          <End Role="questionbase_has_test" Type="Self.questionbase_has_test" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="questionbase">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="questionbase_has_test">
+              <PropertyRef Name="QuestionBase_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_QuestionBase_has_Test_Test1">
+          <End Role="test" Type="Self.test" Multiplicity="1" />
+          <End Role="questionbase_has_test" Type="Self.questionbase_has_test" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="questionbase_has_test">
+              <PropertyRef Name="Test_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_QuestionBase_Topic1">
+          <End Role="topic" Type="Self.topic" Multiplicity="1" />
+          <End Role="questionbase" Type="Self.questionbase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="topic">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="questionbase">
+              <PropertyRef Name="TopicId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_QuestionBase_User1">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="questionbase" Type="Self.questionbase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="questionbase">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Test_User1">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="test" Type="Self.test" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="test">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_TestInstance_Test1">
+          <End Role="test" Type="Self.test" Multiplicity="1" />
+          <End Role="testinstance" Type="Self.testinstance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="testinstance">
+              <PropertyRef Name="TestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_TestInstance_User1">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="testinstance" Type="Self.testinstance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="testinstance">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_TextAreaAnswer_AnswerBase">
+          <End Role="answerbase" Type="Self.answerbase" Multiplicity="1" />
+          <End Role="textareaanswer" Type="Self.textareaanswer" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="answerbase">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="textareaanswer">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_TextAreaQuestion">
+          <End Role="questionbase" Type="Self.questionbase" Multiplicity="1" />
+          <End Role="textareaquestion" Type="Self.textareaquestion" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="questionbase">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="textareaquestion">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Topic_Chapter1">
+          <End Role="chapter" Type="Self.chapter" Multiplicity="1" />
+          <End Role="topic" Type="Self.topic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="chapter">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="topic">
+              <PropertyRef Name="ChapterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_User_has_Course_Course1">
+          <End Role="course" Type="Self.course" Multiplicity="1" />
+          <End Role="user_has_course" Type="Self.user_has_course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="course">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="user_has_course">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_User_has_Course_User1">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="user_has_course" Type="Self.user_has_course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="user_has_course">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_User_has_Role_Role1">
+          <End Role="role" Type="Self.role" Multiplicity="1" />
+          <End Role="user_has_role" Type="Self.user_has_role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="user_has_role">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_User_has_Role_User1">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="user_has_role" Type="Self.user_has_role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="user_has_role">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Variant_VariantQuestion1">
+          <End Role="variantquestion" Type="Self.variantquestion" Multiplicity="1" />
+          <End Role="variant" Type="Self.variant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="variantquestion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="variant">
+              <PropertyRef Name="VariantQuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_VariantAnswer_AnswerBase">
+          <End Role="answerbase" Type="Self.answerbase" Multiplicity="1" />
+          <End Role="variantanswer" Type="Self.variantanswer" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="answerbase">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="variantanswer">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_VariantAnswer_Variant1">
+          <End Role="variant" Type="Self.variant" Multiplicity="0..1" />
+          <End Role="variantanswer" Type="Self.variantanswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="variant">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="variantanswer">
+              <PropertyRef Name="VariantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_VariantQuestion_QuestionBase">
+          <End Role="questionbase" Type="Self.questionbase" Multiplicity="1" />
+          <End Role="variantquestion" Type="Self.variantquestion" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="questionbase">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="variantquestion">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EduTestModelStoreContainer">
+          <EntitySet Name="answerbase" EntityType="Self.answerbase" Schema="edu_test" store:Type="Tables" />
+          <EntitySet Name="chapter" EntityType="Self.chapter" Schema="edu_test" store:Type="Tables" />
+          <EntitySet Name="course" EntityType="Self.course" Schema="edu_test" store:Type="Tables" />
+          <EntitySet Name="module" EntityType="Self.module" Schema="edu_test" store:Type="Tables" />
+          <EntitySet Name="questionbase" EntityType="Self.questionbase" Schema="edu_test" store:Type="Tables" />
+          <EntitySet Name="questionbase_has_test" EntityType="Self.questionbase_has_test" Schema="edu_test" store:Type="Tables" />
+          <EntitySet Name="role" EntityType="Self.role" Schema="edu_test" store:Type="Tables" />
+          <EntitySet Name="test" EntityType="Self.test" Schema="edu_test" store:Type="Tables" />
+          <EntitySet Name="testinstance" EntityType="Self.testinstance" Schema="edu_test" store:Type="Tables" />
+          <EntitySet Name="textareaanswer" EntityType="Self.textareaanswer" Schema="edu_test" store:Type="Tables" />
+          <EntitySet Name="textareaquestion" EntityType="Self.textareaquestion" Schema="edu_test" store:Type="Tables" />
+          <EntitySet Name="topic" EntityType="Self.topic" Schema="edu_test" store:Type="Tables" />
+          <EntitySet Name="user" EntityType="Self.user" Schema="edu_test" store:Type="Tables" />
+          <EntitySet Name="user_has_course" EntityType="Self.user_has_course" Schema="edu_test" store:Type="Tables" />
+          <EntitySet Name="user_has_role" EntityType="Self.user_has_role" Schema="edu_test" store:Type="Tables" />
+          <EntitySet Name="variant" EntityType="Self.variant" Schema="edu_test" store:Type="Tables" />
+          <EntitySet Name="variantanswer" EntityType="Self.variantanswer" Schema="edu_test" store:Type="Tables" />
+          <EntitySet Name="variantquestion" EntityType="Self.variantquestion" Schema="edu_test" store:Type="Tables" />
+          <AssociationSet Name="fk_AnswerBase_QuestionBase1" Association="Self.fk_AnswerBase_QuestionBase1">
+            <End Role="questionbase" EntitySet="questionbase" />
+            <End Role="answerbase" EntitySet="answerbase" />
+          </AssociationSet>
+          <AssociationSet Name="fk_AnswerBase_TestInstance1" Association="Self.fk_AnswerBase_TestInstance1">
+            <End Role="testinstance" EntitySet="testinstance" />
+            <End Role="answerbase" EntitySet="answerbase" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Chapter_Module1" Association="Self.fk_Chapter_Module1">
+            <End Role="module" EntitySet="module" />
+            <End Role="chapter" EntitySet="chapter" />
+          </AssociationSet>
+          <AssociationSet Name="fk_module_course" Association="Self.fk_module_course">
+            <End Role="course" EntitySet="course" />
+            <End Role="module" EntitySet="module" />
+          </AssociationSet>
+          <AssociationSet Name="fk_QuestionBase_has_Test_QuestionBase1" Association="Self.fk_QuestionBase_has_Test_QuestionBase1">
+            <End Role="questionbase" EntitySet="questionbase" />
+            <End Role="questionbase_has_test" EntitySet="questionbase_has_test" />
+          </AssociationSet>
+          <AssociationSet Name="fk_QuestionBase_has_Test_Test1" Association="Self.fk_QuestionBase_has_Test_Test1">
+            <End Role="test" EntitySet="test" />
+            <End Role="questionbase_has_test" EntitySet="questionbase_has_test" />
+          </AssociationSet>
+          <AssociationSet Name="fk_QuestionBase_Topic1" Association="Self.fk_QuestionBase_Topic1">
+            <End Role="topic" EntitySet="topic" />
+            <End Role="questionbase" EntitySet="questionbase" />
+          </AssociationSet>
+          <AssociationSet Name="fk_QuestionBase_User1" Association="Self.fk_QuestionBase_User1">
+            <End Role="user" EntitySet="user" />
+            <End Role="questionbase" EntitySet="questionbase" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Test_User1" Association="Self.fk_Test_User1">
+            <End Role="user" EntitySet="user" />
+            <End Role="test" EntitySet="test" />
+          </AssociationSet>
+          <AssociationSet Name="fk_TestInstance_Test1" Association="Self.fk_TestInstance_Test1">
+            <End Role="test" EntitySet="test" />
+            <End Role="testinstance" EntitySet="testinstance" />
+          </AssociationSet>
+          <AssociationSet Name="fk_TestInstance_User1" Association="Self.fk_TestInstance_User1">
+            <End Role="user" EntitySet="user" />
+            <End Role="testinstance" EntitySet="testinstance" />
+          </AssociationSet>
+          <AssociationSet Name="fk_TextAreaAnswer_AnswerBase" Association="Self.fk_TextAreaAnswer_AnswerBase">
+            <End Role="answerbase" EntitySet="answerbase" />
+            <End Role="textareaanswer" EntitySet="textareaanswer" />
+          </AssociationSet>
+          <AssociationSet Name="fk_TextAreaQuestion" Association="Self.fk_TextAreaQuestion">
+            <End Role="questionbase" EntitySet="questionbase" />
+            <End Role="textareaquestion" EntitySet="textareaquestion" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Topic_Chapter1" Association="Self.fk_Topic_Chapter1">
+            <End Role="chapter" EntitySet="chapter" />
+            <End Role="topic" EntitySet="topic" />
+          </AssociationSet>
+          <AssociationSet Name="fk_User_has_Course_Course1" Association="Self.fk_User_has_Course_Course1">
+            <End Role="course" EntitySet="course" />
+            <End Role="user_has_course" EntitySet="user_has_course" />
+          </AssociationSet>
+          <AssociationSet Name="fk_User_has_Course_User1" Association="Self.fk_User_has_Course_User1">
+            <End Role="user" EntitySet="user" />
+            <End Role="user_has_course" EntitySet="user_has_course" />
+          </AssociationSet>
+          <AssociationSet Name="fk_User_has_Role_Role1" Association="Self.fk_User_has_Role_Role1">
+            <End Role="role" EntitySet="role" />
+            <End Role="user_has_role" EntitySet="user_has_role" />
+          </AssociationSet>
+          <AssociationSet Name="fk_User_has_Role_User1" Association="Self.fk_User_has_Role_User1">
+            <End Role="user" EntitySet="user" />
+            <End Role="user_has_role" EntitySet="user_has_role" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Variant_VariantQuestion1" Association="Self.fk_Variant_VariantQuestion1">
+            <End Role="variantquestion" EntitySet="variantquestion" />
+            <End Role="variant" EntitySet="variant" />
+          </AssociationSet>
+          <AssociationSet Name="fk_VariantAnswer_AnswerBase" Association="Self.fk_VariantAnswer_AnswerBase">
+            <End Role="answerbase" EntitySet="answerbase" />
+            <End Role="variantanswer" EntitySet="variantanswer" />
+          </AssociationSet>
+          <AssociationSet Name="fk_VariantAnswer_Variant1" Association="Self.fk_VariantAnswer_Variant1">
+            <End Role="variant" EntitySet="variant" />
+            <End Role="variantanswer" EntitySet="variantanswer" />
+          </AssociationSet>
+          <AssociationSet Name="fk_VariantQuestion_QuestionBase" Association="Self.fk_VariantQuestion_QuestionBase">
+            <End Role="questionbase" EntitySet="questionbase" />
+            <End Role="variantquestion" EntitySet="variantquestion" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EduTestModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AnswerBase">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuestionBaseId" Type="Int32" Nullable="false" />
+          <Property Name="TestInstanceId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="QuestionBase" Relationship="Self.fk_AnswerBase_QuestionBase1" FromRole="answerbase" ToRole="questionbase" />
+          <NavigationProperty Name="TestInstance" Relationship="Self.fk_AnswerBase_TestInstance1" FromRole="answerbase" ToRole="testinstance" />
+          <NavigationProperty Name="TextareaAnswer" Relationship="Self.fk_TextAreaAnswer_AnswerBase" FromRole="answerbase" ToRole="textareaanswer" />
+          <NavigationProperty Name="VariantAnswer" Relationship="Self.fk_VariantAnswer_AnswerBase" FromRole="answerbase" ToRole="variantanswer" />
+        </EntityType>
+        <EntityType Name="Chapter">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ModuleId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Module" Relationship="Self.fk_Chapter_Module1" FromRole="chapter" ToRole="module" />
+          <NavigationProperty Name="Topics" Relationship="Self.fk_Topic_Chapter1" FromRole="chapter" ToRole="topic" />
+        </EntityType>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Modules" Relationship="Self.fk_module_course" FromRole="course" ToRole="module" />
+          <NavigationProperty Name="Users" Relationship="Self.user_has_course" FromRole="course" ToRole="user" />
+        </EntityType>
+        <EntityType Name="Module">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CourseId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Chapters" Relationship="Self.fk_Chapter_Module1" FromRole="module" ToRole="chapter" />
+          <NavigationProperty Name="Course" Relationship="Self.fk_module_course" FromRole="module" ToRole="course" />
+        </EntityType>
+        <EntityType Name="QuestionBase">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Content" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Enabled" Type="Boolean" Nullable="false" />
+          <Property Name="Type" Type="String" MaxLength="65532" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
+          <Property Name="TopicId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AnswerBases" Relationship="Self.fk_AnswerBase_QuestionBase1" FromRole="questionbase" ToRole="answerbase" />
+          <NavigationProperty Name="Topic" Relationship="Self.fk_QuestionBase_Topic1" FromRole="questionbase" ToRole="topic" />
+          <NavigationProperty Name="User" Relationship="Self.fk_QuestionBase_User1" FromRole="questionbase" ToRole="user" />
+          <NavigationProperty Name="TextareaQuestion" Relationship="Self.fk_TextAreaQuestion" FromRole="questionbase" ToRole="textareaquestion" />
+          <NavigationProperty Name="VariantQuestion" Relationship="Self.fk_VariantQuestion_QuestionBase" FromRole="questionbase" ToRole="variantquestion" />
+          <NavigationProperty Name="Tests" Relationship="Self.questionbase_has_test" FromRole="questionbase" ToRole="test" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.user_has_role" FromRole="role" ToRole="user" />
+        </EntityType>
+        <EntityType Name="Test">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EnvType" Type="String" MaxLength="65532" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Timeout" Type="DateTime" Nullable="false" />
+          <Property Name="CreateDateTime" Type="DateTime" Nullable="false" />
+          <Property Name="UpdateDateTime" Type="DateTime" Nullable="false" />
+          <Property Name="Type" Type="String" MaxLength="65532" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ParentId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedById" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.fk_Test_User1" FromRole="test" ToRole="user" />
+          <NavigationProperty Name="TestInstances" Relationship="Self.fk_TestInstance_Test1" FromRole="test" ToRole="testinstance" />
+          <NavigationProperty Name="QuestionBases" Relationship="Self.questionbase_has_test" FromRole="test" ToRole="questionbase" />
+        </EntityType>
+        <EntityType Name="TestInstance">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TestId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="StartDateTime" Type="DateTime" Nullable="false" />
+          <Property Name="EndDateTime" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="AnswerBases" Relationship="Self.fk_AnswerBase_TestInstance1" FromRole="testinstance" ToRole="answerbase" />
+          <NavigationProperty Name="Test" Relationship="Self.fk_TestInstance_Test1" FromRole="testinstance" ToRole="test" />
+          <NavigationProperty Name="User" Relationship="Self.fk_TestInstance_User1" FromRole="testinstance" ToRole="user" />
+        </EntityType>
+        <EntityType Name="TextareaAnswer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Body" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AnswerBase" Relationship="Self.fk_TextAreaAnswer_AnswerBase" FromRole="textareaanswer" ToRole="answerbase" />
+        </EntityType>
+        <EntityType Name="TextareaQuestion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="TextLimit" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="QuestionBase" Relationship="Self.fk_TextAreaQuestion" FromRole="textareaquestion" ToRole="questionbase" />
+        </EntityType>
+        <EntityType Name="Topic">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ChapterId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Chapter" Relationship="Self.fk_Topic_Chapter1" FromRole="topic" ToRole="chapter" />
+          <NavigationProperty Name="QuestionBases" Relationship="Self.fk_QuestionBase_Topic1" FromRole="topic" ToRole="questionbase" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="QuestionBases" Relationship="Self.fk_QuestionBase_User1" FromRole="user" ToRole="questionbase" />
+          <NavigationProperty Name="Tests" Relationship="Self.fk_Test_User1" FromRole="user" ToRole="test" />
+          <NavigationProperty Name="TestInstances" Relationship="Self.fk_TestInstance_User1" FromRole="user" ToRole="testinstance" />
+          <NavigationProperty Name="Courses" Relationship="Self.user_has_course" FromRole="user" ToRole="course" />
+          <NavigationProperty Name="Roles" Relationship="Self.user_has_role" FromRole="user" ToRole="role" />
+        </EntityType>
+        <EntityType Name="Variant">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Body" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Correct" Type="Boolean" Nullable="false" />
+          <Property Name="VariantQuestionId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="VariantQuestion" Relationship="Self.fk_Variant_VariantQuestion1" FromRole="variant" ToRole="variantquestion" />
+          <NavigationProperty Name="VariantAnswers" Relationship="Self.fk_VariantAnswer_Variant1" FromRole="variant" ToRole="variantanswer" />
+        </EntityType>
+        <EntityType Name="VariantAnswer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="VariantId" Type="Int32" />
+          <NavigationProperty Name="AnswerBase" Relationship="Self.fk_VariantAnswer_AnswerBase" FromRole="variantanswer" ToRole="answerbase" />
+          <NavigationProperty Name="Variant" Relationship="Self.fk_VariantAnswer_Variant1" FromRole="variantanswer" ToRole="variant" />
+        </EntityType>
+        <EntityType Name="VariantQuestion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="CheckboxQuestioncol" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="QuestionBase" Relationship="Self.fk_VariantQuestion_QuestionBase" FromRole="variantquestion" ToRole="questionbase" />
+          <NavigationProperty Name="Variants" Relationship="Self.fk_Variant_VariantQuestion1" FromRole="variantquestion" ToRole="variant" />
+        </EntityType>
+        <Association Name="fk_AnswerBase_QuestionBase1">
+          <End Role="questionbase" Type="EduTestModel.QuestionBase" Multiplicity="1" />
+          <End Role="answerbase" Type="EduTestModel.AnswerBase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="questionbase">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="answerbase">
+              <PropertyRef Name="QuestionBaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_AnswerBase_TestInstance1">
+          <End Role="testinstance" Type="EduTestModel.TestInstance" Multiplicity="1" />
+          <End Role="answerbase" Type="EduTestModel.AnswerBase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="testinstance">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="answerbase">
+              <PropertyRef Name="TestInstanceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_TextAreaAnswer_AnswerBase">
+          <End Role="answerbase" Type="EduTestModel.AnswerBase" Multiplicity="1" />
+          <End Role="textareaanswer" Type="EduTestModel.TextareaAnswer" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="answerbase">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="textareaanswer">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_VariantAnswer_AnswerBase">
+          <End Role="answerbase" Type="EduTestModel.AnswerBase" Multiplicity="1" />
+          <End Role="variantanswer" Type="EduTestModel.VariantAnswer" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="answerbase">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="variantanswer">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Chapter_Module1">
+          <End Role="module" Type="EduTestModel.Module" Multiplicity="1" />
+          <End Role="chapter" Type="EduTestModel.Chapter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="module">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="chapter">
+              <PropertyRef Name="ModuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Topic_Chapter1">
+          <End Role="chapter" Type="EduTestModel.Chapter" Multiplicity="1" />
+          <End Role="topic" Type="EduTestModel.Topic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="chapter">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="topic">
+              <PropertyRef Name="ChapterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_module_course">
+          <End Role="course" Type="EduTestModel.Course" Multiplicity="1" />
+          <End Role="module" Type="EduTestModel.Module" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="course">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="module">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_QuestionBase_Topic1">
+          <End Role="topic" Type="EduTestModel.Topic" Multiplicity="1" />
+          <End Role="questionbase" Type="EduTestModel.QuestionBase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="topic">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="questionbase">
+              <PropertyRef Name="TopicId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_QuestionBase_User1">
+          <End Role="user" Type="EduTestModel.User" Multiplicity="1" />
+          <End Role="questionbase" Type="EduTestModel.QuestionBase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="questionbase">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_TextAreaQuestion">
+          <End Role="questionbase" Type="EduTestModel.QuestionBase" Multiplicity="1" />
+          <End Role="textareaquestion" Type="EduTestModel.TextareaQuestion" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="questionbase">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="textareaquestion">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_VariantQuestion_QuestionBase">
+          <End Role="questionbase" Type="EduTestModel.QuestionBase" Multiplicity="1" />
+          <End Role="variantquestion" Type="EduTestModel.VariantQuestion" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="questionbase">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="variantquestion">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Test_User1">
+          <End Role="user" Type="EduTestModel.User" Multiplicity="1" />
+          <End Role="test" Type="EduTestModel.Test" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="test">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_TestInstance_Test1">
+          <End Role="test" Type="EduTestModel.Test" Multiplicity="1" />
+          <End Role="testinstance" Type="EduTestModel.TestInstance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="testinstance">
+              <PropertyRef Name="TestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_TestInstance_User1">
+          <End Role="user" Type="EduTestModel.User" Multiplicity="1" />
+          <End Role="testinstance" Type="EduTestModel.TestInstance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="testinstance">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Variant_VariantQuestion1">
+          <End Role="variantquestion" Type="EduTestModel.VariantQuestion" Multiplicity="1" />
+          <End Role="variant" Type="EduTestModel.Variant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="variantquestion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="variant">
+              <PropertyRef Name="VariantQuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_VariantAnswer_Variant1">
+          <End Role="variant" Type="EduTestModel.Variant" Multiplicity="0..1" />
+          <End Role="variantanswer" Type="EduTestModel.VariantAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="variant">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="variantanswer">
+              <PropertyRef Name="VariantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="questionbase_has_test">
+          <End Role="questionbase" Type="EduTestModel.QuestionBase" Multiplicity="*" />
+          <End Role="test" Type="EduTestModel.Test" Multiplicity="*" />
+        </Association>
+        <Association Name="user_has_course">
+          <End Role="course" Type="EduTestModel.Course" Multiplicity="*" />
+          <End Role="user" Type="EduTestModel.User" Multiplicity="*" />
+        </Association>
+        <Association Name="user_has_role">
+          <End Role="role" Type="EduTestModel.Role" Multiplicity="*" />
+          <End Role="user" Type="EduTestModel.User" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="EduTestEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AnswerBases" EntityType="EduTestModel.AnswerBase" />
+          <EntitySet Name="Chapters" EntityType="EduTestModel.Chapter" />
+          <EntitySet Name="Courses" EntityType="EduTestModel.Course" />
+          <EntitySet Name="Modules" EntityType="EduTestModel.Module" />
+          <EntitySet Name="QuestionBases" EntityType="EduTestModel.QuestionBase" />
+          <EntitySet Name="Roles" EntityType="EduTestModel.Role" />
+          <EntitySet Name="Tests" EntityType="EduTestModel.Test" />
+          <EntitySet Name="TestInstances" EntityType="EduTestModel.TestInstance" />
+          <EntitySet Name="TextareaAnswers" EntityType="EduTestModel.TextareaAnswer" />
+          <EntitySet Name="TextareaQuestions" EntityType="EduTestModel.TextareaQuestion" />
+          <EntitySet Name="Topics" EntityType="EduTestModel.Topic" />
+          <EntitySet Name="Users" EntityType="EduTestModel.User" />
+          <EntitySet Name="Variants" EntityType="EduTestModel.Variant" />
+          <EntitySet Name="VariantAnswers" EntityType="EduTestModel.VariantAnswer" />
+          <EntitySet Name="VariantQuestions" EntityType="EduTestModel.VariantQuestion" />
+          <AssociationSet Name="fk_AnswerBase_QuestionBase1" Association="Self.fk_AnswerBase_QuestionBase1">
+            <End Role="questionbase" EntitySet="QuestionBases" />
+            <End Role="answerbase" EntitySet="AnswerBases" />
+          </AssociationSet>
+          <AssociationSet Name="fk_AnswerBase_TestInstance1" Association="Self.fk_AnswerBase_TestInstance1">
+            <End Role="testinstance" EntitySet="TestInstances" />
+            <End Role="answerbase" EntitySet="AnswerBases" />
+          </AssociationSet>
+          <AssociationSet Name="fk_TextAreaAnswer_AnswerBase" Association="Self.fk_TextAreaAnswer_AnswerBase">
+            <End Role="answerbase" EntitySet="AnswerBases" />
+            <End Role="textareaanswer" EntitySet="TextareaAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="fk_VariantAnswer_AnswerBase" Association="Self.fk_VariantAnswer_AnswerBase">
+            <End Role="answerbase" EntitySet="AnswerBases" />
+            <End Role="variantanswer" EntitySet="VariantAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Chapter_Module1" Association="Self.fk_Chapter_Module1">
+            <End Role="module" EntitySet="Modules" />
+            <End Role="chapter" EntitySet="Chapters" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Topic_Chapter1" Association="Self.fk_Topic_Chapter1">
+            <End Role="chapter" EntitySet="Chapters" />
+            <End Role="topic" EntitySet="Topics" />
+          </AssociationSet>
+          <AssociationSet Name="fk_module_course" Association="Self.fk_module_course">
+            <End Role="course" EntitySet="Courses" />
+            <End Role="module" EntitySet="Modules" />
+          </AssociationSet>
+          <AssociationSet Name="fk_QuestionBase_Topic1" Association="Self.fk_QuestionBase_Topic1">
+            <End Role="topic" EntitySet="Topics" />
+            <End Role="questionbase" EntitySet="QuestionBases" />
+          </AssociationSet>
+          <AssociationSet Name="fk_QuestionBase_User1" Association="Self.fk_QuestionBase_User1">
+            <End Role="user" EntitySet="Users" />
+            <End Role="questionbase" EntitySet="QuestionBases" />
+          </AssociationSet>
+          <AssociationSet Name="fk_TextAreaQuestion" Association="Self.fk_TextAreaQuestion">
+            <End Role="questionbase" EntitySet="QuestionBases" />
+            <End Role="textareaquestion" EntitySet="TextareaQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="fk_VariantQuestion_QuestionBase" Association="Self.fk_VariantQuestion_QuestionBase">
+            <End Role="questionbase" EntitySet="QuestionBases" />
+            <End Role="variantquestion" EntitySet="VariantQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Test_User1" Association="Self.fk_Test_User1">
+            <End Role="user" EntitySet="Users" />
+            <End Role="test" EntitySet="Tests" />
+          </AssociationSet>
+          <AssociationSet Name="fk_TestInstance_Test1" Association="Self.fk_TestInstance_Test1">
+            <End Role="test" EntitySet="Tests" />
+            <End Role="testinstance" EntitySet="TestInstances" />
+          </AssociationSet>
+          <AssociationSet Name="fk_TestInstance_User1" Association="Self.fk_TestInstance_User1">
+            <End Role="user" EntitySet="Users" />
+            <End Role="testinstance" EntitySet="TestInstances" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Variant_VariantQuestion1" Association="Self.fk_Variant_VariantQuestion1">
+            <End Role="variantquestion" EntitySet="VariantQuestions" />
+            <End Role="variant" EntitySet="Variants" />
+          </AssociationSet>
+          <AssociationSet Name="fk_VariantAnswer_Variant1" Association="Self.fk_VariantAnswer_Variant1">
+            <End Role="variant" EntitySet="Variants" />
+            <End Role="variantanswer" EntitySet="VariantAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="questionbase_has_test" Association="Self.questionbase_has_test">
+            <End Role="questionbase" EntitySet="QuestionBases" />
+            <End Role="test" EntitySet="Tests" />
+          </AssociationSet>
+          <AssociationSet Name="user_has_course" Association="Self.user_has_course">
+            <End Role="course" EntitySet="Courses" />
+            <End Role="user" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="user_has_role" Association="Self.user_has_role">
+            <End Role="role" EntitySet="Roles" />
+            <End Role="user" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EduTestModelStoreContainer" CdmEntityContainer="EduTestEntities">
+          <EntitySetMapping Name="AnswerBases">
+            <EntityTypeMapping TypeName="EduTestModel.AnswerBase">
+              <MappingFragment StoreEntitySet="answerbase">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="QuestionBaseId" ColumnName="QuestionBaseId" />
+                <ScalarProperty Name="TestInstanceId" ColumnName="TestInstanceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Chapters">
+            <EntityTypeMapping TypeName="EduTestModel.Chapter">
+              <MappingFragment StoreEntitySet="chapter">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ModuleId" ColumnName="ModuleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Courses">
+            <EntityTypeMapping TypeName="EduTestModel.Course">
+              <MappingFragment StoreEntitySet="course">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Modules">
+            <EntityTypeMapping TypeName="EduTestModel.Module">
+              <MappingFragment StoreEntitySet="module">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuestionBases">
+            <EntityTypeMapping TypeName="EduTestModel.QuestionBase">
+              <MappingFragment StoreEntitySet="questionbase">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Enabled" ColumnName="Enabled" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="TopicId" ColumnName="TopicId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="EduTestModel.Role">
+              <MappingFragment StoreEntitySet="role">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tests">
+            <EntityTypeMapping TypeName="EduTestModel.Test">
+              <MappingFragment StoreEntitySet="test">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="EnvType" ColumnName="EnvType" />
+                <ScalarProperty Name="Timeout" ColumnName="Timeout" />
+                <ScalarProperty Name="CreateDateTime" ColumnName="CreateDateTime" />
+                <ScalarProperty Name="UpdateDateTime" ColumnName="UpdateDateTime" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestInstances">
+            <EntityTypeMapping TypeName="EduTestModel.TestInstance">
+              <MappingFragment StoreEntitySet="testinstance">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TestId" ColumnName="TestId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="StartDateTime" ColumnName="StartDateTime" />
+                <ScalarProperty Name="EndDateTime" ColumnName="EndDateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TextareaAnswers">
+            <EntityTypeMapping TypeName="EduTestModel.TextareaAnswer">
+              <MappingFragment StoreEntitySet="textareaanswer">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TextareaQuestions">
+            <EntityTypeMapping TypeName="EduTestModel.TextareaQuestion">
+              <MappingFragment StoreEntitySet="textareaquestion">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TextLimit" ColumnName="TextLimit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Topics">
+            <EntityTypeMapping TypeName="EduTestModel.Topic">
+              <MappingFragment StoreEntitySet="topic">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ChapterId" ColumnName="ChapterId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="EduTestModel.User">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Variants">
+            <EntityTypeMapping TypeName="EduTestModel.Variant">
+              <MappingFragment StoreEntitySet="variant">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="Correct" ColumnName="Correct" />
+                <ScalarProperty Name="VariantQuestionId" ColumnName="VariantQuestionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VariantAnswers">
+            <EntityTypeMapping TypeName="EduTestModel.VariantAnswer">
+              <MappingFragment StoreEntitySet="variantanswer">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="VariantId" ColumnName="VariantId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VariantQuestions">
+            <EntityTypeMapping TypeName="EduTestModel.VariantQuestion">
+              <MappingFragment StoreEntitySet="variantquestion">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CheckboxQuestioncol" ColumnName="CheckboxQuestioncol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="questionbase_has_test" TypeName="EduTestModel.questionbase_has_test" StoreEntitySet="questionbase_has_test">
+            <EndProperty Name="questionbase">
+              <ScalarProperty Name="Id" ColumnName="QuestionBase_Id" />
+            </EndProperty>
+            <EndProperty Name="test">
+              <ScalarProperty Name="Id" ColumnName="Test_Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="user_has_course" TypeName="EduTestModel.user_has_course" StoreEntitySet="user_has_course">
+            <EndProperty Name="course">
+              <ScalarProperty Name="Id" ColumnName="CourseId" />
+            </EndProperty>
+            <EndProperty Name="user">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="user_has_role" TypeName="EduTestModel.user_has_role" StoreEntitySet="user_has_role">
+            <EndProperty Name="role">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="user">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

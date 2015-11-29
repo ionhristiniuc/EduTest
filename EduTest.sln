@@ -1,11 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentEduTest", "StudentEduTest\StudentEduTest.csproj", "{08120778-28D6-437C-98EF-882AFE33988B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeacherEduTest", "TeacherEduTest\TeacherEduTest.csproj", "{48720DCD-CF42-466D-9B37-239599877FB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EduTestService", "EduTestService\EduTestService.csproj", "{E261317E-093C-4C8A-8CA2-2A0DD32FE981}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EduTestData", "EduTestData\EduTestData.csproj", "{EB61816C-2341-4CF0-9F2A-6331E7281D15}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EduTestDataTest", "EduTestDataTest\EduTestDataTest.csproj", "{D072DB4D-C847-4296-B8D1-44D5442BF10E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EduTestContract", "EduTestContract\EduTestContract.csproj", "{9BA491D4-7938-45EC-B03C-9B4D30BB0FDE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +29,22 @@ Global
 		{48720DCD-CF42-466D-9B37-239599877FB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48720DCD-CF42-466D-9B37-239599877FB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48720DCD-CF42-466D-9B37-239599877FB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E261317E-093C-4C8A-8CA2-2A0DD32FE981}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E261317E-093C-4C8A-8CA2-2A0DD32FE981}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E261317E-093C-4C8A-8CA2-2A0DD32FE981}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E261317E-093C-4C8A-8CA2-2A0DD32FE981}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB61816C-2341-4CF0-9F2A-6331E7281D15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB61816C-2341-4CF0-9F2A-6331E7281D15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB61816C-2341-4CF0-9F2A-6331E7281D15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB61816C-2341-4CF0-9F2A-6331E7281D15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D072DB4D-C847-4296-B8D1-44D5442BF10E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D072DB4D-C847-4296-B8D1-44D5442BF10E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D072DB4D-C847-4296-B8D1-44D5442BF10E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D072DB4D-C847-4296-B8D1-44D5442BF10E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BA491D4-7938-45EC-B03C-9B4D30BB0FDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BA491D4-7938-45EC-B03C-9B4D30BB0FDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BA491D4-7938-45EC-B03C-9B4D30BB0FDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BA491D4-7938-45EC-B03C-9B4D30BB0FDE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
