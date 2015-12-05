@@ -1,9 +1,11 @@
 ﻿using System.Threading.Tasks;
+using EduTestClient.Services.Entities;
 
 namespace EduTestClient.Services
 {
     public interface IAccountService
     {
-        Task<string> Authenticate(string username, string password);        
+        Task<bool> Authenticate(string username, string password);
+        AuthenticationResponse AuthResponse { get; }
     }
 }

@@ -3,23 +3,16 @@ using System.Configuration;
 using System.Net.Http;
 using System.Security.Authentication;
 using System.Threading.Tasks;
+using EduTestClient.Services.Entities;
 using EduTestClient.Services.Utils;
-using StudentEduTest.Services.Entities;
 
 namespace EduTestClient.Services
 {
-    class AccountService : IAccountService
-    {        
-        private static string BaseUrl { get; set; }
-        private static string AuthPath { get; set; }
+    public class AccountService : IAccountService
+    {                
+        public AuthenticationResponse AuthResponse { get; private set; }        
 
-        static AccountService()
-        {
-            BaseUrl = ConfigurationManager.AppSettings["BaseUrl"];
-            AuthPath = ConfigurationManager.AppSettings["AuthPath"];
-        }
-
-        public async Task<string> Authenticate(string username, string password)
+        public async Task<bool> Authenticate(string username, string password)
         {
             using (var client = new HttpClient())
             {
@@ -30,16 +23,16 @@ namespace EduTestClient.Services
                     new KeyValuePair<string, string>("password", password)
                 });
 
-                var result = await client.PostAsync(BaseUrl + AuthPath, content);
+                var result = await client.PostAsync(ConfigManager.ServiceUrl + ConfigManager.AuthenticationPath, content); // should change to async
 
                 if (!result.IsSuccessStatusCode)                
                     throw new AuthenticationException("An error occurred while authenticating user. Status Code: " + result.StatusCode);
                 
                 var responseString = await result.Content.ReadAsStringAsync();
                 ISerializer serializer = new JsonSerializer();
-                var resp = serializer.Deserialize<AuthenticationResponse>(responseString);
-                return resp.access_token;
+                AuthResponse = serializer.Deserialize<AuthenticationResponse>(responseString);
+                return true;
             }
-        }
+        }        
     }
 }
