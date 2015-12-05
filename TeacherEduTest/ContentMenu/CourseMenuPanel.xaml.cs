@@ -12,20 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using TeacherEduTest.ContentMenu;
 
-namespace TeacherEduTest
+namespace TeacherEduTest.ContentMenu
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for CourseMenuPanel.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class CourseMenuPanel : UserControl
     {
-        private ContentMenuPanel contentMenuPanel;
-
-        public MainWindow()
+        public CourseMenuPanel()
         {
-            InitializeComponent();            
+            InitializeComponent();
         }
     }
 }
