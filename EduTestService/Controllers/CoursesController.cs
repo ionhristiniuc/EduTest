@@ -7,19 +7,29 @@ using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading;
 using System.Web.Http;
+using EduTestContract.Models;
+using EduTestService.Repository;
 using EduTestService.Security;
 
 namespace EduTestService.Controllers
 {
     [Authorize]
+    [RoutePrefix("courses")]    
     public class CoursesController : ApiController
     {
-        // GET api/values        
-        public IEnumerable<string> GetCourse()
-        {            
-            int? id = SecurityHelper.GetUserId(User.Identity);            
-            return new string[] { "value1", "value2" };
-        }        
+        private ICoursesRepository CoursesRepository { get; set; }
+
+        public CoursesController(ICoursesRepository repository)
+        {
+            CoursesRepository = repository;
+        }
+        
+        [Route("")]
+        public IEnumerable<CourseModel> GetCourses()
+        {
+            var id = SecurityHelper.GetUserId(User.Identity);
+            return CoursesRepository.GetCoursesByUser(id.Value);
+        }
 
         // GET api/values/5
         public string Get(int id)

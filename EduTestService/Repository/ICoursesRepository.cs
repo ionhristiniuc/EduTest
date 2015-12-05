@@ -10,6 +10,6 @@ namespace EduTestService.Repository
 {
     public interface ICoursesRepository
     {
-        IEnumerable<CourseModel> GetCoursesByTeacher(int teacherId);
+        IEnumerable<CourseModel> GetCoursesByUser(int teacherId);
     }
 }

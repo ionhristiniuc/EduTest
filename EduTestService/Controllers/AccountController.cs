@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using EduTestContract.Models;
 using EduTestService.Repository;
@@ -11,7 +12,7 @@ using EduTestService.Repository;
 namespace EduTestService.Controllers
 {   
     [Authorize]
-    [RoutePrefix("/Account")]
+    [RoutePrefix("account")]
     public class AccountController : ApiController
     {
         public IUserRepository UserRepo { get; set; }
@@ -21,8 +22,8 @@ namespace EduTestService.Controllers
             UserRepo = userRepository;
         }
 
-        [AllowAnonymous]
-        [Route("Register")]
+        [Authorize(Roles = "Teacher,Admin")]
+        [Route("register")]
         public async Task<IHttpActionResult> Register([FromBody]UserModel userModel)
         {
             if (!ModelState.IsValid)            

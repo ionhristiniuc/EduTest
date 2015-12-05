@@ -7,7 +7,7 @@ using System.Web;
 
 namespace EduTestService.Security
 {
-    public class SecurityHelper
+    public static class SecurityHelper
     {
         public static int? GetUserId(IIdentity identity)
         {

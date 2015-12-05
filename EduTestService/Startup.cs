@@ -16,14 +16,7 @@ using Owin;
 namespace EduTestService
 {
     public class Startup
-    {
-        public IUserRepository UserRepo { get; set; }
-
-        public Startup(IUserRepository userRepository)
-        {
-            UserRepo = userRepository;
-        }
-
+    {        
         public void Configuration(IAppBuilder app)
         {
             var config = new HttpConfiguration();
@@ -36,12 +29,14 @@ namespace EduTestService
 
         public void ConfigureOAuth(IAppBuilder app)
         {
+            IUserRepository userRepo = new UserRepository();
+
             var oAuthServerOptions = new OAuthAuthorizationServerOptions()
             {
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/token"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromHours(2),
-                Provider = new AuthorizationServerProvider(UserRepo)
+                Provider = new AuthorizationServerProvider(userRepo)
             };
 
             app.UseOAuthAuthorizationServer(oAuthServerOptions);
@@ -70,6 +65,12 @@ namespace EduTestService
                 {                    
                     var user = await UserRepo.GetUser(context.UserName, context.Password);
 
+                    if (user == null)
+                    {
+                        context.Rejected();
+                        return;
+                    }
+
                     var identity = new ClaimsIdentity(context.Options.AuthenticationType);
                     identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
                     identity.AddClaim(new Claim(ClaimTypes.Email, user.Email));                    
@@ -84,7 +85,7 @@ namespace EduTestService
                 }
                 catch (Exception ex)
                 {
-                    context.SetError("invalid_grant", "message");                    
+                    context.SetError("invalid_grant", ex.ToString());                    
                 }                
             }
         }

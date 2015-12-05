@@ -10,7 +10,7 @@ namespace EduTestService.Repository
 {
     public class CoursesRepository : ICoursesRepository
     {
-        public IEnumerable<CourseModel> GetCoursesByTeacher(int teacherId)
+        public IEnumerable<CourseModel> GetCoursesByUser(int teacherId)
         {
             using (var dbContext = new EduTestEntities())
             {
