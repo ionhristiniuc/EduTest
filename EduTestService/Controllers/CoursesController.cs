@@ -6,7 +6,9 @@ using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Security;
 using EduTestContract.Models;
 using EduTestService.Repository;
 using EduTestService.Security;
@@ -29,6 +31,13 @@ namespace EduTestService.Controllers
         {
             var id = SecurityHelper.GetUserId(User.Identity);
             return CoursesRepository.GetCoursesByUser(id.Value);
+        }
+
+        [Route("{id:int}")]
+        [Authorize]
+        public IEnumerable<CourseModel> GetCourses(int id)
+        {            
+            return CoursesRepository.GetCoursesByUser(id);
         }
 
         // GET api/values/5

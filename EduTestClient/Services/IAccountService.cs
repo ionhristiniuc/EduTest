@@ -1,7 +1,9 @@
-﻿namespace EduTestClient.Services
+﻿using System.Threading.Tasks;
+
+namespace EduTestClient.Services
 {
     public interface IAccountService
     {
-        bool Authenticate(string username, string password);
+        Task<string> Authenticate(string username, string password);        
     }
 }

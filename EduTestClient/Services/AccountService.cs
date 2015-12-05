@@ -1,18 +1,25 @@
 ﻿using System.Collections.Generic;
+using System.Configuration;
 using System.Net.Http;
 using System.Security.Authentication;
+using System.Threading.Tasks;
 using EduTestClient.Services.Utils;
 using StudentEduTest.Services.Entities;
 
 namespace EduTestClient.Services
 {
     class AccountService : IAccountService
-    {
-        public static AuthenticationResponse AuthResponse { get; set; }
-        private const string BaseUrl = "http://localhost:35521";
-        private const string AuthPath = "/token";
+    {        
+        private static string BaseUrl { get; set; }
+        private static string AuthPath { get; set; }
 
-        public bool Authenticate(string username, string password)
+        static AccountService()
+        {
+            BaseUrl = ConfigurationManager.AppSettings["BaseUrl"];
+            AuthPath = ConfigurationManager.AppSettings["AuthPath"];
+        }
+
+        public async Task<string> Authenticate(string username, string password)
         {
             using (var client = new HttpClient())
             {
@@ -23,16 +30,15 @@ namespace EduTestClient.Services
                     new KeyValuePair<string, string>("password", password)
                 });
 
-                var result = client.PostAsync(BaseUrl + AuthPath, content).Result;
+                var result = await client.PostAsync(BaseUrl + AuthPath, content);
 
                 if (!result.IsSuccessStatusCode)                
                     throw new AuthenticationException("An error occurred while authenticating user. Status Code: " + result.StatusCode);
                 
-                var responseString = result.Content.ReadAsStringAsync().Result;
+                var responseString = await result.Content.ReadAsStringAsync();
                 ISerializer serializer = new JsonSerializer();
-                AuthResponse = serializer.Deserialize<AuthenticationResponse>(responseString);
-
-                return true;
+                var resp = serializer.Deserialize<AuthenticationResponse>(responseString);
+                return resp.access_token;
             }
         }
     }

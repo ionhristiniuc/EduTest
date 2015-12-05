@@ -20,7 +20,7 @@ namespace StudentEduTest
         {                     
             InitializeComponent();            
             InitTests();
-            TestPanel.Children.Add(mainContentPanel);
+            TestPanel.Children.Add(mainContentPanel);            
         }
 
         //gavna cod

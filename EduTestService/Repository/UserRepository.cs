@@ -28,8 +28,30 @@ namespace EduTestService.Repository
                     Id = user.Id,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
-                    Email = user.Email,
-                    Password = user.Password,
+                    Email = user.Email,                    
+                    Roles = user.Roles.Select(r => r.Name).ToArray()
+                };
+                return userModel;
+            }
+        }
+
+        public async Task<UserModel> GetUser(int id)
+        {
+            using (var dbContext = new EduTestEntities())
+            {
+                var user = await dbContext.Users
+                    .Include(u => u.Roles)
+                    .FirstOrDefaultAsync(u => u.Id == id);
+
+                if (user == null)
+                    return null;
+
+                var userModel = new UserModel()
+                {
+                    Id = user.Id,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Email = user.Email,                    
                     Roles = user.Roles.Select(r => r.Name).ToArray()
                 };
                 return userModel;
