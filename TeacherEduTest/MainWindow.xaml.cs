@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TeacherEduTest.ContentMenu;
+using EduTestClient.Services;
+using EduTestClient.Services.Utils;
 
 namespace TeacherEduTest
 {
@@ -25,7 +27,19 @@ namespace TeacherEduTest
 
         public MainWindow()
         {
-            InitializeComponent();            
+            InitializeComponent();
+            Foo();
+        }
+
+        public async void Foo()
+        {
+            IAccountService accountService = new AccountService();
+            if (await accountService.Authenticate("ionhristiniuc@yahoo.com", "ion123"))
+            {
+                ICoursesService coursesService = new CoursesService(accountService.AuthResponse.access_token, new JsonSerializer());
+                var courses = await coursesService.GetCourses();
+                MessageBox.Show(courses.First().Name);
+            }
         }
     }
 }
