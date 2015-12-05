@@ -3,22 +3,20 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TeacherEduTest"
-        xmlns:sideMenu="clr-namespace:TeacherEduTest.SideMenu"
         xmlns:contentMenu="clr-namespace:TeacherEduTest.ContentMenu"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="1000">
     <Grid>
-        <Grid.RowDefinitions>
-
-        </Grid.RowDefinitions>
-
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <sideMenu:SideMenuPanel Margin="5,5,5,5"/>
-        <contentMenu:ContentMenuPanel Grid.Column="1"></contentMenu:ContentMenuPanel>
+        <Grid Grid.Column="0" Name="SideMenuGrid" Margin="5,5,5,5" />
+        <Grid Grid.Column="1" Name="ContentMenuGrid">
+            <contentMenu:MainMenuPanel x:Name="ContentMenuPanel"/>
+        </Grid>
+        
     </Grid>
 </Window>

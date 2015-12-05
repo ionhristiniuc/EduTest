@@ -23,7 +23,7 @@ namespace EduTestClient.Services
                     new KeyValuePair<string, string>("password", password)
                 });
 
-                var result = await client.PostAsync(ConfigManager.ServiceUrl + ConfigManager.AuthenticationPath, content); // should change to async
+                var result = client.PostAsync(ConfigManager.ServiceUrl + ConfigManager.AuthenticationPath, content).Result; // should change to async
 
                 if (!result.IsSuccessStatusCode)                
                     throw new AuthenticationException("An error occurred while authenticating user. Status Code: " + result.StatusCode);

@@ -29,7 +29,7 @@ namespace EduTestService.Controllers
             return await UserRepository.GetUser(id);                     
         }
 
-        // GET: api/User/5
+        [Route("")]
         public async Task<UserModel> GetUser()
         {
             var id = SecurityHelper.GetUserId(User.Identity);

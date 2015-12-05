@@ -44,6 +44,7 @@
     <Compile Include="Models\ChapterModel.cs" />
     <Compile Include="Models\CourseModel.cs" />
     <Compile Include="Models\Enums\EnvironmentType.cs" />
+    <Compile Include="Models\Enums\RoleType.cs" />
     <Compile Include="Models\Enums\TestType.cs" />
     <Compile Include="Models\ModuleModel.cs" />
     <Compile Include="Models\TestModel.cs" />
