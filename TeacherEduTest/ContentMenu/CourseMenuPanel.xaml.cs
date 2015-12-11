@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using EduTestClient.Services;
 using EduTestContract.Models;
 
 namespace TeacherEduTest.ContentMenu
@@ -8,15 +9,18 @@ namespace TeacherEduTest.ContentMenu
     /// </summary>
     public partial class CourseMenuPanel : UserControl
     {
+        private readonly IAccountService _accountService;
         private readonly CourseModel _courseModel;
 
-        public CourseMenuPanel()
+        private CourseMenuPanel()
         {
             InitializeComponent();
         }
-        public CourseMenuPanel(CourseModel courseModel)
+
+        public CourseMenuPanel(IAccountService accountService, CourseModel courseModel)
             :this()
         {
+            _accountService = accountService;
             _courseModel = courseModel;
             _courseModel = courseModel;
         }

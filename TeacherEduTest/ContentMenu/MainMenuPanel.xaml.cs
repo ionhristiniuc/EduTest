@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using EduTestClient.Services;
 
 namespace TeacherEduTest.ContentMenu
 {
@@ -7,9 +8,17 @@ namespace TeacherEduTest.ContentMenu
     /// </summary>
     public partial class MainMenuPanel : UserControl
     {
-        public MainMenuPanel()
+        private readonly IAccountService _accountService;
+
+        private MainMenuPanel()
         {
             InitializeComponent();
+        }
+
+        public MainMenuPanel(IAccountService accountService)
+            :this()
+        {
+            _accountService = accountService;
         }
     }
 }

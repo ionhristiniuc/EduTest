@@ -34,17 +34,22 @@ namespace TeacherEduTest.SideMenu
                 new CoursesService(_accountService.AuthResponse.access_token,
                 new JsonSerializer());
 
-            var courses = await coursesService.GetCourses();            
+            var courses = await coursesService.GetCourses(); 
+           
             CoursesComboBox.ItemsSource = courses;
             CoursesComboBox.DisplayMemberPath = "Name";
             CoursesComboBox.SelectedValuePath = "Id";
         }
 
         private void CoursesComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {            
-            _contentMenuGrid.Children[0].Visibility = Visibility.Hidden;
-            var panel = new CourseMenuPanel(new CourseModel()); //TODO to modify
-            _contentMenuGrid.Children.Add(panel);           
+        {
+            ICoursesService coursesService =
+               new CoursesService(_accountService.AuthResponse.access_token,
+               new JsonSerializer());
+
+            //CourseModel selectedCourse = await coursesService.GetCourseById() //TODO 
+
+            WindowCreator.GetCurseMenuPanel(_accountService, new CourseModel());
         }
     }
 }

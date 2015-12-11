@@ -68,6 +68,7 @@
     <Compile Include="SideMenu\SideMenuPanel.xaml.cs">
       <DependentUpon>SideMenuPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WindowCreator.cs" />
     <Page Include="Authentication\AuthenticationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

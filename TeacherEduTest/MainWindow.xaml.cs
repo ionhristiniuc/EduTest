@@ -23,7 +23,14 @@ namespace TeacherEduTest
             :this()
         {
             this._accountService = accountService;
+            WindowCreator.ContentGrid = ContentMenuGrid;
             InitSideMenuPanel();
+            InitCurseMenuPanel();
+        }
+
+        private void InitCurseMenuPanel()
+        {
+            WindowCreator.GetMainMenuPanel(_accountService);          
         }
 
         private void InitSideMenuPanel()

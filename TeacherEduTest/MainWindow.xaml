@@ -14,8 +14,8 @@
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0" Name="SideMenuGrid" Margin="5,5,5,5" />
-        <Grid Grid.Column="1" Name="ContentMenuGrid">
-            <contentMenu:MainMenuPanel x:Name="ContentMenuPanel"/>
+        
+        <Grid Grid.Column="1" Name="ContentMenuGrid">           
         </Grid>
         
     </Grid>
