@@ -1,19 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows;
+using TeacherEduTest.ContentMenu;
 using EduTestClient.Services;
-using EduTestClient.Services.Utils;
+using TeacherEduTest.SideMenu;
 
 namespace TeacherEduTest
 {
@@ -22,21 +10,33 @@ namespace TeacherEduTest
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        private SideMenuPanel _sideMenuPanel;        
+
+        private readonly IAccountService _accountService;
+
+        private MainWindow()
         {
-            InitializeComponent();
-            Foo();
+            InitializeComponent();             
         }
 
-        public async void Foo()
+        public MainWindow(IAccountService accountService)
+            :this()
         {
-            IAccountService accountService = new AccountService();
-            if (await accountService.Authenticate("ionhristiniuc@yahoo.com", "ion123"))
-            {
-                ICoursesService coursesService = new CoursesService(accountService.AuthResponse.access_token, new JsonSerializer());
-                var courses = await coursesService.GetCourses();
-                MessageBox.Show(courses.First().Name);
-            }
+            this._accountService = accountService;
+            WindowCreator.ContentGrid = ContentMenuGrid;
+            InitSideMenuPanel();
+            InitCurseMenuPanel();
+        }
+
+        private void InitCurseMenuPanel()
+        {
+            WindowCreator.GetMainMenuPanel(_accountService);          
+        }
+
+        private void InitSideMenuPanel()
+        {
+            _sideMenuPanel = new SideMenuPanel(_accountService, this.ContentMenuGrid);
+            this.SideMenuGrid.Children.Add(_sideMenuPanel);
         }
     }
 }

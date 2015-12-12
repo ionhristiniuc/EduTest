@@ -20,7 +20,7 @@ namespace EduTestService.Controllers
 
         public UsersController(IUserRepository userRepository)
         {
-            UserRepository = userRepository;            
+            UserRepository = userRepository;
         }
 
         [Route("")]
@@ -63,7 +63,7 @@ namespace EduTestService.Controllers
         [Route("")]
         [Authorize(Roles = "Teacher,Admin")]
         public async Task<IHttpActionResult> PostUser([FromBody]UserModel user)
-        {
+        {            
             try
             {
                 if (!ModelState.IsValid)
@@ -98,7 +98,7 @@ namespace EduTestService.Controllers
                 return Ok();
             }
             catch (Exception e)
-            {
+        {
                 return InternalServerError();
             }
         }
