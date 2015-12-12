@@ -229,12 +229,15 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ChaptersRepository.cs" />
     <Compile Include="Repositories\CoursesRepository.cs" />
     <Compile Include="Repositories\IChaptersRepository.cs" />
     <Compile Include="Repositories\ICoursesRepository.cs" />
     <Compile Include="Repositories\IModulesRepository.cs" />
     <Compile Include="Repositories\ITopicsRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
+    <Compile Include="Repositories\ModulesRepository.cs" />
+    <Compile Include="Repositories\TopicsRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Security\SecurityHelper.cs" />
     <Compile Include="Startup.cs" />

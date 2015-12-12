@@ -37,7 +37,7 @@ namespace EduTestService.Controllers
             throw new HttpResponseException(HttpStatusCode.Unauthorized);
         }
 
-        [Route("chapters/{chapterId:int}", Name = "GetModule")]
+        [Route("chapters/{chapterId:int}", Name = "GetChapter")]
         public async Task<IHttpActionResult> GetChapter(int chapterId)
         {
             try
@@ -63,21 +63,26 @@ namespace EduTestService.Controllers
 
         [Route("modules/{moduleId:int}/chapters")]
         [Authorize(Roles = "Teacher,Admin")]
-        public async Task<IHttpActionResult> PostChapter(int moduleId, [FromBody]ChapterModel chapters)
+        public async Task<IHttpActionResult> PostChapter(int moduleId, [FromBody]ChapterModel chapter)
         {
-            //try
-            //{
-            //    if (!ModelState.IsValid)
-            //        return BadRequest();
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest();
 
-            //    var id = await ModulesRepository.AddModule(courseId, module);
-            //    return CreatedAtRoute("GetModule", new { courseId = courseId, moduleId = id }, module);
-            //}
-            //catch (Exception)
-            //{
-            //    return InternalServerError();
-            //}
-            throw new NotImplementedException();
+                var userId = SecurityHelper.GetUserId(User.Identity);
+                var courseId = ModulesRepository.GetCourseId(moduleId);
+                if (User.IsInRole("Admin") || await UserRepository.UserHasCourse(userId.Value, courseId))
+                {
+                    var id = await ChaptersRepository.AddChapter(moduleId, chapter);
+                    return CreatedAtRoute("GetChapter", new {chapterId = id}, chapter);
+                }
+                throw new HttpResponseException(HttpStatusCode.Unauthorized);
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }            
         }
     }
 }

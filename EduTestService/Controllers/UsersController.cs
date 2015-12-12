@@ -30,7 +30,7 @@ namespace EduTestService.Controllers
             throw new NotImplementedException();
         }
 
-        [Route("{x}")]
+        [Route("x")]
         [Authorize(Roles = "Teacher,Admin,Student")]
         public async Task<IHttpActionResult> GetUser()
         {
