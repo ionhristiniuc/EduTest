@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Results;
 using EduTestContract.Models;
 using EduTestService.Repositories;
 using EduTestService.Security;
@@ -47,14 +48,14 @@ namespace EduTestService.Controllers
                         return NotFound();
 
                     return Ok(module);
-                }                                                    
+                }
+
+                return Unauthorized();
             }
             catch (Exception)
             {
                 return InternalServerError();
-            }
-
-            throw new HttpResponseException(HttpStatusCode.Unauthorized);
+            }            
         }
 
         [Route("courses/{courseId:int}/modules")]
@@ -67,12 +68,37 @@ namespace EduTestService.Controllers
                     return BadRequest();
 
                 var id = await ModulesRepository.AddModule(courseId, module);
-                return CreatedAtRoute("GetModule", new { courseId = courseId, moduleId = id }, module);
+                return CreatedAtRoute("GetModule", new { moduleId = id }, module);
             }
             catch (Exception)
             {
                 return InternalServerError();
             }
+        }
+
+        [Route("modules/{id:int}")]
+        [Authorize(Roles = "Teacher,Admin")]
+        public async Task<IHttpActionResult> DeleteModule(int id)
+        {
+            try
+            {
+                var userId = SecurityHelper.GetUserId(User.Identity);
+                var courseId = ModulesRepository.GetCourseId(id);
+                if (User.IsInRole("Admin") || await UserRepository.UserHasCourse(userId.Value, courseId))
+                {
+                    if (!await ModulesRepository.ExistsModule(id))
+                        return NotFound();
+
+                    ModulesRepository.RemoveModule(id);
+                    return StatusCode(HttpStatusCode.NoContent);
+                }
+
+                return Unauthorized();
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }            
         }
     }
 }

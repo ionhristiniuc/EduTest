@@ -65,6 +65,9 @@ namespace EduTestService.App_Start
         {
             kernel.Bind<IUserRepository>().To<UserRepository>();
             kernel.Bind<ICoursesRepository>().To<CoursesRepository>();
+            kernel.Bind<IModulesRepository>().To<ModulesRepository>();
+            kernel.Bind<IChaptersRepository>().To<ChaptersRepository>();
+            kernel.Bind<ITopicsRepository>().To<TopicsRepository>();
         }        
     }
 }

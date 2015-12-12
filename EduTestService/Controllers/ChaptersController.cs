@@ -51,14 +51,14 @@ namespace EduTestService.Controllers
                         return NotFound();
 
                     return Ok(chapter);
-                }                                                    
+                }
+
+                return Unauthorized();
             }
             catch (Exception)
             {
                 return InternalServerError();
-            }
-
-            throw new HttpResponseException(HttpStatusCode.Unauthorized);
+            }            
         }
 
         [Route("modules/{moduleId:int}/chapters")]
@@ -77,7 +77,33 @@ namespace EduTestService.Controllers
                     var id = await ChaptersRepository.AddChapter(moduleId, chapter);
                     return CreatedAtRoute("GetChapter", new {chapterId = id}, chapter);
                 }
-                throw new HttpResponseException(HttpStatusCode.Unauthorized);
+
+                return Unauthorized();
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }            
+        }
+
+        [Route("chapters/{id:int}")]
+        [Authorize(Roles = "Teacher,Admin")]
+        public async Task<IHttpActionResult> DeleteChapter(int id)
+        {
+            try
+            {
+                var userId = SecurityHelper.GetUserId(User.Identity);
+                var courseId = ChaptersRepository.GetCourseId(id);
+                if (User.IsInRole("Admin") || await UserRepository.UserHasCourse(userId.Value, courseId))
+                {
+                    if (!await ChaptersRepository.ExistsChapter(id))
+                        return NotFound();
+
+                    ChaptersRepository.RemoveChapter(id);
+                    return StatusCode(HttpStatusCode.NoContent);
+                }
+
+                return Unauthorized();
             }
             catch (Exception)
             {

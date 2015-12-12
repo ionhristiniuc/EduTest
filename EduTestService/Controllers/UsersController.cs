@@ -67,13 +67,14 @@ namespace EduTestService.Controllers
                     if (user.Roles.Contains("Student") && await UserRepository.HaveSameCourse(currentUserId.Value, id))
                         return Ok(user);
                 }
+
+                return Unauthorized();
             }
             catch (Exception e)
             {
                 Trace.WriteLine(e.ToString());
                 return InternalServerError();
-            }
-            throw new HttpResponseException(HttpStatusCode.Unauthorized);
+            }            
         }
 
 

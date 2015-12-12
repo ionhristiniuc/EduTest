@@ -8,9 +8,10 @@ namespace EduTestService.Repositories
     {
         IEnumerable<TopicModel> GetTopics(int chapterId);
         Task<TopicModel> GetTopic(int id);
-        Task<int> AddTopic(int chapterId, TopicModel topic);
+        Task<int> AddTopic(int chapterId, TopicModel topicModel);
         Task UpdateTopic(int id, TopicModel topic);
         void RemoveTopic(int id);
         int GetCourseId(int topicId);
+        Task<bool> ExistsTopic(int id);
     }
 }

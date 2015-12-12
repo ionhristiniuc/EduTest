@@ -102,7 +102,7 @@ namespace EduTestService.Repositories
             {
                 var course = new Course()
                 {
-                    Name = courseModel.Name                    
+                    Name = courseModel.Name
                 };
 
                 dbContext.Courses.Add(course);

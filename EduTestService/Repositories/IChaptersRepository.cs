@@ -12,5 +12,6 @@ namespace EduTestService.Repositories
         Task UpdateChapter(int id, ChapterModel chapter);
         void RemoveChapter(int id);
         int GetCourseId(int chapterId);
+        Task<bool> ExistsChapter(int id);
     }
 }

@@ -44,12 +44,18 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AccountService.cs" />
+    <Compile Include="Services\ChaptersService.cs" />
     <Compile Include="Services\ConfigManager.cs" />
     <Compile Include="Services\CoursesService.cs" />
     <Compile Include="Services\Entities\AuthenticationResponse.cs" />
     <Compile Include="Services\IAccountService.cs" />
+    <Compile Include="Services\IChaptersService.cs" />
     <Compile Include="Services\ICoursesService.cs" />
+    <Compile Include="Services\IModulesService.cs" />
+    <Compile Include="Services\ITopicsService.cs" />
     <Compile Include="Services\IUsersService.cs" />
+    <Compile Include="Services\ModulesService.cs" />
+    <Compile Include="Services\TopicsService.cs" />
     <Compile Include="Services\UsersService.cs" />
     <Compile Include="Services\Utils\HttpHelper.cs" />
     <Compile Include="Services\Utils\ISerializer.cs" />

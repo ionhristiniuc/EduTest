@@ -14,7 +14,7 @@ namespace EduTestClient.Services
         private string AccessToken { get; set; }
         private ISerializer Serializer { get; set; }
         private const string ServicePath = "/courses";
-        public HttpHelper HttpHelper { get; set; }
+        private HttpHelper HttpHelper { get; set; }
 
         public CoursesService(string accessToken, ISerializer serializer)
         {

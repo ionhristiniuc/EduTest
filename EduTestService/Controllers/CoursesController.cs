@@ -124,15 +124,15 @@ namespace EduTestService.Controllers
                         return NotFound();
 
                     CoursesRepository.RemoveCourse(id);
-                    return Ok();
-                }                
+                    return StatusCode(HttpStatusCode.NoContent);
+                }
+
+                return Unauthorized();
             }
             catch (Exception)
             {
                 return InternalServerError();
-            }            
-
-            throw new HttpResponseException(HttpStatusCode.Unauthorized);
+            }                        
         }
     }
 }

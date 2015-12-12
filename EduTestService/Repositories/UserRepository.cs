@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Data.Entity.Core;
 using System.Linq;
 using System.Threading.Tasks;
 using EduTestContract.Models;
@@ -104,7 +105,7 @@ namespace EduTestService.Repositories
                 var user = await dbContext.Users.FirstOrDefaultAsync(u => u.Id == id);
 
                 if (user == null)
-                    throw new Exception("UserRepository.RemoveUser: User not found");
+                    throw new ObjectNotFoundException("UserRepository.RemoveUser: User not found");
 
                 dbContext.Users.Remove(user);
                 if (await dbContext.SaveChangesAsync() == 0)

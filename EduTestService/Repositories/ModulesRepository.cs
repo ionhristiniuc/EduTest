@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Core;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using EduTestContract.Models;
+using EduTestData.Model;
 
 namespace EduTestService.Repositories
 {
@@ -19,9 +22,22 @@ namespace EduTestService.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<int> AddModule(int courseId, ModuleModel module)
+        public async Task<int> AddModule(int courseId, ModuleModel moduleModel)
         {
-            throw new NotImplementedException();
+            using (var dbContext = new EduTestEntities())
+            {
+                var module = new Module()
+                {
+                    Name = moduleModel.Name,
+                    CourseId = courseId
+                };
+                dbContext.Modules.Add(module);
+
+                if (await dbContext.SaveChangesAsync() == 0)
+                    throw new Exception("UserRepository.AddUser: Could not add user to db");
+
+                return module.Id;
+            }
         }
 
         public Task UpdateModule(int id, ModuleModel moduleModel)
@@ -29,14 +45,35 @@ namespace EduTestService.Repositories
             throw new NotImplementedException();
         }
 
-        public void RemoveModule(int id)
+        public async void RemoveModule(int id)
         {
-            throw new NotImplementedException();
+            using (var dbContext = new EduTestEntities())
+            {
+                var module = await dbContext.Modules.FirstOrDefaultAsync(u => u.Id == id);
+
+                if (module == null)
+                    throw new ObjectNotFoundException("UserRepository.RemoveModule: Module not found");
+
+                dbContext.Modules.Remove(module);
+                if (await dbContext.SaveChangesAsync() == 0)
+                    throw new Exception("UserRepository.RemoveModule: Could not remove user from db");
+            }
         }
 
         public int GetCourseId(int moduleId)
         {
-            throw new NotImplementedException();
+            using (var dbContext = new EduTestEntities())
+            {
+                return dbContext.Modules.First(m => m.Id == moduleId).CourseId;
+            }
+        }
+
+        public async Task<bool> ExistsModule(int id)
+        {
+            using (var dbContext = new EduTestEntities())
+            {
+                return await dbContext.Modules.AnyAsync(u => u.Id == id);
+            }
         }
     }
 }
