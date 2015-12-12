@@ -11,5 +11,7 @@ namespace EduTestClient.Services
     {
         Task<UserModel> GetUser();
         Task<UserModel> GetUser(int id);
+        Task<bool> AddUser(UserModel user);
+        Task<bool> DeleteUser(int id);
     }
 }

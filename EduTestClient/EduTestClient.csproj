@@ -51,6 +51,7 @@
     <Compile Include="Services\ICoursesService.cs" />
     <Compile Include="Services\IUsersService.cs" />
     <Compile Include="Services\UsersService.cs" />
+    <Compile Include="Services\Utils\HttpHelper.cs" />
     <Compile Include="Services\Utils\ISerializer.cs" />
     <Compile Include="Services\Utils\JsonSerializer.cs" />
   </ItemGroup>

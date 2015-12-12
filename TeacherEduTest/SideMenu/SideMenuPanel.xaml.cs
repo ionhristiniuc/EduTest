@@ -41,15 +41,15 @@ namespace TeacherEduTest.SideMenu
             CoursesComboBox.SelectedValuePath = "Id";
         }
 
-        private void CoursesComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void CoursesComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ICoursesService coursesService =
                new CoursesService(_accountService.AuthResponse.access_token,
                new JsonSerializer());
 
-            //CourseModel selectedCourse = await coursesService.GetCourseById() //TODO 
+            CourseModel selectedCourse = await coursesService.GetCourse(1);
 
-            WindowCreator.GetCurseMenuPanel(_accountService, new CourseModel());
+            WindowCreator.GetCurseMenuPanel(_accountService, selectedCourse);
         }
     }
 }

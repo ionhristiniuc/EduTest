@@ -13,23 +13,35 @@ namespace EduTestClient.Services
     {
         private string AccessToken { get; set; }
         private ISerializer Serializer { get; set; }
-        private const string CoursesServicePath = "/courses";
+        private const string ServicePath = "/courses";
+        public HttpHelper HttpHelper { get; set; }
 
         public CoursesService(string accessToken, ISerializer serializer)
         {
             AccessToken = accessToken;
             Serializer = serializer;
+            HttpHelper = new HttpHelper(AccessToken, Serializer);
         }
 
         public async Task<CoursesCollection> GetCourses(int skip, int limit)
         {
-            using (var client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + AccessToken);
-                var parameters = string.Format("?skip={0}&limit={1}", skip, limit);
-                var result = await client.GetStringAsync(ConfigManager.ServiceUrl + CoursesServicePath + parameters);
-                return Serializer.Deserialize<CoursesCollection>(result);
-            }
+            var parameters = string.Format("?skip={0}&limit={1}", skip, limit);
+            return await HttpHelper.GetEntity<CoursesCollection>(ConfigManager.ServiceUrl + ServicePath + parameters);
+        }
+
+        public async Task<CourseModel> GetCourse(int id)
+        {
+            return await HttpHelper.GetEntity<CourseModel>(ConfigManager.ServiceUrl + ServicePath + "/" + id);            
+        }
+
+        public async Task<bool> AddCourse(CourseModel course)
+        {            
+            return await HttpHelper.PostEntity(course, ConfigManager.ServiceUrl + ServicePath);
         }        
+
+        public async Task<bool> DeleteCourse(int id)
+        {
+            return await HttpHelper.DeleteEntity(ConfigManager.ServiceUrl + ServicePath + "/" + id);            
+        }
     }
 }

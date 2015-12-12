@@ -13,32 +13,35 @@ namespace EduTestClient.Services
     {
         private string AccessToken { get; set; }
         private ISerializer Serializer { get; set; }
-        private const string UsersServicePath = "/users";
+        private const string ServicePath = "/users";
+        public HttpHelper HttpHelper { get; set; }
 
         public UsersService(string accessToken, ISerializer serializer)
         {
             AccessToken = accessToken;
             Serializer = serializer;            
+            HttpHelper = new HttpHelper(AccessToken, Serializer);
         }
 
         public async Task<UserModel> GetUser()
         {
-            using (var client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + AccessToken);
-                var result = await client.GetStringAsync(ConfigManager.ServiceUrl + UsersServicePath + "/x");
-                return Serializer.Deserialize<UserModel>(result);
-            }
+            return await HttpHelper.GetEntity<UserModel>(ConfigManager.ServiceUrl + ServicePath + "/x");    
         }
 
         public async Task<UserModel> GetUser(int id)
         {
-            using (var client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + AccessToken);
-                var result = await client.GetStringAsync(ConfigManager.ServiceUrl + UsersServicePath + "/" + id);
-                return Serializer.Deserialize<UserModel>(result);
-            }
+            return await HttpHelper.GetEntity<UserModel>(ConfigManager.ServiceUrl + ServicePath + "/" + id);                        
+        }
+
+        public async Task<bool> AddUser(UserModel user)
+        {
+            var httpHelper = new HttpHelper(AccessToken, Serializer);
+            return await httpHelper.PostEntity(user, ConfigManager.ServiceUrl + ServicePath);
+        }
+
+        public async Task<bool> DeleteUser(int id)
+        {
+            return await HttpHelper.DeleteEntity(ConfigManager.ServiceUrl + ServicePath + "/" + id); 
         }
     }
 }
