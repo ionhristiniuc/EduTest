@@ -45,8 +45,8 @@
                             <TextBlock Text="{Binding Path=Name}">
                                 <TextBlock.ContextMenu>
                                     <ContextMenu>                                        
-                                        <MenuItem Header ="Remove Module" Click="ModuleMenuItem_OnClick"></MenuItem>
-                                        <MenuItem Header ="Add Chapter" Click="ModuleMenuItem_OnClick"></MenuItem>
+                                        <MenuItem Name="ModuleRemoveMenuItem" Header ="Remove Module" Click="ModuleMenuItem_OnClick"></MenuItem>
+                                        <MenuItem Name="AddChapterMenuItem" Header ="Add Chapter" Click="ModuleMenuItem_OnClick"></MenuItem>
                                     </ContextMenu>
                                 </TextBlock.ContextMenu>
                             </TextBlock>

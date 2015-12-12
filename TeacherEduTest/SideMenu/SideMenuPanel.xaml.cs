@@ -93,11 +93,11 @@ namespace TeacherEduTest.SideMenu
             ModuleModel selectedModuleModel = (ModuleModel)CoursesTreeView.SelectedItem;
             MenuItem menuItem = (MenuItem) sender;
 
-            if (menuItem.Header.Equals("Remove Module"))
+            if (menuItem.Name.Equals("ModuleRemoveMenuItem"))
             {
                 //
             }
-            else if (menuItem.Header.Equals("Add Chapter"))
+            else if (menuItem.Name.Equals("AddChapterMenuItem"))
             {
                 //
             }
