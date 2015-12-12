@@ -36,7 +36,7 @@ namespace TeacherEduTest.SideMenu
 
             var courses = await coursesService.GetCourses(); 
            
-            CoursesComboBox.ItemsSource = courses;
+            CoursesComboBox.ItemsSource = courses.Courses;
             CoursesComboBox.DisplayMemberPath = "Name";
             CoursesComboBox.SelectedValuePath = "Id";
         }

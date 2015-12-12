@@ -26,7 +26,7 @@ namespace EduTestClient.Services
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + AccessToken);
-                var result = await client.GetStringAsync(ConfigManager.ServiceUrl + UsersServicePath);
+                var result = await client.GetStringAsync(ConfigManager.ServiceUrl + UsersServicePath + "/x");
                 return Serializer.Deserialize<UserModel>(result);
             }
         }

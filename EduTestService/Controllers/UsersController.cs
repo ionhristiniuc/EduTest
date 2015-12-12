@@ -30,8 +30,25 @@ namespace EduTestService.Controllers
             throw new NotImplementedException();
         }
 
+        [Route("{x}")]
+        [Authorize(Roles = "Teacher,Admin,Student")]
+        public async Task<IHttpActionResult> GetUser()
+        {
+            try
+            {
+                var currentUserId = SecurityHelper.GetUserId(User.Identity);
+                var user = await UserRepository.GetUser(currentUserId.Value);
+                return Ok(user);
+            }
+            catch (Exception e)
+            {
+                Trace.WriteLine(e.ToString());
+                return InternalServerError();
+            }            
+        }
+
         [Route("{id:int}")]
-        [Authorize(Roles = "Teacher,Admin")]
+        [Authorize(Roles = "Teacher,Admin,Student")]
         public async Task<IHttpActionResult> GetUser(int id)
         {
             try
@@ -46,10 +63,10 @@ namespace EduTestService.Controllers
                     return Ok(user);
 
                 if (User.IsInRole("Teacher"))
-                {                    
+                {
                     if (user.Roles.Contains("Student") && await UserRepository.HaveSameCourse(currentUserId.Value, id))
                         return Ok(user);
-                }                
+                }
             }
             catch (Exception e)
             {
@@ -58,24 +75,24 @@ namespace EduTestService.Controllers
             }
             throw new HttpResponseException(HttpStatusCode.Unauthorized);
         }
-               
+
 
         [Route("")]
         [Authorize(Roles = "Teacher,Admin")]
         public async Task<IHttpActionResult> PostUser([FromBody]UserModel user)
-        {            
+        {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest();
 
                 var id = await UserRepository.AddUser(user);
-                return CreatedAtRoute("users", new {id = id}, user);
+                return CreatedAtRoute("users", new { id = id }, user);
             }
             catch (Exception)
             {
                 return InternalServerError();
-            }            
+            }
         }
 
         [Route("{id:int}")]
@@ -98,7 +115,7 @@ namespace EduTestService.Controllers
                 return Ok();
             }
             catch (Exception e)
-        {
+            {
                 return InternalServerError();
             }
         }

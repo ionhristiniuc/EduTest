@@ -23,6 +23,7 @@ namespace EduTestService.Repositories
                                 .Select(ch => ch.Topics))))
                     .First(usr => usr.Id == userId)
                     .Courses
+                    .OrderBy(c => c.Name)
                     .Skip(skip)
                     .Take(limit)
                     .ToList();
@@ -39,6 +40,7 @@ namespace EduTestService.Repositories
                     .Include(c => c.Modules
                         .Select(m => m.Chapters
                             .Select(ch => ch.Topics)))
+                    .OrderBy(c => c.Name)        
                     .Skip(skip)
                     .Take(limit)
                     .ToListAsync();

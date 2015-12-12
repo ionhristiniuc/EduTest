@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -31,21 +32,29 @@ namespace EduTestService.Controllers
         }
 
         [Route("")]
-        public async Task<CoursesCollection> GetCourses(int skip = 0, int limit = 10)
+        public async Task<IHttpActionResult> GetCourses(int skip = 0, int limit = 10)
         {
-            var currentUserId = SecurityHelper.GetUserId(User.Identity);
-            if (User.IsInRole("Admin"))
+            try
             {
-                var courses = await CoursesRepository.GetCourses(skip, limit);
-                var total = await CoursesRepository.GetNumberOfCourses();
-                return ObjectMapper.MapCollection(courses, total, skip, limit);
+                var currentUserId = SecurityHelper.GetUserId(User.Identity);
+                if (User.IsInRole("Admin"))
+                {
+                    var courses = await CoursesRepository.GetCourses(skip, limit);
+                    var total = await CoursesRepository.GetNumberOfCourses();
+                    return Ok(ObjectMapper.MapCollection(courses, total, skip, limit));
+                }
+                else
+                {
+                    var courses = CoursesRepository.GetCourses(currentUserId.Value, skip, limit);
+                    var total = await CoursesRepository.GetNumberOfCourses(currentUserId.Value);
+                    return Ok(ObjectMapper.MapCollection(courses, total, skip, limit));
+                }
             }
-            else
+            catch (Exception e)
             {
-                var courses = CoursesRepository.GetCourses(currentUserId.Value, skip, limit);
-                var total = await CoursesRepository.GetNumberOfCourses(currentUserId.Value);
-                return ObjectMapper.MapCollection(courses, total, skip, limit);
-            }
+                Trace.WriteLine(e);
+                return InternalServerError();
+            }            
         }
         
         [Route("{id:int}", Name = "GetCourse")]

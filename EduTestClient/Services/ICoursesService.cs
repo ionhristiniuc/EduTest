@@ -6,7 +6,6 @@ namespace EduTestClient.Services
 {
     public interface ICoursesService
     {
-        Task<IEnumerable<CourseModel>> GetCourses();
-        Task<IEnumerable<CourseModel>> GetCourses(int userId);
+        Task<CoursesCollection> GetCourses(int skip = 0, int limit = 20);        
     }
 }

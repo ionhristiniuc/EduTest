@@ -10,9 +10,17 @@ namespace Testing
         [TestMethod]
         public void GetCourseByTeacherTest()
         {
-            var courseRep = new CoursesRepository();
+            ICoursesRepository courseRep = new CoursesRepository();
             var courses = courseRep.GetCourses(1, 0, 10);
             Assert.IsNotNull(courses);
+        }
+
+        [TestMethod]
+        public void GetCoursesTest()
+        {
+            ICoursesRepository courseRep = new CoursesRepository();
+            var coursesCollection = courseRep.GetCourses(0, 10).Result;
+            Assert.IsNotNull(coursesCollection);
         }
     }
 }

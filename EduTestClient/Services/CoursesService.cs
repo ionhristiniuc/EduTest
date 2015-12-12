@@ -21,24 +21,15 @@ namespace EduTestClient.Services
             Serializer = serializer;
         }
 
-        public async Task<IEnumerable<CourseModel>> GetCourses()
+        public async Task<CoursesCollection> GetCourses(int skip, int limit)
         {
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + AccessToken);
-                var result = await client.GetStringAsync(ConfigManager.ServiceUrl + CoursesServicePath);
-                return Serializer.Deserialize<IEnumerable<CourseModel>>(result);
+                var parameters = string.Format("?skip={0}&limit={1}", skip, limit);
+                var result = await client.GetStringAsync(ConfigManager.ServiceUrl + CoursesServicePath + parameters);
+                return Serializer.Deserialize<CoursesCollection>(result);
             }
-        }
-
-        public async Task<IEnumerable<CourseModel>> GetCourses(int userId)
-        {
-            using (var client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + AccessToken);
-                var result = await client.GetStringAsync(ConfigManager.ServiceUrl + CoursesServicePath + "/" + userId);
-                return Serializer.Deserialize<IEnumerable<CourseModel>>(result);
-            }
-        }
+        }        
     }
 }
