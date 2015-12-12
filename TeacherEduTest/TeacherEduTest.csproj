@@ -68,7 +68,7 @@
     <Compile Include="SideMenu\SideMenuPanel.xaml.cs">
       <DependentUpon>SideMenuPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="WindowCreator.cs" />
+    <Compile Include="ContentMenu\WindowCreator.cs" />
     <Page Include="Authentication\AuthenticationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -134,6 +134,9 @@
       <Project>{9BA491D4-7938-45EC-B03C-9B4D30BB0FDE}</Project>
       <Name>EduTestContract</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SideMenu\CourseTree\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

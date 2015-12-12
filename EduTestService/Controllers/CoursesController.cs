@@ -64,7 +64,10 @@ namespace EduTestService.Controllers
             {
                 var userId = SecurityHelper.GetUserId(User.Identity);
                 if (User.IsInRole("Admin") || await UserRepository.UserHasCourse(userId.Value, id))
-                    return Ok(CoursesRepository.GetCourse(id));
+                {
+                    var content = await CoursesRepository.GetCourse(id);
+                    return Ok(content);
+                }
                 else
                     return NotFound();
             }

@@ -31,7 +31,8 @@ namespace EduTestClient.Services
 
         public async Task<CourseModel> GetCourse(int id)
         {
-            return await HttpHelper.GetEntity<CourseModel>(ConfigManager.ServiceUrl + ServicePath + "/" + id);            
+            var courseModel = await HttpHelper.GetEntity<CourseModel>(ConfigManager.ServiceUrl + ServicePath + "/" + id);
+            return courseModel;
         }
 
         public async Task<bool> AddCourse(CourseModel course)
