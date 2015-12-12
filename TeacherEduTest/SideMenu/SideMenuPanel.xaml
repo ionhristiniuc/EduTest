@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:System.Text.RegularExpressions;assembly=System"
              xmlns:models="clr-namespace:EduTestContract.Models;assembly=EduTestContract"
              xmlns:teacherEduTest="clr-namespace:TeacherEduTest"
+             xmlns:uiModels="clr-namespace:EduTestContract.UIModels;assembly=EduTestContract"
              mc:Ignorable="d" 
              >
     <Grid>
@@ -37,25 +38,38 @@
                     <RowDefinition Height="1*"></RowDefinition>
                 </Grid.RowDefinitions>
             
-                <TextBlock Grid.Row="0">Content</TextBlock>
+                <TextBlock Grid.Row="0" HorizontalAlignment="Left" Width="42">Content</TextBlock>
             
                 <TreeView Grid.Row="1" Grid.Column="0" Name="CoursesTreeView" MouseRightButtonDown="CoursesTreeView_OnMouseRightButtonDown" ItemsSource="{Binding}" SelectedItemChanged="CoursesTreeView_OnSelectedItemChanged">
                     <TreeView.Resources>
-                        <HierarchicalDataTemplate DataType="{x:Type models:ModuleModel}" ItemsSource="{Binding Chapters}">
+                        <HierarchicalDataTemplate DataType="{x:Type uiModels:ObservableModuleModel}" ItemsSource="{Binding Chapters}">
                             <TextBlock Text="{Binding Path=Name}">
                                 <TextBlock.ContextMenu>
-                                    <ContextMenu>                                        
+                                    <ContextMenu>
                                         <MenuItem Name="ModuleRemoveMenuItem" Header ="Remove Module" Click="ModuleMenuItem_OnClick"></MenuItem>
                                         <MenuItem Name="AddChapterMenuItem" Header ="Add Chapter" Click="ModuleMenuItem_OnClick"></MenuItem>
                                     </ContextMenu>
                                 </TextBlock.ContextMenu>
                             </TextBlock>
                         </HierarchicalDataTemplate>
-                        <HierarchicalDataTemplate DataType="{x:Type models:ChapterModel}" ItemsSource="{Binding Topics}">
-                            <TextBlock Text="{Binding Path=Name}" />
+                        <HierarchicalDataTemplate DataType="{x:Type uiModels:ObservableChapterModel}" ItemsSource="{Binding Topics}">
+                            <TextBlock Text="{Binding Path=Name}" >
+                                <TextBlock.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Name="ChapterRemoveMenuItem" Header ="Remove Chapter" Click="ChepterItem_OnClick" ></MenuItem>
+                                        <MenuItem Name="AddTopicMenuItem" Header ="Add Topic" Click="ChepterItem_OnClick" ></MenuItem>
+                                    </ContextMenu>
+                                </TextBlock.ContextMenu>
+                           </TextBlock>
                         </HierarchicalDataTemplate>
-                        <DataTemplate DataType="{x:Type models:TopicModel}">
-                            <TextBlock Text="{Binding Path=Name}"/>
+                        <DataTemplate DataType="{x:Type uiModels:ObservableTopicModel}">
+                            <TextBlock Text="{Binding Path=Name}">
+                                <TextBlock.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Name="TopicRemoveMenuItem" Header ="Remove Topic" Click="TopicMenuItem_OnClick" ></MenuItem>
+                                    </ContextMenu>
+                                </TextBlock.ContextMenu>
+                            </TextBlock>
                         </DataTemplate>
                     </TreeView.Resources>                    
                 </TreeView>

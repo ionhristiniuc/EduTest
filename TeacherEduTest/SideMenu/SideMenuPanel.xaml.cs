@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -7,6 +9,7 @@ using System.Windows.Media;
 using EduTestClient.Services;
 using EduTestClient.Services.Utils;
 using EduTestContract.Models;
+using EduTestContract.UIModels;
 using TeacherEduTest.ContentMenu;
 
 namespace TeacherEduTest.SideMenu
@@ -18,11 +21,11 @@ namespace TeacherEduTest.SideMenu
     {
         private readonly IAccountService _accountService;
         private readonly Grid _contentMenuGrid;
-        private ObservableCollection<ModuleModel> moduleList;
+        private ObservableCollection<ObservableModuleModel> moduleList;
 
         private SideMenuPanel()
         {
-            InitializeComponent();            
+            InitializeComponent();
         }
 
         public SideMenuPanel(IAccountService accountService, Grid contentMenuGrid)
@@ -35,12 +38,12 @@ namespace TeacherEduTest.SideMenu
 
         private async void InitCourses()
         {
-            ICoursesService coursesService = 
+            ICoursesService coursesService =
                 new CoursesService(_accountService.AuthResponse.access_token,
                 new JsonSerializer());
 
-            var courses = await coursesService.GetCourses(); 
-           
+            var courses = await coursesService.GetCourses();
+
             CoursesComboBox.ItemsSource = courses.Courses;
             CoursesComboBox.DisplayMemberPath = "Name";
             CoursesComboBox.SelectedValuePath = "Id";
@@ -55,7 +58,7 @@ namespace TeacherEduTest.SideMenu
                 treeViewItem.Focus();
                 e.Handled = true;
             }
-        }        
+        }
 
         static TreeViewItem VisualUpwardSearch(DependencyObject source)
         {
@@ -71,7 +74,7 @@ namespace TeacherEduTest.SideMenu
                new CoursesService(_accountService.AuthResponse.access_token,
                new JsonSerializer());
 
-            CourseModel selectedCourse = await coursesService.GetCourse((int) CoursesComboBox.SelectedValue);
+            CourseModel selectedCourse = await coursesService.GetCourse((int)CoursesComboBox.SelectedValue);
 
             WindowCreator.GetCurseMenuPanel(_accountService, selectedCourse);
             InitCourseTreeView(selectedCourse);
@@ -79,7 +82,7 @@ namespace TeacherEduTest.SideMenu
 
         private void InitCourseTreeView(CourseModel currentCourseModel)
         {
-            moduleList = new ObservableCollection<ModuleModel>(currentCourseModel.Modules);
+            moduleList = new ObservableCollection<ObservableModuleModel>(ConvertToObservable(currentCourseModel.Modules));
             CoursesTreeView.DataContext = moduleList;
         }
 
@@ -90,17 +93,89 @@ namespace TeacherEduTest.SideMenu
 
         private void ModuleMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
-            ModuleModel selectedModuleModel = (ModuleModel)CoursesTreeView.SelectedItem;
-            MenuItem menuItem = (MenuItem) sender;
+            ObservableModuleModel selectedModuleModel = (ObservableModuleModel)CoursesTreeView.SelectedItem;
+            MenuItem menuItem = (MenuItem)sender;
 
             if (menuItem.Name.Equals("ModuleRemoveMenuItem"))
             {
-                //
+                moduleList.Remove(selectedModuleModel);
             }
             else if (menuItem.Name.Equals("AddChapterMenuItem"))
             {
-                //
+                selectedModuleModel.Chapters.Add(new ObservableChapterModel()
+                {
+                    Name = "Ion",
+                    Topics = new ObservableCollection<ObservableTopicModel>(),
+                });
             }
-        }        
+        }
+
+        private async void ChepterItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            ObservableChapterModel selectedChapterModel = (ObservableChapterModel)CoursesTreeView.SelectedItem;
+            MenuItem menuItem = (MenuItem)sender;
+
+            if (menuItem.Name.Equals("ChapterRemoveMenuItem"))
+            {
+
+                foreach (var module in moduleList)
+                {
+                    if (module.Id == selectedChapterModel.ModuleId)
+                    {
+                        IChaptersService service = new ChaptersService(_accountService.AuthResponse.access_token, new JsonSerializer());
+                        if( await service.DeleteChapter(selectedChapterModel.Id))
+                            module.Chapters.Remove(selectedChapterModel);
+                        else
+                        {
+                            MessageBox.Show("Error");
+                        }
+                    }
+                }
+
+            }
+            else if (menuItem.Name.Equals("AddTopicMenuItem"))
+            {
+                selectedChapterModel.Topics.Add(new ObservableTopicModel()
+                {
+                    Name = "Adr",
+                    ChapterId = selectedChapterModel.Id
+                });
+            }
+        }
+
+        private void TopicMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            ObservableTopicModel selectedTopicModel = (ObservableTopicModel)CoursesTreeView.SelectedItem;
+
+            foreach (var model in moduleList)
+            {
+                foreach (var chapter in model.Chapters)
+                {
+                    chapter.Topics.Remove(selectedTopicModel);
+                }
+            }
+        }
+
+        private ObservableCollection<ObservableModuleModel> ConvertToObservable(IEnumerable<ModuleModel> model)
+        {
+            return new ObservableCollection<ObservableModuleModel>(model.Select(m => new ObservableModuleModel()
+            {
+                Name = m.Name,
+                Id = m.Id,
+                Chapters = new ObservableCollection<ObservableChapterModel>(m.Chapters.Select(c => new ObservableChapterModel()
+                {
+                    Name = c.Name,
+                    Id = c.Id,
+                    ModuleId = m.Id,
+                    Topics = new ObservableCollection<ObservableTopicModel>(c.Topics.Select(t => new ObservableTopicModel()
+                    {
+                        Name = t.Name,
+                        Id = t.Id,
+                        ChapterId = c.Id
+                    }))
+                }))
+            }));
+        }
+
     }
 }

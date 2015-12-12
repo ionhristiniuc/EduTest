@@ -53,6 +53,9 @@
     <Compile Include="Models\TopicModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UIModels\ObservableModuleModel.cs" />
+    <Compile Include="UIModels\ObservableTopicModel.cs" />
+    <Compile Include="UIModels\ObservableChapterModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
