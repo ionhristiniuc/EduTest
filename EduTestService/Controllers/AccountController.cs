@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using EduTestContract.Models;
-using EduTestService.Repository;
+using EduTestService.Repositories;
 
 namespace EduTestService.Controllers
 {   

@@ -8,7 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using EduTestService.Repository;
+using EduTestService.Repositories;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
 using Owin;

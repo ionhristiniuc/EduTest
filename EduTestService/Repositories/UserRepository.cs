@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using EduTestContract.Models;
 using EduTestData.Model;
-using EduTestService.Utils;
+using EduTestService.Core;
 
-namespace EduTestService.Repository
+namespace EduTestService.Repositories
 {
     public class UserRepository : IUserRepository
     {
@@ -58,7 +56,7 @@ namespace EduTestService.Repository
             }
         }
 
-        public async void AddUser(UserModel userModel)
+        public async Task<int> AddUser(UserModel userModel)
         {
             using (var dbContext = new EduTestEntities())
             {
@@ -75,10 +73,12 @@ namespace EduTestService.Repository
 
                 if (await dbContext.SaveChangesAsync() < 0)
                     throw new Exception("UserRepository.AddUser: Could not add user to db");
+
+                return user.Id;
             }
         }
 
-        public async void UpdateUser(int id, UserModel userModel)
+        public async Task UpdateUser(int id, UserModel userModel)
         {
             using (var dbContext = new EduTestEntities())
             {
@@ -117,6 +117,23 @@ namespace EduTestService.Repository
             using (var dbContext = new EduTestEntities())
             {
                 return await dbContext.Users.AnyAsync(u => u.Email == email);
+            }
+        }
+
+        public async Task<bool> HaveSameCourse(int firstUserId, int secondUserId)
+        {
+            using (var dbContext = new EduTestEntities())
+            {
+                return await dbContext.Courses
+                    .AnyAsync(c => c.Users.Any(u => u.Id == firstUserId) && c.Users.Any(u => u.Id == secondUserId));                
+            }                        
+        }
+
+        public async Task<bool> UserHasCourse(int userId, int courseId)
+        {
+            using (var dbContext = new EduTestEntities())
+            {
+                return await dbContext.Users.AnyAsync(u => u.Id == userId && u.Courses.Any(c => c.Id == courseId));
             }
         }
     }

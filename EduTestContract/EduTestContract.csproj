@@ -43,9 +43,11 @@
   <ItemGroup>
     <Compile Include="Models\ChapterModel.cs" />
     <Compile Include="Models\CourseModel.cs" />
+    <Compile Include="Models\CoursesCollection.cs" />
     <Compile Include="Models\Enums\EnvironmentType.cs" />
     <Compile Include="Models\Enums\TestType.cs" />
     <Compile Include="Models\ModuleModel.cs" />
+    <Compile Include="Models\Pagination.cs" />
     <Compile Include="Models\TestModel.cs" />
     <Compile Include="Models\TopicModel.cs" />
     <Compile Include="Models\UserModel.cs" />

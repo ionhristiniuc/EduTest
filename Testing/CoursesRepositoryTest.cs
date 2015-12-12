@@ -1,5 +1,5 @@
 ﻿using System;
-using EduTestService.Repository;
+using EduTestService.Repositories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Testing
@@ -11,7 +11,7 @@ namespace Testing
         public void GetCourseByTeacherTest()
         {
             var courseRep = new CoursesRepository();
-            var courses = courseRep.GetCoursesByUser(1);
+            var courses = courseRep.GetCourses(1, 0, 10);
             Assert.IsNotNull(courses);
         }
     }

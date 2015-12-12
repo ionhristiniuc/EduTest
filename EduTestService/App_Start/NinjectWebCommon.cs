@@ -1,4 +1,4 @@
-using EduTestService.Repository;
+using EduTestService.Repositories;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(EduTestService.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(EduTestService.App_Start.NinjectWebCommon), "Stop")]

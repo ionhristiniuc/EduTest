@@ -218,20 +218,27 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ChaptersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\CoursesController.cs" />
+    <Compile Include="Controllers\ModulesController.cs" />
+    <Compile Include="Controllers\TopicsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Core\Reflection\PatchHelper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\CoursesRepository.cs" />
-    <Compile Include="Repository\ICoursesRepository.cs" />
-    <Compile Include="Repository\IUserRepository.cs" />
-    <Compile Include="Repository\UserRepository.cs" />
+    <Compile Include="Repositories\CoursesRepository.cs" />
+    <Compile Include="Repositories\IChaptersRepository.cs" />
+    <Compile Include="Repositories\ICoursesRepository.cs" />
+    <Compile Include="Repositories\IModulesRepository.cs" />
+    <Compile Include="Repositories\ITopicsRepository.cs" />
+    <Compile Include="Repositories\IUserRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Security\SecurityHelper.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Utils\ObjectMapper.cs" />
+    <Compile Include="Core\ObjectMapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
