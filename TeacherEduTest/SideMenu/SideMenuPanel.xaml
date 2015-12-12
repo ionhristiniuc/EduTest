@@ -2,7 +2,10 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:System.Text.RegularExpressions;assembly=System"
+             xmlns:models="clr-namespace:EduTestContract.Models;assembly=EduTestContract"
+             xmlns:teacherEduTest="clr-namespace:TeacherEduTest"
              mc:Ignorable="d" 
              >
     <Grid>
@@ -36,7 +39,27 @@
             
                 <TextBlock Grid.Row="0">Content</TextBlock>
             
-                <TreeView Grid.Row="1" Grid.Column="0"/>
+                <TreeView Grid.Row="1" Grid.Column="0" Name="CoursesTreeView" MouseRightButtonDown="CoursesTreeView_OnMouseRightButtonDown" ItemsSource="{Binding}" SelectedItemChanged="CoursesTreeView_OnSelectedItemChanged">
+                    <TreeView.Resources>
+                        <HierarchicalDataTemplate DataType="{x:Type models:ModuleModel}" ItemsSource="{Binding Chapters}">
+                            <TextBlock Text="{Binding Path=Name}">
+                                <TextBlock.ContextMenu>
+                                    <ContextMenu>                                        
+                                        <MenuItem Name="ModuleRemoveMenuItem" Header ="Remove Module" Click="ModuleMenuItem_OnClick"></MenuItem>
+                                        <MenuItem Name="AddChapterMenuItem" Header ="Add Chapter" Click="ModuleMenuItem_OnClick"></MenuItem>
+                                    </ContextMenu>
+                                </TextBlock.ContextMenu>
+                            </TextBlock>
+                        </HierarchicalDataTemplate>
+                        <HierarchicalDataTemplate DataType="{x:Type models:ChapterModel}" ItemsSource="{Binding Topics}">
+                            <TextBlock Text="{Binding Path=Name}" />
+                        </HierarchicalDataTemplate>
+                        <DataTemplate DataType="{x:Type models:TopicModel}">
+                            <TextBlock Text="{Binding Path=Name}"/>
+                        </DataTemplate>
+                    </TreeView.Resources>                    
+                </TreeView>
+                
             </Grid>
         </Border>
     </Grid>

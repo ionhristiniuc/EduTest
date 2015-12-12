@@ -1,10 +1,9 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using EduTestClient.Services;
-using TeacherEduTest.ContentMenu;
 using EduTestContract.Models;
 
-namespace TeacherEduTest
+namespace TeacherEduTest.ContentMenu
 {
     static class WindowCreator
     {
