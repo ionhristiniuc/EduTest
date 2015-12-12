@@ -11,5 +11,6 @@ namespace EduTestService.Repositories
         Task<int> AddModule(int courseId, ModuleModel module);
         Task UpdateModule(int id, ModuleModel moduleModel);
         void RemoveModule(int id);        
+        int GetCourseId(int moduleId);        
     }
 }

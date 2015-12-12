@@ -10,6 +10,7 @@ namespace EduTestService.Repositories
         Task<ChapterModel> GetChapter(int id);
         Task<int> AddChapter(int moduleId, ChapterModel chapter);
         Task UpdateChapter(int id, ChapterModel chapter);
-        void RemoveChapter(int id);        
+        void RemoveChapter(int id);
+        int GetCourseId(int chapterId);
     }
 }

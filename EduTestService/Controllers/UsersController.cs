@@ -47,7 +47,7 @@ namespace EduTestService.Controllers
             }            
         }
 
-        [Route("{id:int}")]
+        [Route("{id:int}", Name = "GetUser")]
         [Authorize(Roles = "Teacher,Admin,Student")]
         public async Task<IHttpActionResult> GetUser(int id)
         {
@@ -86,8 +86,14 @@ namespace EduTestService.Controllers
                 if (!ModelState.IsValid)
                     return BadRequest();
 
+                if (await UserRepository.ExistsUser(user.Email))
+                {
+                    ModelState.AddModelError("Email", "A user with such an email already exists");
+                    return BadRequest(ModelState);
+                }
+
                 var id = await UserRepository.AddUser(user);
-                return CreatedAtRoute("users", new { id = id }, user);
+                return CreatedAtRoute("GetUser", new { id = id }, user);
             }
             catch (Exception)
             {

@@ -12,6 +12,6 @@ namespace EduTestService.Repositories
         void RemoveUser(int id);
         Task<bool> ExistsUser(string email);
         Task<bool> HaveSameCourse(int firstUserId, int secondUserId);
-        Task<bool> UserHasCourse(int userId, int courseId);
+        Task<bool> UserHasCourse(int userId, int courseId);     
     }
 }

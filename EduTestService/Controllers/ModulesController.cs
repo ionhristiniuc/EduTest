@@ -33,12 +33,13 @@ namespace EduTestService.Controllers
             throw new HttpResponseException(HttpStatusCode.Unauthorized);
         }
 
-        [Route("courses/{courseId:int}/modules/{moduleId:int}", Name = "GetModule")]
-        public async Task<IHttpActionResult> GetModule(int courseId, int moduleId)
+        [Route("modules/{moduleId:int}", Name = "GetModule")]
+        public async Task<IHttpActionResult> GetModule(int moduleId)
         {
             try
             {
                 var userId = SecurityHelper.GetUserId(User.Identity);
+                var courseId = ModulesRepository.GetCourseId(moduleId);
                 if (User.IsInRole("Admin") || await UserRepository.UserHasCourse(userId.Value, courseId))
                 {
                     var module = ModulesRepository.GetModule(moduleId);

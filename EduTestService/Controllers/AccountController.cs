@@ -15,35 +15,11 @@ namespace EduTestService.Controllers
     [RoutePrefix("account")]
     public class AccountController : ApiController
     {
-        public IUserRepository UserRepo { get; set; }
+        private IUserRepository UserRepository { get; set; }
 
         public AccountController(IUserRepository userRepository)
         {
-            UserRepo = userRepository;
-        }
-
-        [Authorize(Roles = "Teacher,Admin")]
-        [Route("register")]
-        public async Task<IHttpActionResult> Register([FromBody]UserModel userModel)
-        {
-            if (!ModelState.IsValid)            
-                return BadRequest(ModelState);
-
-            try
-            {
-                if (await UserRepo.ExistsUser(userModel.Email))
-                {
-                    ModelState.AddModelError("Email", "A user with such an email already exists");
-                    return BadRequest(ModelState);
-                }
-                                    
-                UserRepo.AddUser(userModel);
-                return Ok();
-            }
-            catch (Exception e)
-            {
-                return InternalServerError(e);
-            }            
-        }        
+            UserRepository = userRepository;
+        }       
     }
 }

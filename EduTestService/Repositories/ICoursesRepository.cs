@@ -10,6 +10,7 @@ namespace EduTestService.Repositories
         Task<IEnumerable<CourseModel>> GetCourses(int skip, int limit);
         Task<CourseModel> GetCourse(int id);
         Task<int> AddCourse(CourseModel course);
+        Task<int> AddDeepCourse(CourseModel course);
         Task UpdateCourse(int id, CourseModel courseModel);
         void RemoveCourse(int id);
         Task<int> GetNumberOfCourses();

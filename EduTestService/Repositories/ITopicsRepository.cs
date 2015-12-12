@@ -11,5 +11,6 @@ namespace EduTestService.Repositories
         Task<int> AddTopic(int chapterId, TopicModel topic);
         Task UpdateTopic(int id, TopicModel topic);
         void RemoveTopic(int id);
+        int GetCourseId(int topicId);
     }
 }

@@ -66,7 +66,7 @@ namespace EduTestService.Repositories
             }
         }
 
-        public async Task<int> AddCourse(CourseModel courseModel)
+        public async Task<int> AddDeepCourse(CourseModel courseModel)
         {
             using (var dbContext = new EduTestEntities())
             {
@@ -96,6 +96,23 @@ namespace EduTestService.Repositories
             }
         }
 
+        public async Task<int> AddCourse(CourseModel courseModel)
+        {
+            using (var dbContext = new EduTestEntities())
+            {
+                var course = new Course()
+                {
+                    Name = courseModel.Name                    
+                };
+
+                dbContext.Courses.Add(course);
+
+                if (await dbContext.SaveChangesAsync() < 0)
+                    throw new Exception("CoursesRepository.AddCourse: Could not add course to db");
+
+                return course.Id;
+            }
+        }
         public async Task UpdateCourse(int id, CourseModel courseModel)
         {
             throw new NotImplementedException();
