@@ -2,6 +2,7 @@
 using TeacherEduTest.ContentMenu;
 using EduTestClient.Services;
 using TeacherEduTest.SideMenu;
+using TeacherEduTest.TopMenu;
 
 namespace TeacherEduTest
 {
@@ -10,8 +11,8 @@ namespace TeacherEduTest
     /// </summary>
     public partial class MainWindow : Window
     {
-        private SideMenuPanel _sideMenuPanel;        
-
+        private SideMenuPanel _sideMenuPanel;
+        private HomeTopMenuPanel _homeTopMenuPanel;
         private readonly IAccountService _accountService;
 
         private MainWindow()
@@ -24,19 +25,28 @@ namespace TeacherEduTest
         {
             this._accountService = accountService;
             WindowCreator.ContentGrid = ContentMenuGrid;
+            WindowCreator.TopMenuGrid = TopMenuGrid;
+
             InitSideMenuPanel();
-            InitCurseMenuPanel();
+         //   InitTopMenuPanel();
+            InitMainMenuPanel();
         }
 
-        private void InitCurseMenuPanel()
+        private void InitTopMenuPanel()
         {
-            WindowCreator.GetMainMenuPanel(_accountService);          
+           _homeTopMenuPanel = new HomeTopMenuPanel(_accountService);
+            this.TopMenuGrid.Children.Add(_homeTopMenuPanel);
         }
 
         private void InitSideMenuPanel()
         {
             _sideMenuPanel = new SideMenuPanel(_accountService, this.ContentMenuGrid);
             this.SideMenuGrid.Children.Add(_sideMenuPanel);
+        }
+
+        private void InitMainMenuPanel()
+        {
+            WindowCreator.GetMainMenuPanel(_accountService);          
         }
     }
 }

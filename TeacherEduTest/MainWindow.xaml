@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:contentMenu="clr-namespace:TeacherEduTest.ContentMenu"
+        xmlns:contentMenu="clr-namespace:TeacherEduTest.TopMenu"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="1000">
     <Grid>
@@ -14,9 +14,16 @@
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0" Name="SideMenuGrid" Margin="5,5,5,5" />
-        
-        <Grid Grid.Column="1" Name="ContentMenuGrid">           
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Name="TopMenuGrid" HorizontalAlignment="Center"/>
+                            
+            <Grid Grid.Row="1" Name="ContentMenuGrid"/>
         </Grid>
-        
     </Grid>
 </Window>

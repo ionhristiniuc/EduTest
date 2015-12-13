@@ -68,7 +68,13 @@
     <Compile Include="SideMenu\SideMenuPanel.xaml.cs">
       <DependentUpon>SideMenuPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ContentMenu\WindowCreator.cs" />
+    <Compile Include="WindowCreator.cs" />
+    <Compile Include="TopMenu\CourseTopMenuPanel.xaml.cs">
+      <DependentUpon>CourseTopMenuPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TopMenu\HomeTopMenuPanel.xaml.cs">
+      <DependentUpon>HomeTopMenuPanel.xaml</DependentUpon>
+    </Compile>
     <Page Include="Authentication\AuthenticationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -94,6 +100,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="SideMenu\SideMenuPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TopMenu\CourseTopMenuPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TopMenu\HomeTopMenuPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
