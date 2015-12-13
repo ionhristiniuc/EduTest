@@ -49,10 +49,13 @@ namespace EduTestService.Repositories
         {
             using (var dbContext = new EduTestEntities())
             {
-                var chapter = await dbContext.Chapters.FirstOrDefaultAsync(u => u.Id == id);
+                var chapter = await dbContext.Chapters.FirstOrDefaultAsync(u => u.Id == id);                
 
                 if (chapter == null)
                     throw new ObjectNotFoundException("ChaptersRepository.RemoveChapter: Chapter not found");
+
+                if (chapter.Topics.Any() || await dbContext.Tests.AnyAsync(t => t.ParentId == id))
+                    throw new InvalidOperationException("ChaptersRepository.RemoveChapter cannot remove chapter as it has children");
 
                 dbContext.Chapters.Remove(chapter);
                 if (await dbContext.SaveChangesAsync() == 0)

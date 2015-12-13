@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
@@ -121,7 +122,15 @@ namespace EduTestService.Controllers
                 await UserRepository.UpdateUser(id, user);
                 return Ok();
             }
-            catch (Exception e)
+            catch (ObjectNotFoundException)
+            {
+                return NotFound();
+            }
+            catch (InvalidOperationException e)
+            {
+                return BadRequest(e.Message);
+            }
+            catch (Exception)
             {
                 return InternalServerError();
             }

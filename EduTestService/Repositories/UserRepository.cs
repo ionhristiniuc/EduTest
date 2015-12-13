@@ -107,6 +107,10 @@ namespace EduTestService.Repositories
                 if (user == null)
                     throw new ObjectNotFoundException("UserRepository.RemoveUser: User not found");
 
+                if (user.Courses.Any() || user.QuestionBases.Any() || 
+                    user.TestInstances.Any() || user.Tests.Any())
+                    throw new InvalidOperationException("UserRepository.RemoveUser cannot remove user as it has children");
+
                 dbContext.Users.Remove(user);
                 if (await dbContext.SaveChangesAsync() == 0)
                     throw new Exception("UserRepository.RemoveUser: Could not remove user from db");

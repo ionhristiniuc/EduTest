@@ -52,11 +52,14 @@ namespace EduTestService.Repositories
                 var module = await dbContext.Modules.FirstOrDefaultAsync(u => u.Id == id);
 
                 if (module == null)
-                    throw new ObjectNotFoundException("UserRepository.RemoveModule: Module not found");
+                    throw new ObjectNotFoundException("ModulesRepository.RemoveModule: Module not found");
+
+                if (module.Chapters.Any() || await dbContext.Tests.AnyAsync(t => t.ParentId == id))
+                    throw new InvalidOperationException("ModulesRepository.RemoveModule cannot remove module as it has children");
 
                 dbContext.Modules.Remove(module);
                 if (await dbContext.SaveChangesAsync() == 0)
-                    throw new Exception("UserRepository.RemoveModule: Could not remove user from db");
+                    throw new Exception("ModulesRepository.RemoveModule: Could not module from db");
             }
         }
 

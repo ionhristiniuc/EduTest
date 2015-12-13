@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -104,6 +105,14 @@ namespace EduTestService.Controllers
                 }
 
                 return Unauthorized();
+            }
+            catch (ObjectNotFoundException)
+            {
+                return NotFound();
+            }
+            catch (InvalidOperationException e)
+            {
+                return BadRequest(e.Message);
             }
             catch (Exception)
             {

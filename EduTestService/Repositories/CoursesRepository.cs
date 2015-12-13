@@ -142,8 +142,9 @@ namespace EduTestService.Repositories
             }*/
         }
 
-        public async void RemoveCourse(int id)
+        public async void RemoveDeepCourse(int id)
         {
+            throw new NotImplementedException();
             using (var dbContext = new EduTestEntities())
             {
                 var course = dbContext.Courses
@@ -161,6 +162,25 @@ namespace EduTestService.Repositories
                 }
                 dbContext.Modules.RemoveRange(course.Modules);
                 dbContext.Courses.Remove(course);                
+
+                if (await dbContext.SaveChangesAsync() < 0)
+                    throw new Exception("CoursesRepository.RemoveDeepCourse: Could not remove course from db");
+            }
+        }
+
+        public async void RemoveCourse(int id)
+        {            
+            using (var dbContext = new EduTestEntities())
+            {
+                var course = dbContext.Courses.FirstOrDefault(crs => crs.Id == id);
+
+                if (course == null)
+                    throw new ObjectNotFoundException("CoursesRepository.RemoveCourse: Course not found");
+
+                if (course.Modules.Any() || await dbContext.Tests.AnyAsync(t => t.ParentId == id))
+                    throw new InvalidOperationException("CoursesRepository.RemoveCourse cannot remove course as it has children");                
+
+                dbContext.Courses.Remove(course);
 
                 if (await dbContext.SaveChangesAsync() < 0)
                     throw new Exception("CoursesRepository.RemoveCourse: Could not remove course from db");

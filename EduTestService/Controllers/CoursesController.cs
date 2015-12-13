@@ -126,11 +126,19 @@ namespace EduTestService.Controllers
                     if (!await CoursesRepository.ExistsCourse(id))
                         return NotFound();
 
-                    CoursesRepository.RemoveCourse(id);
+                    CoursesRepository.RemoveDeepCourse(id);
                     return StatusCode(HttpStatusCode.NoContent);
                 }
 
                 return Unauthorized();
+            }
+            catch (ObjectNotFoundException)
+            {
+                return NotFound();
+            }
+            catch (InvalidOperationException e)
+            {
+                return BadRequest(e.Message);
             }
             catch (Exception)
             {

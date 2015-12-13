@@ -54,6 +54,9 @@ namespace EduTestService.Repositories
                 if (topic == null)
                     throw new ObjectNotFoundException("TopicsRepository.RemoveTopic: Topic not found");
 
+                if (topic.QuestionBases.Any() || await dbContext.Tests.AnyAsync(t => t.ParentId == id))
+                    throw new InvalidOperationException("TopicsRepository.RemoveTopic cannot remove topic as it has children");
+
                 dbContext.Topics.Remove(topic);
                 if (await dbContext.SaveChangesAsync() == 0)
                     throw new Exception("TopicsRepository.RemoveTopic: Could not remove topic from db");

@@ -13,6 +13,7 @@ namespace EduTestService.Repositories
         Task<int> AddDeepCourse(CourseModel course);
         Task UpdateCourse(int id, CourseModel courseModel);
         void RemoveCourse(int id);
+        void RemoveDeepCourse(int id);
         Task<int> GetNumberOfCourses();
         Task<int> GetNumberOfCourses(int userId);
         Task<bool> ExistsCourse(int courseId);
