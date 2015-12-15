@@ -65,6 +65,15 @@
     <Compile Include="ContentMenu\CourseMenuPanel.xaml.cs">
       <DependentUpon>CourseMenuPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SideMenu\AddNewModelsWindows\AddNewChapterWindows.xaml.cs">
+      <DependentUpon>AddNewChapterWindows.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SideMenu\AddNewModelsWindows\AddNewModuleWindow.xaml.cs">
+      <DependentUpon>AddNewModuleWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SideMenu\AddNewModelsWindows\AddNewTopicWindows.xaml.cs">
+      <DependentUpon>AddNewTopicWindows.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SideMenu\SideMenuPanel.xaml.cs">
       <DependentUpon>SideMenuPanel.xaml</DependentUpon>
     </Compile>
@@ -99,6 +108,18 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="SideMenu\AddNewModelsWindows\AddNewChapterWindows.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SideMenu\AddNewModelsWindows\AddNewModuleWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SideMenu\AddNewModelsWindows\AddNewTopicWindows.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SideMenu\SideMenuPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -150,7 +171,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="SideMenu\CourseTree\" />
+    <Resource Include="Images\logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

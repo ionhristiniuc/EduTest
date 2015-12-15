@@ -10,13 +10,10 @@
              mc:Ignorable="d" 
              >
     <Grid>
-        
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-
-
 
         <Border Grid.Row="0" Margin="0,8,0,0" Background="GhostWhite" BorderBrush="Silver" BorderThickness="1" CornerRadius="8,8,8,8">
             <Grid>

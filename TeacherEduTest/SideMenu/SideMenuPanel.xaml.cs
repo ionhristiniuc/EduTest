@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -10,7 +11,7 @@ using EduTestClient.Services;
 using EduTestClient.Services.Utils;
 using EduTestContract.Models;
 using EduTestContract.UIModels;
-using TeacherEduTest.ContentMenu;
+using TeacherEduTest.SideMenu.AddNewModelsWindows;
 
 namespace TeacherEduTest.SideMenu
 {
@@ -20,8 +21,12 @@ namespace TeacherEduTest.SideMenu
     public partial class SideMenuPanel : UserControl
     {
         private readonly IAccountService _accountService;
+        
         private readonly Grid _contentMenuGrid;
         private ObservableCollection<ObservableModuleModel> moduleList;
+        private IModulesService _modulesService;
+        private IChaptersService _chaptersService;
+        private ITopicsService _topicsService;
 
         private SideMenuPanel()
         {
@@ -34,6 +39,17 @@ namespace TeacherEduTest.SideMenu
             _accountService = accountService;
             _contentMenuGrid = contentMenuGrid;
             InitCourses();
+            InitServices();
+        }
+
+        private void InitServices()
+        {
+            _modulesService = new ModulesService(_accountService.AuthResponse.access_token,
+                new JsonSerializer());
+            _chaptersService = new ChaptersService(_accountService.AuthResponse.access_token,
+                new JsonSerializer());
+            _topicsService = new TopicsService(_accountService.AuthResponse.access_token,
+                new JsonSerializer());
         }
 
         private async void InitCourses()
@@ -91,22 +107,43 @@ namespace TeacherEduTest.SideMenu
             //MessageBox.Show(CoursesTreeView.SelectedItem.GetType().ToString());
         }
 
-        private void ModuleMenuItem_OnClick(object sender, RoutedEventArgs e)
+        private async void ModuleMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
             ObservableModuleModel selectedModuleModel = (ObservableModuleModel)CoursesTreeView.SelectedItem;
             MenuItem menuItem = (MenuItem)sender;
 
             if (menuItem.Name.Equals("ModuleRemoveMenuItem"))
             {
-                moduleList.Remove(selectedModuleModel);
+                if (isRemovable(selectedModuleModel.Chapters.Count))
+                {
+                    if (await _modulesService.DeleteModule(selectedModuleModel.Id))
+                        moduleList.Remove(selectedModuleModel);
+                    else
+                        MessageBox.Show("Remove Module error occured",
+                            "Error",MessageBoxButton.OK,MessageBoxImage.Warning);
+                }
             }
             else if (menuItem.Name.Equals("AddChapterMenuItem"))
             {
-                selectedModuleModel.Chapters.Add(new ObservableChapterModel()
+                var addChapterWindow = new AddNewChapterWindows();
+                addChapterWindow.ShowDialog();
+
+               if (await _chaptersService.AddChapter(selectedModuleModel.Id,new ChapterModel()
+               {
+                   Name = addChapterWindow.AddedChapterName
+               }))
                 {
-                    Name = "Ion",
-                    Topics = new ObservableCollection<ObservableTopicModel>(),
-                });
+                    selectedModuleModel.Chapters.Add(new ObservableChapterModel()
+                    {
+                        Name = addChapterWindow.AddedChapterName,
+                        Topics = new ObservableCollection<ObservableTopicModel>(),
+                    });
+                }
+                else
+                {
+                    MessageBox.Show("Add Chapter error occured", "Error",
+                        MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
             }
         }
 
@@ -117,27 +154,28 @@ namespace TeacherEduTest.SideMenu
 
             if (menuItem.Name.Equals("ChapterRemoveMenuItem"))
             {
-
                 foreach (var module in moduleList)
                 {
                     if (module.Id == selectedChapterModel.ModuleId)
-                    {
-                        IChaptersService service = new ChaptersService(_accountService.AuthResponse.access_token, new JsonSerializer());
-                        if( await service.DeleteChapter(selectedChapterModel.Id))
-                            module.Chapters.Remove(selectedChapterModel);
-                        else
+                        if (isRemovable(selectedChapterModel.Topics.Count))
                         {
-                            MessageBox.Show("Error");
+                            if (await _chaptersService.DeleteChapter(selectedChapterModel.Id))
+                                module.Chapters.Remove(selectedChapterModel);
+                            else
+                                MessageBox.Show("Remove Chapter error occured", "Error",
+                                    MessageBoxButton.OK, MessageBoxImage.Warning);
                         }
-                    }
                 }
-
             }
             else if (menuItem.Name.Equals("AddTopicMenuItem"))
             {
+                // no_implementation _topicsService.AddTopic()
+                var addTopicWindow = new AddNewTopicWindows();
+                addTopicWindow.ShowDialog();
+
                 selectedChapterModel.Topics.Add(new ObservableTopicModel()
                 {
-                    Name = "Adr",
+                    Name = addTopicWindow.AddedTopicName,
                     ChapterId = selectedChapterModel.Id
                 });
             }
@@ -175,6 +213,16 @@ namespace TeacherEduTest.SideMenu
                     }))
                 }))
             }));
+        }
+  
+        private bool isRemovable( int size )
+        {
+            if (size != 0)
+            {
+                MessageBox.Show("Remove error occured, the element must be empty", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+            return true;
         }
 
     }
