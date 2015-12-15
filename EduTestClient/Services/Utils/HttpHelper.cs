@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net.Http.Formatting;
 
 namespace EduTestClient.Services.Utils
 {
@@ -22,9 +23,8 @@ namespace EduTestClient.Services.Utils
         {
             using (var client = new HttpClient())
             {
-                PrepareHeaders(client);
-                var strEntity = new StringContent(Serializer.Serialize(entity));
-                var response = await client.PostAsync(path, strEntity);
+                PrepareHeaders(client);                              
+                var response = await client.PostAsJsonAsync(path, entity);
                 return response.IsSuccessStatusCode;
             }
         }
