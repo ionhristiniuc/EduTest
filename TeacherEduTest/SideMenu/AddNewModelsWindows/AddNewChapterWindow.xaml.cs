@@ -15,12 +15,12 @@ using System.Windows.Shapes;
 namespace TeacherEduTest.SideMenu.AddNewModelsWindows
 {
     /// <summary>
-    /// Interaction logic for AddNewChapterWindows.xaml
+    /// Interaction logic for AddNewChapterWindow.xaml
     /// </summary>
-    public partial class AddNewChapterWindows : Window
+    public partial class AddNewChapterWindow : Window
     {
         public string AddedChapterName;
-        public AddNewChapterWindows()
+        public AddNewChapterWindow()
         {
             InitializeComponent();
         }

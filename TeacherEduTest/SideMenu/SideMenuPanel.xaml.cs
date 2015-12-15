@@ -125,7 +125,7 @@ namespace TeacherEduTest.SideMenu
             }
             else if (menuItem.Name.Equals("AddChapterMenuItem"))
             {
-                var addChapterWindow = new AddNewChapterWindows();
+                var addChapterWindow = new AddNewChapterWindow();
                 addChapterWindow.ShowDialog();
 
                if (await _chaptersService.AddChapter(selectedModuleModel.Id,new ChapterModel()
@@ -170,7 +170,7 @@ namespace TeacherEduTest.SideMenu
             else if (menuItem.Name.Equals("AddTopicMenuItem"))
             {
                 // no_implementation _topicsService.AddTopic()
-                var addTopicWindow = new AddNewTopicWindows();
+                var addTopicWindow = new AddNewTopicWindow();
                 addTopicWindow.ShowDialog();
 
                 selectedChapterModel.Topics.Add(new ObservableTopicModel()
