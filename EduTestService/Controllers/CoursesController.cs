@@ -15,6 +15,7 @@ using EduTestContract.Models;
 using EduTestService.Core;
 using EduTestService.Repositories;
 using EduTestService.Security;
+using log4net;
 
 namespace EduTestService.Controllers
 {
@@ -24,6 +25,7 @@ namespace EduTestService.Controllers
     {
         private ICoursesRepository CoursesRepository { get; set; }
         private IUserRepository UserRepository { get; set; }
+        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public CoursesController(ICoursesRepository repository, IUserRepository userRepository)
         {
@@ -34,11 +36,13 @@ namespace EduTestService.Controllers
         [Route("")]
         public async Task<IHttpActionResult> GetCourses(int skip = 0, int limit = 10)
         {
+            Log.DebugFormat("Simple log message {0}", 1);
+
             try
             {
                 var currentUserId = SecurityHelper.GetUserId(User.Identity);
                 if (User.IsInRole("Admin"))
-                {
+                {                    
                     var courses = await CoursesRepository.GetCourses(skip, limit);
                     var total = await CoursesRepository.GetNumberOfCourses();
                     return Ok(ObjectMapper.MapCollection(courses, total, skip, limit));
