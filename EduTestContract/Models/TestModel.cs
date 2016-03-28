@@ -7,7 +7,7 @@ namespace EduTestContract.Models
     {
         public int Id { get; set; }
         public EnvironmentType EnvType { get; set; }
-        public long Timeout { get; set; }
+        public int Timeout { get; set; }
         public DateTime CreateDateTime { get; set; }
         public DateTime UpdateDateTime { get; set; }
         public TestType Type { get; set; }

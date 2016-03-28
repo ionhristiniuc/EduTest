@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Reflection;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading;
@@ -25,7 +26,8 @@ namespace EduTestService.Controllers
     {
         private ICoursesRepository CoursesRepository { get; set; }
         private IUserRepository UserRepository { get; set; }
-        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Log = 
+            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         public CoursesController(ICoursesRepository repository, IUserRepository userRepository)
         {

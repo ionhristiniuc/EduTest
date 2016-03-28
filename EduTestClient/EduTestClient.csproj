@@ -60,9 +60,11 @@
     <Compile Include="Services\IChaptersService.cs" />
     <Compile Include="Services\ICoursesService.cs" />
     <Compile Include="Services\IModulesService.cs" />
+    <Compile Include="Services\IQuestionsService.cs" />
     <Compile Include="Services\ITopicsService.cs" />
     <Compile Include="Services\IUsersService.cs" />
     <Compile Include="Services\ModulesService.cs" />
+    <Compile Include="Services\QuestionsService.cs" />
     <Compile Include="Services\TopicsService.cs" />
     <Compile Include="Services\UsersService.cs" />
     <Compile Include="Services\Utils\HttpHelper.cs" />

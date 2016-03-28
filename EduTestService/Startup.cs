@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices.ComTypes;
 using System.Security.Claims;
 using System.Security.Principal;
@@ -8,10 +9,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using AutoMapper;
+using EduTestContract.Models;
+using EduTestData.Model;
 using EduTestService.Repositories;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
+using WebGrease.Css.Extensions;
 
 namespace EduTestService
 {
@@ -19,17 +24,36 @@ namespace EduTestService
     {        
         public void Configuration(IAppBuilder app)
         {
-            var config = new HttpConfiguration();
+            var config = new HttpConfiguration();   
             // other configurations
 
-            ConfigureOAuth(app);
+            InitializeAutoMapper();
+
+            ConfigureOAuth(app);            
+
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
-            app.UseWebApi(config);
+            app.UseWebApi(config);            
+        }
+
+        private void InitializeAutoMapper()
+        {
+            var profileType = typeof(Profile);
+            // Get an instance of each Profile in the executing assembly.
+            var profiles = Assembly.GetExecutingAssembly().GetTypes()
+                .Where(t => profileType.IsAssignableFrom(t)
+                    && t.GetConstructor(Type.EmptyTypes) != null)
+                .Select(Activator.CreateInstance)
+                .Cast<Profile>();
+
+            // Initialize AutoMapper with each instance of the profiles found.
+            Mapper.Initialize(a => profiles.ForEach(a.AddProfile));            
+
+            Mapper.AssertConfigurationIsValid();
         }
 
         public void ConfigureOAuth(IAppBuilder app)
         {
-            IUserRepository userRepo = new UserRepository();
+            IUserRepository userRepo = new UserRepository(Mapper.Instance);
 
             var oAuthServerOptions = new OAuthAuthorizationServerOptions()
             {
@@ -52,12 +76,14 @@ namespace EduTestService
                 UserRepo = userRepository;
             }
 
-            public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
+            public override async Task ValidateClientAuthentication(
+                OAuthValidateClientAuthenticationContext context)
             {
                 context.Validated();
             }
 
-            public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
+            public override async Task GrantResourceOwnerCredentials(
+                OAuthGrantResourceOwnerCredentialsContext context)
             {
                 context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
 
@@ -74,6 +100,7 @@ namespace EduTestService
                     var identity = new ClaimsIdentity(context.Options.AuthenticationType);
                     identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
                     identity.AddClaim(new Claim(ClaimTypes.Email, user.Email));                    
+                    //identity.AddClaim(new Claim(ClaimTypes.UserData, user));                    
 
                     foreach (var role in user.Roles)                    
                         identity.AddClaim(new Claim(ClaimTypes.Role, role));                    

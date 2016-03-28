@@ -3,7 +3,7 @@
     public enum QuestionType
     {
         Checkbox,
-        Radion,
+        Radio,
         TextArea,
         Program
     }

@@ -5,7 +5,7 @@ namespace EduTestService.Repositories
 {
     public interface IUserRepository
     {
-        Task<UserModel> GetUser(string email, string password);
+        Task<UserModel> GetUser(string username, string password);
         Task<UserModel> GetUser(int id);
         Task<int> AddUser(UserModel userModel);
         Task UpdateUser(int id, UserModel userModel);

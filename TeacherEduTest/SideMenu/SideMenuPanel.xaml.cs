@@ -44,25 +44,25 @@ namespace TeacherEduTest.SideMenu
 
         private void InitServices()
         {
-            _modulesService = new ModulesService(_accountService.AuthResponse.access_token,
-                new JsonSerializer());
-            _chaptersService = new ChaptersService(_accountService.AuthResponse.access_token,
-                new JsonSerializer());
-            _topicsService = new TopicsService(_accountService.AuthResponse.access_token,
-                new JsonSerializer());
+            //_modulesService = new ModulesService(_accountService.AuthResponse.access_token,
+            //    new JsonSerializer());
+            //_chaptersService = new ChaptersService(_accountService.AuthResponse.access_token,
+            //    new JsonSerializer());
+            //_topicsService = new TopicsService(_accountService.AuthResponse.access_token,
+            //    new JsonSerializer());
         }
 
         private async void InitCourses()
         {
-            ICoursesService coursesService =
-                new CoursesService(_accountService.AuthResponse.access_token,
-                new JsonSerializer());
+            //ICoursesService coursesService =
+            //    new CoursesService(_accountService.AuthResponse.access_token,
+            //    new JsonSerializer());
 
-            var courses = await coursesService.GetCourses();
+            //var courses = await coursesService.GetCourses();
 
-            CoursesComboBox.ItemsSource = courses.Courses;
-            CoursesComboBox.DisplayMemberPath = "Name";
-            CoursesComboBox.SelectedValuePath = "Id";
+            //CoursesComboBox.ItemsSource = courses.Courses;
+            //CoursesComboBox.DisplayMemberPath = "Name";
+            //CoursesComboBox.SelectedValuePath = "Id";
         }
 
         private void CoursesTreeView_OnMouseRightButtonDown(object sender, MouseButtonEventArgs e)
@@ -86,14 +86,14 @@ namespace TeacherEduTest.SideMenu
 
         private async void CoursesComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ICoursesService coursesService =
-               new CoursesService(_accountService.AuthResponse.access_token,
-               new JsonSerializer());
+            //ICoursesService coursesService =
+            //   new CoursesService(_accountService.AuthResponse.access_token,
+            //   new JsonSerializer());
 
-            CourseModel selectedCourse = await coursesService.GetCourse((int)CoursesComboBox.SelectedValue);
+            //CourseModel selectedCourse = await coursesService.GetCourse((int)CoursesComboBox.SelectedValue);
 
-            WindowCreator.GetCurseMenuPanel(_accountService, selectedCourse);
-            InitCourseTreeView(selectedCourse);
+            //WindowCreator.GetCurseMenuPanel(_accountService, selectedCourse);
+            //InitCourseTreeView(selectedCourse);
         }
 
         private void InitCourseTreeView(CourseModel currentCourseModel)

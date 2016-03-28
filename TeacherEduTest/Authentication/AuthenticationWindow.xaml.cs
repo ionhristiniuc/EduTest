@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Windows;
@@ -26,21 +27,40 @@ namespace TeacherEduTest.Authentication
         {
             if (_isAuthenticationBegun)
                 return;
-            
+
             _isAuthenticationBegun = true;
 
-            string email = "ionhristiniuc@yahoo.com";
-            string password = "ion123";
+            string email = "ionh";
+            string password = "123";
 
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
                 return;
             try
             {
                 IAccountService accountService = new AccountService();
+                var response = await accountService.Authenticate(email, password);
 
-                if (await accountService.Authenticate(email, password))
+                if (!string.IsNullOrEmpty(response?.access_token))
                 {
-                    IUsersService usersService = new UsersService(accountService.AuthResponse.access_token,
+                    IQuestionsService questionsService = new QuestionsService(response.access_token, new JsonSerializer());
+                    var question = new VariantQuestionModel()
+                    {
+                        Content = "Choose an answer!",
+                        Enabled = true,
+                        TopicId = 1,
+                        Type = QuestionType.Radio,
+                        UserId = 1,
+                        Variants = new List<VariantModel>
+                        {
+                            new VariantModel() { Body = "Answer A", Correct = false},
+                            new VariantModel() { Body = "Answer B", Correct = false},
+                            new VariantModel() { Body = "Answer C", Correct = true},
+                         }
+                    };
+                    var result = await questionsService.AddQuestion(question.TopicId, question);
+                    MessageBox.Show(result.ToString());
+
+                    IUsersService usersService = new UsersService(response.access_token,
                         new JsonSerializer());
                     UserModel user = await usersService.GetUser();
 
@@ -55,11 +75,11 @@ namespace TeacherEduTest.Authentication
                         Close();
                         mainWindow.Show();
                     }
-                }                
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Email address or Password are incorrect.");
+                MessageBox.Show(ex.ToString());
                 //MessageBox.Show(ex.ToString());
             }
 

@@ -23,7 +23,7 @@ namespace EduTestData.Model
     
         public int Id { get; set; }
         public string EnvType { get; set; }
-        public System.DateTime Timeout { get; set; }
+        public int Timeout { get; set; }
         public System.DateTime CreateDateTime { get; set; }
         public System.DateTime UpdateDateTime { get; set; }
         public string Type { get; set; }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentEduTest", "StudentEduTest\StudentEduTest.csproj", "{08120778-28D6-437C-98EF-882AFE33988B}"
 EndProject
@@ -16,6 +16,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing", "Testing\Testing.csproj", "{271C944E-5AA8-4D35-9E8A-C81CC3E33678}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EduTestClient", "EduTestClient\EduTestClient.csproj", "{7830489C-B50D-42B7-AF57-2621B55717A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeacherWebApp", "TeacherWebApp\TeacherWebApp.csproj", "{352CDCC7-5D48-4040-A289-A0E0A82DF0B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{7830489C-B50D-42B7-AF57-2621B55717A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7830489C-B50D-42B7-AF57-2621B55717A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7830489C-B50D-42B7-AF57-2621B55717A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{352CDCC7-5D48-4040-A289-A0E0A82DF0B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{352CDCC7-5D48-4040-A289-A0E0A82DF0B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{352CDCC7-5D48-4040-A289-A0E0A82DF0B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{352CDCC7-5D48-4040-A289-A0E0A82DF0B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

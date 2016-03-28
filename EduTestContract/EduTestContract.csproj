@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Enums\QuestionType.cs" />
+    <Compile Include="Models\Items.cs" />
     <Compile Include="Models\QuestionBaseModel.cs" />
     <Compile Include="Models\ChapterModel.cs" />
     <Compile Include="Models\CourseModel.cs" />

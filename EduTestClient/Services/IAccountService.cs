@@ -5,7 +5,6 @@ namespace EduTestClient.Services
 {
     public interface IAccountService
     {
-        Task<bool> Authenticate(string username, string password);
-        AuthenticationResponse AuthResponse { get; }
+        Task<AuthenticationResponse> Authenticate(string username, string password);        
     }
 }

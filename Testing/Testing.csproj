@@ -62,15 +62,22 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+          <Private>False</Private>
+        </Reference>
       </ItemGroup>
     </Otherwise>
   </Choose>
   <ItemGroup>
     <Compile Include="CoursesRepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuestionsServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EduTestClient\EduTestClient.csproj">
+      <Project>{7830489c-b50d-42b7-af57-2621b55717a8}</Project>
+      <Name>EduTestClient</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EduTestContract\EduTestContract.csproj">
       <Project>{9BA491D4-7938-45EC-B03C-9B4D30BB0FDE}</Project>
       <Name>EduTestContract</Name>

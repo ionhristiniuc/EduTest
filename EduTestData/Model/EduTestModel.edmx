@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="EduTestModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="EduTestModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="answerbase">
           <Key>
             <PropertyRef Name="Id" />
@@ -69,7 +69,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EnvType" Type="enum" Nullable="false" />
-          <Property Name="Timeout" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="Timeout" Type="int" Nullable="false" />
           <Property Name="CreateDateTime" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="UpdateDateTime" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="Type" Type="enum" Nullable="false" />
@@ -113,6 +113,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="45" Nullable="false" />
@@ -529,8 +530,7 @@
             <End Role="variantquestion" EntitySet="variantquestion" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="EduTestModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -607,7 +607,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EnvType" Type="String" MaxLength="65532" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Timeout" Type="DateTime" Nullable="false" />
+          <Property Name="Timeout" Type="Int32" Nullable="false" />
           <Property Name="CreateDateTime" Type="DateTime" Nullable="false" />
           <Property Name="UpdateDateTime" Type="DateTime" Nullable="false" />
           <Property Name="Type" Type="String" MaxLength="65532" FixedLength="false" Unicode="false" Nullable="false" />
@@ -670,6 +670,7 @@
           <NavigationProperty Name="TestInstances" Relationship="Self.fk_TestInstance_User1" FromRole="user" ToRole="testinstance" />
           <NavigationProperty Name="Courses" Relationship="Self.user_has_course" FromRole="user" ToRole="course" />
           <NavigationProperty Name="Roles" Relationship="Self.user_has_role" FromRole="user" ToRole="role" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Variant">
           <Key>
@@ -1112,6 +1113,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="EduTestModel.User">
               <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />

@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Data.Entity.Core;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using EduTestContract.Models;
 using EduTestData.Model;
 using EduTestService.Core;
@@ -11,25 +12,34 @@ namespace EduTestService.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        public async Task<UserModel> GetUser(string email, string password)
+        private IMapper _mapper;
+
+        public UserRepository(IMapper mapper)
+        {
+            _mapper = mapper;
+        }
+
+        public async Task<UserModel> GetUser(string username, string password)
         {
             using (var dbContext = new EduTestEntities())
             {
                 var user = await dbContext.Users
                     .Include(u => u.Roles)
-                    .FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
+                    .FirstOrDefaultAsync(u => u.Username == username && u.Password == password);
 
                 if (user == null)
                     return null;
 
-                var userModel = new UserModel()
-                {
-                    Id = user.Id,
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    Email = user.Email,                    
-                    Roles = user.Roles.Select(r => r.Name).ToArray()
-                };
+                // Should test
+                //var userModel = new UserModel()
+                //{
+                //    Id = user.Id,
+                //    FirstName = user.FirstName,
+                //    LastName = user.LastName,
+                //    Email = user.Email,                    
+                //    Roles = user.Roles.Select(r => r.Name).ToArray()
+                //};
+                var userModel = _mapper.Map<UserModel>(user);
                 return userModel;
             }
         }
@@ -45,14 +55,15 @@ namespace EduTestService.Repositories
                 if (user == null)
                     return null;
 
-                var userModel = new UserModel()
-                {
-                    Id = user.Id,
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    Email = user.Email,                    
-                    Roles = user.Roles.Select(r => r.Name).ToArray()
-                };
+                //var userModel = new UserModel()
+                //{
+                //    Id = user.Id,
+                //    FirstName = user.FirstName,
+                //    LastName = user.LastName,
+                //    Email = user.Email,                    
+                //    Roles = user.Roles.Select(r => r.Name).ToArray()
+                //};
+                var userModel = _mapper.Map<UserModel>(user);
                 return userModel;
             }
         }
@@ -66,7 +77,7 @@ namespace EduTestService.Repositories
                     FirstName = userModel.FirstName,
                     LastName = userModel.LastName,
                     Email = userModel.Email,
-                    Password = userModel.Password,
+                    //Password = userModel.Password,            // Need to decide
                     Roles = ObjectMapper.MapRoles(userModel.Roles).ToList()
                 };
 

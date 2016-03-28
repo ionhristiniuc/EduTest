@@ -10,11 +10,10 @@ using EduTestClient.Services.Utils;
 namespace EduTestClient.Services
 {
     public class AccountService : IAccountService
-    {                
-        public AuthenticationResponse AuthResponse { get; private set; }
+    {                        
         public DateTime LastAuthenticationTime { get; set; }
 
-        public async Task<bool> Authenticate(string username, string password)
+        public async Task<AuthenticationResponse> Authenticate(string username, string password)
         {            
             using (var client = new HttpClient())
             {
@@ -32,9 +31,8 @@ namespace EduTestClient.Services
                 
                 var responseString = await result.Content.ReadAsStringAsync();
                 ISerializer serializer = new JsonSerializer();
-                AuthResponse = serializer.Deserialize<AuthenticationResponse>(responseString);
-                LastAuthenticationTime = DateTime.UtcNow;                
-                return true;
+                LastAuthenticationTime = DateTime.UtcNow;
+                return serializer.Deserialize<AuthenticationResponse>(responseString);                                            
             }
         }        
     }
