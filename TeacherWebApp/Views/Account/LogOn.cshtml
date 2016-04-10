@@ -2,6 +2,8 @@
 @{
     ViewBag.Title = "LogOn";
     Layout = "~/Views/Shared/_Landing.cshtml";
+
+    string returnUrl = ViewBag.ReturnUrl;
 }
 
 <div class="row">
@@ -14,6 +16,11 @@
         {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true)
+
+            if (!string.IsNullOrEmpty(returnUrl))
+            {
+                @Html.Hidden("returnUrl", returnUrl)
+            }
 
             <h1>Login</h1>
                 <div class="form-group">
