@@ -45,7 +45,8 @@ namespace EduTestService.Core
             };
         }
 
-        public static CoursesCollection MapCollection(IEnumerable<CourseModel> courses, int total, int skip, int limit)
+        public static CoursesCollection MapCollection(IEnumerable<CourseModel> courses,
+            int total, int skip, int limit)
         {
             return new CoursesCollection()
             {

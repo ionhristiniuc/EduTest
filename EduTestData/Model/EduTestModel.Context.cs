@@ -40,5 +40,8 @@ namespace EduTestData.Model
         public virtual DbSet<Variant> Variants { get; set; }
         public virtual DbSet<VariantAnswer> VariantAnswers { get; set; }
         public virtual DbSet<VariantQuestion> VariantQuestions { get; set; }
+        public virtual DbSet<PersonalDetail> PersonalDetails1 { get; set; }
+        public virtual DbSet<Student> Students { get; set; }
+        public virtual DbSet<Teacher> Teachers1 { get; set; }
     }
 }

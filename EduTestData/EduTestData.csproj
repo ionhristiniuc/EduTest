@@ -85,10 +85,19 @@
     <Compile Include="Model\Module.cs">
       <DependentUpon>EduTestModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\PersonalDetail.cs">
+      <DependentUpon>EduTestModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\QuestionBase.cs">
       <DependentUpon>EduTestModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Role.cs">
+      <DependentUpon>EduTestModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Student.cs">
+      <DependentUpon>EduTestModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Teacher.cs">
       <DependentUpon>EduTestModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Test.cs">

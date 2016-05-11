@@ -1,4 +1,6 @@
+using AutoMapper;
 using EduTestService.Repositories;
+using Ninject.Planning.Bindings;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(EduTestService.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(EduTestService.App_Start.NinjectWebCommon), "Stop")]
@@ -63,6 +65,7 @@ namespace EduTestService.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            //kernel.AddBinding(new Binding(Mapper.Instance.GetType()));            
             kernel.Bind<IUserRepository>().To<UserRepository>();
             kernel.Bind<ICoursesRepository>().To<CoursesRepository>();
             kernel.Bind<IModulesRepository>().To<ModulesRepository>();

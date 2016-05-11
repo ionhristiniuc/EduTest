@@ -24,7 +24,7 @@ namespace EduTestService
     {        
         public void Configuration(IAppBuilder app)
         {
-            var config = new HttpConfiguration();   
+            var config = new HttpConfiguration();
             // other configurations
 
             InitializeAutoMapper();
@@ -53,7 +53,7 @@ namespace EduTestService
 
         public void ConfigureOAuth(IAppBuilder app)
         {
-            IUserRepository userRepo = new UserRepository(Mapper.Instance);
+            IUserRepository userRepo = new UserRepository();
 
             var oAuthServerOptions = new OAuthAuthorizationServerOptions()
             {
@@ -99,7 +99,7 @@ namespace EduTestService
 
                     var identity = new ClaimsIdentity(context.Options.AuthenticationType);
                     identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
-                    identity.AddClaim(new Claim(ClaimTypes.Email, user.Email));                    
+                    identity.AddClaim(new Claim(ClaimTypes.Email, user.PersonalDetail.Email));                    
                     //identity.AddClaim(new Claim(ClaimTypes.UserData, user));                    
 
                     foreach (var role in user.Roles)                    

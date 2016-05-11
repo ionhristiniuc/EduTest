@@ -12,11 +12,11 @@ namespace EduTestService.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private IMapper _mapper;
+        private readonly IMapper _mapper;     
 
-        public UserRepository(IMapper mapper)
+        public UserRepository()
         {
-            _mapper = mapper;
+            _mapper = Mapper.Instance;
         }
 
         public async Task<UserModel> GetUser(string username, string password)
@@ -30,13 +30,13 @@ namespace EduTestService.Repositories
                 if (user == null)
                     return null;
 
-                // Should test
+                //Should test
                 //var userModel = new UserModel()
                 //{
                 //    Id = user.Id,
                 //    FirstName = user.FirstName,
                 //    LastName = user.LastName,
-                //    Email = user.Email,                    
+                //    Email = user.Email,
                 //    Roles = user.Roles.Select(r => r.Name).ToArray()
                 //};
                 var userModel = _mapper.Map<UserModel>(user);
@@ -60,7 +60,7 @@ namespace EduTestService.Repositories
                 //    Id = user.Id,
                 //    FirstName = user.FirstName,
                 //    LastName = user.LastName,
-                //    Email = user.Email,                    
+                //    Email = user.Email,
                 //    Roles = user.Roles.Select(r => r.Name).ToArray()
                 //};
                 var userModel = _mapper.Map<UserModel>(user);
@@ -72,15 +72,17 @@ namespace EduTestService.Repositories
         {
             using (var dbContext = new EduTestEntities())
             {
-                var user = new User()
-                {
-                    FirstName = userModel.FirstName,
-                    LastName = userModel.LastName,
-                    Email = userModel.Email,
-                    //Password = userModel.Password,            // Need to decide
-                    Roles = ObjectMapper.MapRoles(userModel.Roles).ToList()
-                };
+                //var user = new User()
+                //{
+                //    //FirstName = userModel.FirstName,
+                //    //LastName = userModel.LastName,
+                //    //Email = userModel.Email,          // personal details
+                //    //Password = userModel.Password,            // Need to decide
+                //    Roles = ObjectMapper.MapRoles(userModel.Roles).ToList()
+                //};
 
+                var user = _mapper.Map<User>(userModel);
+                user.Password = "default";      // TODO should decide how to add pass
                 dbContext.Users.Add(user);
 
                 if (await dbContext.SaveChangesAsync() < 0)
@@ -99,13 +101,13 @@ namespace EduTestService.Repositories
                 if (user == null)
                     throw new Exception("UserRepository.UpdateUser: User not found");
 
-                user.FirstName = userModel.FirstName;
-                user.LastName = userModel.LastName;
-                user.Email = userModel.Email;
+                //user.FirstName = userModel.FirstName;
+                //user.LastName = userModel.LastName;
+                //user.Email = userModel.Email;         // personal det
                 user.Roles = ObjectMapper.MapRoles(userModel.Roles).ToList();                
 
                 if (await dbContext.SaveChangesAsync() == 0)
-                    throw new Exception("UserRepository.AddUser: Could not add user to db");
+                    throw new Exception("UserRepository.UpdateUser: Could not add user to db");
             }
         }
 
@@ -132,7 +134,9 @@ namespace EduTestService.Repositories
         {
             using (var dbContext = new EduTestEntities())
             {
-                return await dbContext.Users.AnyAsync(u => u.Email == email);
+                return await dbContext.Users
+                    .Include(u => u.PersonalDetail)
+                    .AnyAsync(u => u.PersonalDetail != null && u.PersonalDetail.Email == email);
             }
         }
 

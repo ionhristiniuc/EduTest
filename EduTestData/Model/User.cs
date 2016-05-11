@@ -25,9 +25,6 @@ namespace EduTestData.Model
         }
     
         public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
         public string Password { get; set; }
         public string Username { get; set; }
     
@@ -41,5 +38,8 @@ namespace EduTestData.Model
         public virtual ICollection<Course> Courses { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Role> Roles { get; set; }
+        public virtual Student Student { get; set; }
+        public virtual Teacher Teacher { get; set; }
+        public virtual PersonalDetail PersonalDetail { get; set; }
     }
 }

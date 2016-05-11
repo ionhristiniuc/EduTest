@@ -39,6 +39,14 @@
         <AssociationConnector Association="EduTestModel.questionbase_has_test" ManuallyRouted="false" />
         <AssociationConnector Association="EduTestModel.user_has_course" ManuallyRouted="false" />
         <AssociationConnector Association="EduTestModel.user_has_role" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="EduTestModel.PersonalDetail" Width="1.5" PointX="6.125" PointY="3" />
+        <EntityTypeShape EntityType="EduTestModel.Student" Width="1.5" PointX="6.125" PointY="16.25" />
+        <EntityTypeShape EntityType="EduTestModel.Teacher" Width="1.5" PointX="6.125" PointY="5.875" />
+        <AssociationConnector Association="EduTestModel.FK_PersDet_User" />
+        <AssociationConnector Association="EduTestModel.FK_Stud_User" />
+        <AssociationConnector Association="EduTestModel.FK_Teacher_User" />
+        <AssociationConnector Association="EduTestModel.FK_PersDet_User1" />
+        <AssociationConnector Association="EduTestModel.FK_PersDet_User2" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -38,7 +38,7 @@ namespace EduTestService.Controllers
         [Route("")]
         public async Task<IHttpActionResult> GetCourses(int skip = 0, int limit = 10)
         {
-            Log.DebugFormat("Simple log message {0}", 1);
+            Log.DebugFormat("GetCourses called");
 
             try
             {
@@ -58,7 +58,7 @@ namespace EduTestService.Controllers
             }
             catch (Exception e)
             {
-                Trace.WriteLine(e);
+                Log.Error(e.ToString());
                 return InternalServerError();
             }            
         }

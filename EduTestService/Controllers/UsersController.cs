@@ -5,11 +5,13 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Web.Http;
 using EduTestContract.Models;
 using EduTestService.Repositories;
 using EduTestService.Security;
+using log4net;
 
 namespace EduTestService.Controllers
 {
@@ -18,6 +20,8 @@ namespace EduTestService.Controllers
     public class UsersController : ApiController
     {
         private IUserRepository UserRepository { get; set; }
+        private static readonly ILog Log =
+            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         public UsersController(IUserRepository userRepository)
         {
@@ -31,19 +35,31 @@ namespace EduTestService.Controllers
             throw new NotImplementedException();
         }
 
-        [Route("x")]
+        [Route("current")]
         [Authorize(Roles = "Teacher,Admin,Student")]
         public async Task<IHttpActionResult> GetUser()
         {
+            Log.DebugFormat("Get current user called");
+
             try
             {
                 var currentUserId = SecurityHelper.GetUserId(User.Identity);
                 var user = await UserRepository.GetUser(currentUserId.Value);
+                //var user = new UserModel()
+                //{
+                //    Username = "ionh",
+                //    Email = "ionhristiniuc@yahoo.com",
+                //    Id = 1,
+                //    Roles = new string[] {"Admin"},
+                //    FirstName = "Ion",
+                //    LastName = "Hristiniuc"
+                //};
                 return Ok(user);
             }
             catch (Exception e)
             {
                 Trace.WriteLine(e.ToString());
+                Log.Error("An exception occurred", e);
                 return InternalServerError();
             }            
         }
@@ -88,7 +104,7 @@ namespace EduTestService.Controllers
                 if (!ModelState.IsValid)
                     return BadRequest();
 
-                if (await UserRepository.ExistsUser(user.Email))
+                if (await UserRepository.ExistsUser(user.PersonalDetail.Email))
                 {
                     ModelState.AddModelError("Email", "A user with such an email already exists");
                     return BadRequest(ModelState);
@@ -97,9 +113,9 @@ namespace EduTestService.Controllers
                 var id = await UserRepository.AddUser(user);
                 return CreatedAtRoute("GetUser", new { id = id }, user);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return InternalServerError();
+                return InternalServerError(e);
             }
         }
 

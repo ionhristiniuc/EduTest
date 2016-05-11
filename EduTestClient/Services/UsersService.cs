@@ -25,7 +25,7 @@ namespace EduTestClient.Services
 
         public async Task<UserModel> GetUser()
         {
-            return await HttpHelper.GetEntity<UserModel>(ConfigManager.ServiceUrl + ServicePath + "/x");    
+            return await HttpHelper.GetEntity<UserModel>(ConfigManager.ServiceUrl + ServicePath + "/current");    
         }
 
         public async Task<UserModel> GetUser(int id)

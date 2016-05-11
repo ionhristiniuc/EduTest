@@ -36,6 +36,15 @@
           <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="CourseId" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="personaldetails">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="45" />
+          <Property Name="LastName" Type="varchar" MaxLength="45" />
+          <Property Name="Email" Type="varchar" MaxLength="45" />
+        </EntityType>
         <EntityType Name="questionbase">
           <Key>
             <PropertyRef Name="Id" />
@@ -58,10 +67,21 @@
         </EntityType>
         <EntityType Name="role">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="Name" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="student">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="teacher">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="test">
           <Key>
@@ -114,10 +134,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Username" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Email" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="Password" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="30" Nullable="false" />
         </EntityType>
         <EntityType Name="user_has_course">
           <Key>
@@ -130,10 +147,10 @@
         <EntityType Name="user_has_role">
           <Key>
             <PropertyRef Name="UserId" />
-            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="Role" />
           </Key>
           <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="Role" Type="varchar" MaxLength="45" Nullable="false" />
         </EntityType>
         <EntityType Name="variant">
           <Key>
@@ -206,6 +223,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PersDet_User">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="personaldetails" Type="Self.personaldetails" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="personaldetails">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_QuestionBase_has_Test_QuestionBase1">
           <End Role="questionbase" Type="Self.questionbase" Multiplicity="1" />
           <End Role="questionbase_has_test" Type="Self.questionbase_has_test" Multiplicity="*" />
@@ -250,6 +279,30 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="questionbase">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_User">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="student" Type="Self.student" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="student">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Teacher_User">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="teacher" Type="Self.teacher" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="teacher">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -350,15 +403,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_User_has_Role_Role1">
+        <Association Name="fk_User_has_Role_Role">
           <End Role="role" Type="Self.role" Multiplicity="1" />
           <End Role="user_has_role" Type="Self.user_has_role" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="role">
-              <PropertyRef Name="Id" />
+              <PropertyRef Name="Name" />
             </Principal>
             <Dependent Role="user_has_role">
-              <PropertyRef Name="RoleId" />
+              <PropertyRef Name="Role" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -427,9 +480,12 @@
           <EntitySet Name="chapter" EntityType="Self.chapter" Schema="edu_test" store:Type="Tables" />
           <EntitySet Name="course" EntityType="Self.course" Schema="edu_test" store:Type="Tables" />
           <EntitySet Name="module" EntityType="Self.module" Schema="edu_test" store:Type="Tables" />
+          <EntitySet Name="personaldetails" EntityType="Self.personaldetails" Schema="edu_test" store:Type="Tables" />
           <EntitySet Name="questionbase" EntityType="Self.questionbase" Schema="edu_test" store:Type="Tables" />
           <EntitySet Name="questionbase_has_test" EntityType="Self.questionbase_has_test" Schema="edu_test" store:Type="Tables" />
           <EntitySet Name="role" EntityType="Self.role" Schema="edu_test" store:Type="Tables" />
+          <EntitySet Name="student" EntityType="Self.student" Schema="edu_test" store:Type="Tables" />
+          <EntitySet Name="teacher" EntityType="Self.teacher" Schema="edu_test" store:Type="Tables" />
           <EntitySet Name="test" EntityType="Self.test" Schema="edu_test" store:Type="Tables" />
           <EntitySet Name="testinstance" EntityType="Self.testinstance" Schema="edu_test" store:Type="Tables" />
           <EntitySet Name="textareaanswer" EntityType="Self.textareaanswer" Schema="edu_test" store:Type="Tables" />
@@ -457,6 +513,10 @@
             <End Role="course" EntitySet="course" />
             <End Role="module" EntitySet="module" />
           </AssociationSet>
+          <AssociationSet Name="FK_PersDet_User" Association="Self.FK_PersDet_User">
+            <End Role="user" EntitySet="user" />
+            <End Role="personaldetails" EntitySet="personaldetails" />
+          </AssociationSet>
           <AssociationSet Name="fk_QuestionBase_has_Test_QuestionBase1" Association="Self.fk_QuestionBase_has_Test_QuestionBase1">
             <End Role="questionbase" EntitySet="questionbase" />
             <End Role="questionbase_has_test" EntitySet="questionbase_has_test" />
@@ -472,6 +532,14 @@
           <AssociationSet Name="fk_QuestionBase_User1" Association="Self.fk_QuestionBase_User1">
             <End Role="user" EntitySet="user" />
             <End Role="questionbase" EntitySet="questionbase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_User" Association="Self.FK_Student_User">
+            <End Role="user" EntitySet="user" />
+            <End Role="student" EntitySet="student" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Teacher_User" Association="Self.FK_Teacher_User">
+            <End Role="user" EntitySet="user" />
+            <End Role="teacher" EntitySet="teacher" />
           </AssociationSet>
           <AssociationSet Name="fk_Test_User1" Association="Self.fk_Test_User1">
             <End Role="user" EntitySet="user" />
@@ -505,7 +573,7 @@
             <End Role="user" EntitySet="user" />
             <End Role="user_has_course" EntitySet="user_has_course" />
           </AssociationSet>
-          <AssociationSet Name="fk_User_has_Role_Role1" Association="Self.fk_User_has_Role_Role1">
+          <AssociationSet Name="fk_User_has_Role_Role" Association="Self.fk_User_has_Role_Role">
             <End Role="role" EntitySet="role" />
             <End Role="user_has_role" EntitySet="user_has_role" />
           </AssociationSet>
@@ -595,9 +663,8 @@
         </EntityType>
         <EntityType Name="Role">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="Name" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Users" Relationship="Self.user_has_role" FromRole="role" ToRole="user" />
         </EntityType>
@@ -661,9 +728,6 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="QuestionBases" Relationship="Self.fk_QuestionBase_User1" FromRole="user" ToRole="questionbase" />
           <NavigationProperty Name="Tests" Relationship="Self.fk_Test_User1" FromRole="user" ToRole="test" />
@@ -671,6 +735,9 @@
           <NavigationProperty Name="Courses" Relationship="Self.user_has_course" FromRole="user" ToRole="course" />
           <NavigationProperty Name="Roles" Relationship="Self.user_has_role" FromRole="user" ToRole="role" />
           <Property Name="Username" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Student" Relationship="EduTestModel.FK_Stud_User" FromRole="User" ToRole="student" />
+          <NavigationProperty Name="Teacher" Relationship="EduTestModel.FK_Teacher_User" FromRole="User" ToRole="teacher" />
+          <NavigationProperty Name="PersonalDetail" Relationship="EduTestModel.FK_PersDet_User2" FromRole="User" ToRole="PersonalDetail" />
         </EntityType>
         <EntityType Name="Variant">
           <Key>
@@ -997,7 +1064,114 @@
             <End Role="role" EntitySet="Roles" />
             <End Role="user" EntitySet="Users" />
           </AssociationSet>
+          <EntitySet Name="PersonalDetails1" EntityType="EduTestModel.PersonalDetail" />
+          <EntitySet Name="Students" EntityType="EduTestModel.Student" />
+          <EntitySet Name="Teachers1" EntityType="EduTestModel.Teacher" />
+          <AssociationSet Name="FK_PersDet_User" Association="EduTestModel.FK_PersDet_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="personaldetail" EntitySet="PersonalDetails1" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stud_User" Association="EduTestModel.FK_Stud_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="student" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Teacher_User" Association="EduTestModel.FK_Teacher_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="teacher" EntitySet="Teachers1" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersDet_User1" Association="EduTestModel.FK_PersDet_User1">
+            <End Role="User" EntitySet="Users" />
+            <End Role="PersonalDetail" EntitySet="PersonalDetails1" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersDet_User2" Association="EduTestModel.FK_PersDet_User2">
+            <End Role="User" EntitySet="Users" />
+            <End Role="PersonalDetail" EntitySet="PersonalDetails1" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="PersonalDetail">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Nullable="false" Type="Int32" />
+          <Property Name="FirstName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="User" Relationship="EduTestModel.FK_PersDet_User2" FromRole="PersonalDetail" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="EduTestModel.FK_Stud_User" FromRole="student" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Teacher">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="EduTestModel.FK_Teacher_User" FromRole="teacher" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_PersDet_User">
+          <End Type="EduTestModel.User" Role="User" Multiplicity="1" />
+          <End Type="EduTestModel.PersonalDetail" Role="personaldetail" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="personaldetail">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stud_User">
+          <End Type="EduTestModel.User" Role="User" Multiplicity="1" />
+          <End Type="EduTestModel.Student" Role="student" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="student">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Teacher_User">
+          <End Type="EduTestModel.User" Role="User" Multiplicity="1" />
+          <End Type="EduTestModel.Teacher" Role="teacher" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="teacher">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersDet_User1">
+          <End Type="EduTestModel.User" Role="User" Multiplicity="1" />
+          <End Type="EduTestModel.PersonalDetail" Role="PersonalDetail" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PersonalDetail">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersDet_User2">
+          <End Type="EduTestModel.User" Role="User" Multiplicity="1" />
+          <End Type="EduTestModel.PersonalDetail" Role="PersonalDetail" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PersonalDetail">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1055,7 +1229,6 @@
           <EntitySetMapping Name="Roles">
             <EntityTypeMapping TypeName="EduTestModel.Role">
               <MappingFragment StoreEntitySet="role">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1115,9 +1288,6 @@
               <MappingFragment StoreEntitySet="user">
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1166,12 +1336,36 @@
           </AssociationSetMapping>
           <AssociationSetMapping Name="user_has_role" TypeName="EduTestModel.user_has_role" StoreEntitySet="user_has_role">
             <EndProperty Name="role">
-              <ScalarProperty Name="Id" ColumnName="RoleId" />
+              <ScalarProperty Name="Name" ColumnName="Role" />
             </EndProperty>
             <EndProperty Name="user">
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="PersonalDetails1">
+            <EntityTypeMapping TypeName="EduTestModel.PersonalDetail">
+              <MappingFragment StoreEntitySet="personaldetails">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="EduTestModel.Student">
+              <MappingFragment StoreEntitySet="student">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teachers1">
+            <EntityTypeMapping TypeName="EduTestModel.Teacher">
+              <MappingFragment StoreEntitySet="teacher">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

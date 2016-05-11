@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Models\Enums\QuestionType.cs" />
     <Compile Include="Models\Items.cs" />
+    <Compile Include="Models\PersonalDetailModel.cs" />
     <Compile Include="Models\QuestionBaseModel.cs" />
     <Compile Include="Models\ChapterModel.cs" />
     <Compile Include="Models\CourseModel.cs" />
@@ -52,6 +53,8 @@
     <Compile Include="Models\Enums\TestType.cs" />
     <Compile Include="Models\ModuleModel.cs" />
     <Compile Include="Models\Pagination.cs" />
+    <Compile Include="Models\StudentModel.cs" />
+    <Compile Include="Models\TeacherModel.cs" />
     <Compile Include="Models\TestModel.cs" />
     <Compile Include="Models\TextAreaQuestionModel.cs" />
     <Compile Include="Models\TopicModel.cs" />
