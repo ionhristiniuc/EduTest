@@ -29,7 +29,7 @@ namespace EduTestService.Controllers
         public async Task<IEnumerable<ModuleModel>> GetModules(int courseId)
         {            
             var userId = SecurityHelper.GetUserId(User.Identity);
-            if (User.IsInRole("Admin") || await UserRepository.UserHasCourse(userId.Value, courseId))
+            if (User.IsInRole("Admin") || await UserRepository.UserHasCourse(userId, courseId))
                 return ModulesRepository.GetModules(courseId);                
            
             throw new HttpResponseException(HttpStatusCode.Unauthorized);
@@ -42,7 +42,7 @@ namespace EduTestService.Controllers
             {
                 var userId = SecurityHelper.GetUserId(User.Identity);
                 var courseId = ModulesRepository.GetCourseId(moduleId);
-                if (User.IsInRole("Admin") || await UserRepository.UserHasCourse(userId.Value, courseId))
+                if (User.IsInRole("Admin") || await UserRepository.UserHasCourse(userId, courseId))
                 {
                     var module = ModulesRepository.GetModule(moduleId);
                     if (module == null)
@@ -85,7 +85,7 @@ namespace EduTestService.Controllers
             {
                 var userId = SecurityHelper.GetUserId(User.Identity);
                 var courseId = ModulesRepository.GetCourseId(id);
-                if (User.IsInRole("Admin") || await UserRepository.UserHasCourse(userId.Value, courseId))
+                if (User.IsInRole("Admin") || await UserRepository.UserHasCourse(userId, courseId))
                 {
                     if (!await ModulesRepository.ExistsModule(id))
                         return NotFound();

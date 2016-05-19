@@ -9,6 +9,10 @@ namespace EduTestService.Repositories
 {
     public interface IStudentsRepository
     {        
-        IEnumerable<StudentModel> GetStudents(int page, int perPage);
+        Task<IEnumerable<StudentModel>> GetStudents(int page, int perPage);
+        Task<IEnumerable<StudentModel>> GetStudents4Teacher(int teacherId, int page, int perPage);
+        Task<int> GetTotalCount();
+        Task<StudentModel> GetStudent(int id);
+        Task<int> GetTotalCount4Teacher(int teacherId);
     }
 }

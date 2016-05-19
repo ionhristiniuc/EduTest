@@ -6,8 +6,8 @@ namespace EduTestService.Repositories
 {
     public interface ICoursesRepository
     {
-        IEnumerable<CourseModel> GetCourses(int userId, int skip, int limit);
-        Task<IEnumerable<CourseModel>> GetCourses(int skip, int limit);
+        Task<IEnumerable<CourseModel>> GetCourses(int userId, int page, int perPage);
+        Task<IEnumerable<CourseModel>> GetCourses(int page, int perPage);
         Task<CourseModel> GetCourse(int id);
         Task<int> AddCourse(CourseModel course);
         Task<int> AddDeepCourse(CourseModel course);

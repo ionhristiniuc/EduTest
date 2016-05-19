@@ -1,0 +1,27 @@
+﻿@model EduTestContract.Models.Items<EduTestContract.Models.CourseModel>
+
+@{
+    ViewBag.Title = "Courses";    
+}
+
+<h2>Courses</h2>
+
+@foreach (var course in Model.Data)
+{
+    <ul>
+        <li>@course.Id</li>
+        <li>@course.Name</li>
+        <li>Modules
+        @if (course.Modules != null && course.Modules.Any())
+        {
+            <ul>
+                @foreach (var module in course.Modules)
+                {
+                    <li>@module.Id</li>
+                    <li>@module.Name</li>
+                }
+            </ul>
+        }            
+        </li>        
+    </ul>
+}

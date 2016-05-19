@@ -20,7 +20,7 @@ using log4net;
 
 namespace EduTestService.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [RoutePrefix("courses")]    
     public class CoursesController : ApiController
     {
@@ -36,24 +36,28 @@ namespace EduTestService.Controllers
         }
 
         [Route("")]
-        public async Task<IHttpActionResult> GetCourses(int skip = 0, int limit = 10)
+        public async Task<IHttpActionResult> GetCourses(int page = 0, int perPage = 10)
         {
             Log.DebugFormat("GetCourses called");
 
             try
             {
                 var currentUserId = SecurityHelper.GetUserId(User.Identity);
-                if (User.IsInRole("Admin"))
+                if (true || User.IsInRole("Admin"))
                 {                    
-                    var courses = await CoursesRepository.GetCourses(skip, limit);
+                    var courses = await CoursesRepository.GetCourses(page, perPage);
                     var total = await CoursesRepository.GetNumberOfCourses();
-                    return Ok(ObjectMapper.MapCollection(courses, total, skip, limit));
+                    var result = ObjectMapper.ToItems(courses, page,
+                        total % perPage == 0 ? total / perPage : total / perPage + 1, total);
+                    return Ok(result);
                 }
                 else
                 {
-                    var courses = CoursesRepository.GetCourses(currentUserId.Value, skip, limit);
-                    var total = await CoursesRepository.GetNumberOfCourses(currentUserId.Value);
-                    return Ok(ObjectMapper.MapCollection(courses, total, skip, limit));
+                    var courses = await CoursesRepository.GetCourses(currentUserId, page, perPage);
+                    var total = await CoursesRepository.GetNumberOfCourses(currentUserId);
+                    var result = ObjectMapper.ToItems(courses, page,
+                        total % perPage == 0 ? total / perPage : total / perPage + 1, total);
+                    return Ok(result);
                 }
             }
             catch (Exception e)
@@ -69,9 +73,13 @@ namespace EduTestService.Controllers
             try
             {
                 var userId = SecurityHelper.GetUserId(User.Identity);
-                if (User.IsInRole("Admin") || await UserRepository.UserHasCourse(userId.Value, id))
+                if (true || User.IsInRole("Admin") || await UserRepository.UserHasCourse(userId, id))
                 {
                     var content = await CoursesRepository.GetCourse(id);
+
+                    if (content == null)
+                        return NotFound();
+
                     return Ok(content);
                 }
                 else
@@ -127,7 +135,7 @@ namespace EduTestService.Controllers
             try
             {
                 var userId = SecurityHelper.GetUserId(User.Identity);
-                if (User.IsInRole("Admin") || await UserRepository.UserHasCourse(userId.Value, id))
+                if (User.IsInRole("Admin") || await UserRepository.UserHasCourse(userId, id))
                 {
                     if (!await CoursesRepository.ExistsCourse(id))
                         return NotFound();

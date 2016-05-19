@@ -1,0 +1,15 @@
+﻿@model EduTestContract.Models.Items<EduTestContract.Models.StudentModel>
+
+@{
+    ViewBag.Title = "Students";    
+}
+
+<ul>
+    @foreach (var student in Model.Data)
+    {
+        <li>@student.User.Id</li>
+        <li>@student.User.PersonalDetail.Email</li>
+        <li>@student.User.PersonalDetail.FirstName</li>
+        <li>@student.User.PersonalDetail.LastName</li>
+    }
+</ul>

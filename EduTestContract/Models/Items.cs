@@ -8,7 +8,7 @@ namespace EduTestContract.Models
 {
     public class Items<T>
     {
-        public IList<T> Data { get; set; }
+        public IEnumerable<T> Data { get; set; }
         public int Page { get; set; }
         public int TotalPages { get; set; }
         public int TotalElements { get; set; }

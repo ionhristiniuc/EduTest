@@ -44,7 +44,7 @@ namespace EduTestService.Controllers
             try
             {
                 var currentUserId = SecurityHelper.GetUserId(User.Identity);
-                var user = await UserRepository.GetUser(currentUserId.Value);
+                var user = await UserRepository.GetUser(currentUserId);
                 //var user = new UserModel()
                 //{
                 //    Username = "ionh",
@@ -81,7 +81,7 @@ namespace EduTestService.Controllers
 
                 if (User.IsInRole("Teacher"))
                 {
-                    if (user.Roles.Contains("Student") && await UserRepository.HaveSameCourse(currentUserId.Value, id))
+                    if (user.Roles.Contains("Student") && await UserRepository.HaveSameCourse(currentUserId, id))
                         return Ok(user);
                 }
 

@@ -4,7 +4,7 @@ using EduTestContract.Models;
 
 namespace TeacherWebApp.Core.Authentication
 {
-    public static class SecurityHelper
+    public static class AuthHelper
     {
         public static AuthenticationResponse GetTokens(IPrincipal user)
         {

@@ -1,4 +1,5 @@
 using System;
+using System.Web;
 using EduTestClient.Services;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
@@ -35,10 +36,10 @@ namespace TeacherWebApp.App_Start
         {
             // NOTE: To load from web.config uncomment the line below. Make sure to add a Microsoft.Practices.Unity.Configuration to the using statements.
             // container.LoadConfiguration();
-
-            // TODO: Register your types here
-            // container.RegisterType<IProductRepository, ProductRepository>();
+            
             container.RegisterType<IAccountService, AccountService>();
+            container.RegisterType<IStudentsService, StudentsService>();
+            container.RegisterType<ICoursesService, CoursesService>();
         }
     }
 }

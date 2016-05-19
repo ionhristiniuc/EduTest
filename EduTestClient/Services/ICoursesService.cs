@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using EduTestClient.Services.Abstract;
+using EduTestClient.Services.Base;
 using EduTestContract.Models;
 
 namespace EduTestClient.Services

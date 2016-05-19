@@ -9,8 +9,8 @@ using EduTestClient.Services;
 using EduTestClient.Services.Entities;
 using EduTestClient.Services.Utils;
 using EduTestContract.Models;
-using TeacherApp.ViewModels;
 using TeacherWebApp.Core.Authentication;
+using TeacherWebApp.ViewModels;
 
 namespace TeacherWebApp.Controllers
 {
@@ -46,18 +46,18 @@ namespace TeacherWebApp.Controllers
                         var userData = new UserData() {AuthTicket = resp};
                         Response.SetAuthCookie(model.Login, false, userData);                                
                         
-                        var usersService = new UsersService(resp.access_token, new JsonSerializer());
-                        await usersService.AddUser(new UserModel()
-                        {
-                            Username = "user123",
-                            Roles = new []{"Student"},
-                            PersonalDetail = new PersonalDetailModel()
-                            {
-                                Email = "stud1",
-                                FirstName = "StudentFN",
-                                LastName = "StudentLN"
-                            }
-                        });                                                                                                      
+                        //var usersService = new UsersService(resp.access_token, new JsonSerializer());
+                        //await usersService.AddUser(new UserModel()
+                        //{
+                        //    Username = "user123",
+                        //    Roles = new []{"Student"},
+                        //    PersonalDetail = new PersonalDetailModel()
+                        //    {
+                        //        Email = "stud1",
+                        //        FirstName = "StudentFN",
+                        //        LastName = "StudentLN"
+                        //    }
+                        //});                                                                                                      
 
                         return RedirectToLocal(returnUrl);
                     }

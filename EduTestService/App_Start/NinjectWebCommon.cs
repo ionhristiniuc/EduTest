@@ -67,10 +67,11 @@ namespace EduTestService.App_Start
         {
             //kernel.AddBinding(new Binding(Mapper.Instance.GetType()));            
             kernel.Bind<IUserRepository>().To<UserRepository>();
+            kernel.Bind<IStudentsRepository>().To<StudentsRepository>();
             kernel.Bind<ICoursesRepository>().To<CoursesRepository>();
             kernel.Bind<IModulesRepository>().To<ModulesRepository>();
             kernel.Bind<IChaptersRepository>().To<ChaptersRepository>();
-            kernel.Bind<ITopicsRepository>().To<TopicsRepository>();
+            kernel.Bind<ITopicsRepository>().To<TopicsRepository>();            
         }        
     }
 }

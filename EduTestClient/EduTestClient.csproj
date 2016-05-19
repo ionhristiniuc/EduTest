@@ -42,6 +42,7 @@
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -63,10 +64,12 @@
     <Compile Include="Services\ICoursesService.cs" />
     <Compile Include="Services\IModulesService.cs" />
     <Compile Include="Services\IQuestionsService.cs" />
+    <Compile Include="Services\IStudentsService.cs" />
     <Compile Include="Services\ITopicsService.cs" />
     <Compile Include="Services\IUsersService.cs" />
     <Compile Include="Services\ModulesService.cs" />
     <Compile Include="Services\QuestionsService.cs" />
+    <Compile Include="Services\StudentsService.cs" />
     <Compile Include="Services\TopicsService.cs" />
     <Compile Include="Services\UsersService.cs" />
     <Compile Include="Services\Utils\HttpHelper.cs" />

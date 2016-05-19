@@ -32,7 +32,7 @@ namespace EduTestService.Controllers
         {
             var userId = SecurityHelper.GetUserId(User.Identity);
             var courseId = ModulesRepository.GetCourseId(moduleId);
-            if (User.IsInRole("Admin") || await UserRepository.UserHasCourse(userId.Value, courseId))
+            if (User.IsInRole("Admin") || await UserRepository.UserHasCourse(userId, courseId))
                 return ChaptersRepository.GetChapters(courseId);
 
             throw new HttpResponseException(HttpStatusCode.Unauthorized);
@@ -45,7 +45,7 @@ namespace EduTestService.Controllers
             {
                 var userId = SecurityHelper.GetUserId(User.Identity);
                 var courseId = ChaptersRepository.GetCourseId(chapterId);
-                if (User.IsInRole("Admin") || await UserRepository.UserHasCourse(userId.Value, courseId))
+                if (User.IsInRole("Admin") || await UserRepository.UserHasCourse(userId, courseId))
                 {
                     var chapter = ChaptersRepository.GetChapter(chapterId);
                     if (chapter == null)
@@ -73,7 +73,7 @@ namespace EduTestService.Controllers
 
                 var userId = SecurityHelper.GetUserId(User.Identity);
                 var courseId = ModulesRepository.GetCourseId(moduleId);
-                if (User.IsInRole("Admin") || await UserRepository.UserHasCourse(userId.Value, courseId))
+                if (User.IsInRole("Admin") || await UserRepository.UserHasCourse(userId, courseId))
                 {
                     var id = await ChaptersRepository.AddChapter(moduleId, chapter);
                     return CreatedAtRoute("GetChapter", new {chapterId = id}, chapter);
@@ -95,7 +95,7 @@ namespace EduTestService.Controllers
             {
                 var userId = SecurityHelper.GetUserId(User.Identity);
                 var courseId = ChaptersRepository.GetCourseId(id);
-                if (User.IsInRole("Admin") || await UserRepository.UserHasCourse(userId.Value, courseId))
+                if (User.IsInRole("Admin") || await UserRepository.UserHasCourse(userId, courseId))
                 {
                     if (!await ChaptersRepository.ExistsChapter(id))
                         return NotFound();

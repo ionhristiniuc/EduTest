@@ -28,6 +28,8 @@ namespace EduTestService.Core.ObjectMapping.Profilers
             CreateMap<PersonalDetailModel, PersonalDetail>()
                 .ForMember(u => u.User, c => c.Ignore());
 
+            CreateMap<Student, StudentModel>();
+
             CreateMap<Role, string>().ConvertUsing(role => role.Name);
             CreateMap<string, Role>().ConvertUsing((string role) => new Role() {Name = role});                 
         }

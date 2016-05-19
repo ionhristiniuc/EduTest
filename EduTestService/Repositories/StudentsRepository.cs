@@ -6,23 +6,72 @@ using EduTestContract.Models;
 using EduTestData.Model;
 using System.Data.Entity;
 using System.Data.Entity.Core;
+using System.Threading.Tasks;
 
 namespace EduTestService.Repositories
 {
     public class StudentsRepository : BaseRepository, IStudentsRepository
-    {        
-        public IEnumerable<StudentModel> GetStudents(int page, int perPage)
+    {
+        public async Task<IEnumerable<StudentModel>> GetStudents(int page, int perPage)
         {
             using (var dbModel = new EduTestEntities())
             {
-                var students = dbModel.Students
+                var students = await dbModel.Students
                     .Include(s => s.User)
                     .Include(s => s.User.PersonalDetail)
+                    .OrderBy(s => s.UserId)
                     .Skip(page * perPage)
                     .Take(perPage)
-                    .ToList();
+                    .ToListAsync();
 
                 return base.Mapper.Map<IEnumerable<StudentModel>>(students);
+            }
+        }
+
+        public async Task<IEnumerable<StudentModel>> GetStudents4Teacher(int teacherId, int page, int perPage)
+        {
+            using (var dbModel = new EduTestEntities())
+            {
+                var students = await dbModel.Students
+                    .Include(s => s.User)
+                    .Include(s => s.User.PersonalDetail)
+                    .Where(s => s.User.Courses.Any(c => c.Users.Any(u => u.Id == teacherId)))
+                    .OrderBy(s => s.UserId)
+                    .Skip(page * perPage)
+                    .Take(perPage)
+                    .ToListAsync();
+
+                return base.Mapper.Map<IEnumerable<StudentModel>>(students);
+            }
+        }
+
+        public Task<int> GetTotalCount()
+        {
+            using (var dbModel = new EduTestEntities())
+            {
+                return dbModel.Students.CountAsync();
+            }
+        }
+
+        public async Task<StudentModel> GetStudent(int id)
+        {
+            using (var dbModel = new EduTestEntities())
+            {
+                var st = await dbModel.Students
+                    .Include(s => s.User)
+                    .FirstOrDefaultAsync(s => s.UserId == id);
+
+                return Mapper.Map<StudentModel>(st);
+            }
+        }
+
+        public Task<int> GetTotalCount4Teacher(int teacherId)
+        {
+            using (var dbModel = new EduTestEntities())
+            {
+                return dbModel.Students
+                    .CountAsync(s => s.User.Courses.Any(
+                        c => c.Users.Any(u => u.Id == teacherId)));
             }
         }
     }

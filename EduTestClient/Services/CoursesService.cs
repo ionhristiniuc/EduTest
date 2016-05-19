@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using EduTestClient.Services.Abstract;
 using EduTestClient.Services.Base;
 using EduTestClient.Services.Utils;
 using EduTestContract.Models;
@@ -13,10 +12,8 @@ namespace EduTestClient.Services
 {
     public class CoursesService : GenericService<CourseModel>, ICoursesService
     {        
-        private const string ServicePath = "/courses";        
-
-        public CoursesService(string accessToken)
-            : base(accessToken, ServicePath)
+        public CoursesService()
+            : base(null, "/courses")
         {
             
         }

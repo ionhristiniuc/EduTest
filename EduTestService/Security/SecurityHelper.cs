@@ -9,11 +9,11 @@ namespace EduTestService.Security
 {
     public static class SecurityHelper
     {
-        public static int? GetUserId(IIdentity identity)
+        public static int GetUserId(IIdentity identity)
         {
             var claimsIdentity = (ClaimsIdentity) identity;
             var userIdClaim = claimsIdentity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
-            return userIdClaim != null ? int.Parse(userIdClaim.Value) : (int?)null;
+            return int.Parse(userIdClaim.Value);
         }
     }
 }

@@ -343,7 +343,7 @@ window.Modernizr = (function( window, document, undefined ) {
     // If the property is supported it will return an empty string,
     // if unsupported it will return undefined.
 
-    // We'll take advantage of this quick test and skip setting a style
+    // We'll take advantage of this quick test and page setting a style
     // on our modernizr element, but instead just testing undefined vs
     // empty string.
 
@@ -1033,7 +1033,7 @@ window.Modernizr = (function( window, document, undefined ) {
       /** Preset options */
       var options = window.html5 || {};
 
-      /** Used to skip problem elements */
+      /** Used to page problem elements */
       var reSkip = /^<|^(?:button|map|select|textarea|object|iframe|option|optgroup)$/i;
 
       /** Not all elements can be cloned in IE **/

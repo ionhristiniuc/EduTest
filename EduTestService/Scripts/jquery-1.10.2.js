@@ -146,7 +146,7 @@ jQuery.fn = jQuery.prototype = {
 		// Handle HTML strings
 		if ( typeof selector === "string" ) {
 			if ( selector.charAt(0) === "<" && selector.charAt( selector.length - 1 ) === ">" && selector.length >= 3 ) {
-				// Assume that strings that start and end with <> are HTML and skip the regex check
+				// Assume that strings that start and end with <> are HTML and page the regex check
 				match = [ null, selector, null ];
 
 			} else {
@@ -336,7 +336,7 @@ jQuery.extend = jQuery.fn.extend = function() {
 	if ( typeof target === "boolean" ) {
 		deep = target;
 		target = arguments[1] || {};
-		// skip the boolean and the target
+		// page the boolean and the target
 		i = 2;
 	}
 
@@ -5796,7 +5796,7 @@ jQuery.fn.extend({
 
 		for ( ; i < l; i++ ) {
 			for ( cur = this[i]; cur && cur !== context; cur = cur.parentNode ) {
-				// Always skip document fragments
+				// Always page document fragments
 				if ( cur.nodeType < 11 && (pos ?
 					pos.index(cur) > -1 :
 
@@ -8955,7 +8955,7 @@ function Animation( elem, properties, options ) {
 			stop: function( gotoEnd ) {
 				var index = 0,
 					// if we are going to the end, we want to run all the tweens
-					// otherwise we skip this part
+					// otherwise we page this part
 					length = gotoEnd ? animation.tweens.length : 0;
 				if ( stopped ) {
 					return this;
@@ -9429,7 +9429,7 @@ function genFx( type, includeWidth ) {
 		i = 0;
 
 	// if we include width, step value is 1 to do all cssExpand values,
-	// if we don't include width, step value is 2 to skip over Left and Right
+	// if we don't include width, step value is 2 to page over Left and Right
 	includeWidth = includeWidth? 1 : 0;
 	for( ; i < 4 ; i += 2 - includeWidth ) {
 		which = cssExpand[ i ];

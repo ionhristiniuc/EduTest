@@ -31,7 +31,7 @@ namespace EduTestService.Controllers
         {
             var userId = SecurityHelper.GetUserId(User.Identity);
             var courseId = ChaptersRepository.GetCourseId(chapterId);
-            if (User.IsInRole("Admin") || await UserRepository.UserHasCourse(userId.Value, courseId))
+            if (User.IsInRole("Admin") || await UserRepository.UserHasCourse(userId, courseId))
                 return TopicsRepository.GetTopics(chapterId);
 
             throw new HttpResponseException(HttpStatusCode.Unauthorized);
@@ -44,7 +44,7 @@ namespace EduTestService.Controllers
             {
                 var userId = SecurityHelper.GetUserId(User.Identity);
                 var courseId = TopicsRepository.GetCourseId(topicId);
-                if (User.IsInRole("Admin") || await UserRepository.UserHasCourse(userId.Value, courseId))
+                if (User.IsInRole("Admin") || await UserRepository.UserHasCourse(userId, courseId))
                 {
                     var topic = TopicsRepository.GetTopics(topicId);
                     if (topic == null)
@@ -72,7 +72,7 @@ namespace EduTestService.Controllers
 
                 var userId = SecurityHelper.GetUserId(User.Identity);
                 var courseId = ChaptersRepository.GetCourseId(chapterId);
-                if (User.IsInRole("Admin") || await UserRepository.UserHasCourse(userId.Value, courseId))
+                if (User.IsInRole("Admin") || await UserRepository.UserHasCourse(userId, courseId))
                 {
                     var id = await TopicsRepository.AddTopic(chapterId, topic);
                     return CreatedAtRoute("GetTopic", new { topicId = id }, topic);
@@ -94,7 +94,7 @@ namespace EduTestService.Controllers
             {
                 var userId = SecurityHelper.GetUserId(User.Identity);
                 var courseId = TopicsRepository.GetCourseId(id);
-                if (User.IsInRole("Admin") || await UserRepository.UserHasCourse(userId.Value, courseId))
+                if (User.IsInRole("Admin") || await UserRepository.UserHasCourse(userId, courseId))
                 {
                     if (!await TopicsRepository.ExistsTopic(id))
                         return NotFound();

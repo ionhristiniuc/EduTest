@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using EduTestClient.Services.Abstract;
+using EduTestClient.Services.Entities;
 using EduTestClient.Services.Utils;
 using EduTestContract.Models;
 
@@ -35,9 +35,15 @@ namespace EduTestClient.Services.Base
             }
         }
 
-        public Items<T> GetList(int page = 0, int perPage = 10)
+        public async Task<Items<T>> GetList(int page = 0, int perPage = 10)
         {
-            throw new NotImplementedException();
+            using (var client = new HttpClient())
+            {
+                PrepareHeaders(client);
+                var path = $"{ConfigManager.ServiceUrl}{ServicePath}";
+                var result = await client.GetStringAsync(path);
+                return Serializer.Deserialize<Items<T>>(result);
+            }
         }
 
         public async Task<bool> Add(T entity)
@@ -66,6 +72,11 @@ namespace EduTestClient.Services.Base
                 return result.IsSuccessStatusCode;
             }
         }
+
+        public void SetAuthData(AuthenticationResponse data)
+        {
+            AccessToken = data.access_token;
+        }        
 
         protected void PrepareHeaders(HttpClient client)
         {

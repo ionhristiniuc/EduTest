@@ -7,32 +7,35 @@ using System.Threading.Tasks;
 using EduTestContract.Models;
 using EduTestData.Model;
 using EduTestService.Core;
+using System.Data.Entity;
 
 namespace EduTestService.Repositories
 {
     public class CoursesRepository : ICoursesRepository
     {
-        public IEnumerable<CourseModel> GetCourses(int userId, int skip, int limit)
+        public async Task<IEnumerable<CourseModel>> GetCourses(int userId, int page, int perPage)
         {
             using (var dbContext = new EduTestEntities())
             {
-                var courses = dbContext.Users
-                    .Include(u => u.Courses
-                        .Select(c => c.Modules
-                            .Select(m => m.Chapters
-                                .Select(ch => ch.Topics))))
-                    .First(usr => usr.Id == userId)
-                    .Courses
-                    .OrderBy(c => c.Name)
-                    .Skip(skip)
-                    .Take(limit)
-                    .ToList();
+                //var courses = await dbContext.Users
+                //    .Include(u => u.Courses
+                //        .Select(c => c.Modules
+                //            .Select(m => m.Chapters
+                //                .Select(ch => ch.Topics))))
+                //    .First(usr => usr.Id == userId)
+                //    .Courses
+                //    .OrderBy(c => c.Name)
+                //    .Skip(page * perPage)
+                //    .Take(perPage)
+                //    .ToListAsync();
 
-                return courses.Select(ObjectMapper.MapCourse);
+                return null;
+
+                //return courses.Select(ObjectMapper.MapCourse);
             }
         }
 
-        public async Task<IEnumerable<CourseModel>> GetCourses(int skip, int limit)
+        public async Task<IEnumerable<CourseModel>> GetCourses(int page, int perPage)
         {
             using (var dbContext = new EduTestEntities())
             {
@@ -41,8 +44,8 @@ namespace EduTestService.Repositories
                         .Select(m => m.Chapters
                             .Select(ch => ch.Topics)))
                     .OrderBy(c => c.Name)        
-                    .Skip(skip)
-                    .Take(limit)
+                    .Skip(page)
+                    .Take(perPage)
                     .ToListAsync();
 
                 return courses.Select(ObjectMapper.MapCourse);
