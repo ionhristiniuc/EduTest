@@ -25,7 +25,8 @@ namespace TeacherWebApp.Controllers
         }
 
         public async Task<ActionResult> Index()
-        {            
+        {
+            _studentsService.SetAuthData(AuthHelper.GetTokens(User));
             var students = await _studentsService.GetList(0, 10);
             return View(students);
         }
