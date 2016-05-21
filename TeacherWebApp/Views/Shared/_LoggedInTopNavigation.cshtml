@@ -1,0 +1,116 @@
+﻿@using System.Web.Optimization
+
+
+<!-- BEGIN TOP NAVIGATION MENU -->
+<div class="top-menu">
+    <ul class="nav navbar-nav pull-right">
+        <li class="separator hide">
+        </li>
+
+        @{
+
+            if (Request.IsAuthenticated)
+            {
+
+                <li class="dropdown dropdown-extended dropdown-notification dropdown-dark" id="header_notification_bar">
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                        <i class="icon-bell"></i>
+                        <span class="badge badge-success pendingNotificationsCount" id="pendingNotificationsCount"> 10 </span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="external">
+                            <h3>
+                                @*<span class="bold pendingNotificationsCount">@currentUser.PendingNotifications.Count() </span> @FXM.Strings.T("lbl_pending_notifications")*@
+                            </h3>
+                            @*<a href="page_user_profile_1.html">view all</a>*@
+                            @*@Html.ActionLink("View All", "Index", "Notification")*@
+                        </li>
+                        <li>
+                            <ul class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283" id="notificationsTopList">
+
+                                @*@foreach (var note in currentUser.PendingNotifications.OrderByDescending(x => x.CreationDate))
+                                {
+                                    <li class="notificationItem" id="@note.Id">
+                                        <input type="hidden" class="notificationId" name="notificationId" value=@note.Id>
+                                        <a class="viewNotification" data-toggle="modal" href="#notificationDetails">
+                                            <span class="time">@IconHelper.PrintTimePassedFormat(note.TimeSpan)</span>
+                                            <span class="details">
+                                                @IconHelper.NavBarPrintTypeIcon(note.TypeValue)
+                                                @note.Subject
+                                            </span>
+                                        </a>
+                                    </li>
+                                }*@
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                            <!-- END NOTIFICATION DROPDOWN -->
+                    <li class="separator hide"> </li>
+                    <!-- BEGIN USER LOGIN DROPDOWN -->
+                    <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                            <li class="dropdown dropdown-user dropdown-dark">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                    <span class="username username-hide-on-mobile">
+                                        User Name
+                                    </span>
+                                    <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
+                                    @* TODO: Change With User Specific Avatar *@
+                                    <img alt="User Name" class="img-circle" src="@Url.Content("~/Content/images/site/person-placeholder.jpg")" />
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-default">
+                                    <li>
+                                        <a href="">
+                                            <i class="icon-user"></i> Link
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="">
+                                            <i class="icon-graph"></i> Link
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="">
+                                            <i class="icon-action-redo"></i> Link
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="">
+                                            <i class="icon-action-undo"></i> Link
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="">
+                                            <i class="icon-cloud-download"></i> Link
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="">
+                                            <i class="icon-settings"></i> Link
+                                        </a>
+                                    </li>
+                                    <li class="divider">
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("LogOff", "Account")" onclick="$.fn.idleTimeout().logout()">
+                                            <i class="icon-key"></i> Log Out
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+            }
+            else
+            {
+
+            }
+
+        }
+        <!-- END USER LOGIN DROPDOWN -->
+    </ul>
+</div>
+<!-- END TOP NAVIGATION MENU -->
+
+
+@*<div id="notificationDetails" class="modal fade" tabindex="-1">
+    @Html.Partial("~/Views/Notification/_NotificationDetails.cshtml", new UserNotificationModel())
+</div>*@
