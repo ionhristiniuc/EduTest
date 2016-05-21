@@ -1,0 +1,56 @@
+﻿
+<div class="page-header navbar navbar-fixed-top">
+    <!-- BEGIN PAGE INNER -->
+    <div class="page-header-inner">
+        <!-- BEGIN LOGO -->
+        <div class="page-logo">
+            @*<a href="@Url.Action("Dashboard", "Pages", new {Area = ""})">
+                <img src="@Url.Content("~/Content/images/site/logo-dark.png")" alt="logo" class="logo-default" />
+            </a>*@
+            @{
+                if (Request.IsAuthenticated)
+                {
+                    <div class="menu-toggler sidebar-toggler">
+                        <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+                    </div>
+                <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+                    <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+                    </a>
+                <!-- END RESPONSIVE MENU TOGGLER -->
+                }
+            }
+        </div>
+        <!-- END LOGO -->
+        <div class="page-actions">
+            <ul class="nav nav-pills">
+                <li>
+                    @*<a href=Strings.T("company_web") target="_blank" class="btn default btn-block red-haze"> <i class="fa fa-globe"></i></a>*@
+                    <div class="form-actions pull-right" style="position: relative; top: -30px; left: 60px; visibility: visible!important; display: block!important;">
+                        <a href="@(Request.RawUrl.Length >= 3 ? "/en" + Request.RawUrl.Substring(3) : "/en/" )">
+                            <img src="~/Content/themes/metronic/assets/global/img/flags/gb.png" alt="EN" />
+                        </a>
+                        <a href="@(Request.RawUrl.Length >= 3 ? "/zh" + Request.RawUrl.Substring(3) : "/zh/" )">
+                            <img src="~/Content/themes/metronic/assets/global/img/flags/cn.png" alt="CN" />
+                        </a>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+        <!-- END PAGE INNER -->
+        @{
+            if (Request.IsAuthenticated)
+            {
+            <!-- BEGIN TOP NAVIGATION -->
+                <div class="page-top">
+                    @{ Html.RenderPartial("_LoggedInTopNavigation"); }
+                </div>
+            <!-- END TOP NAVIGATION -->
+                        }
+        }
+    </div>
+</div>
+
+<div class="clearfix">
+</div>
+
