@@ -90,7 +90,7 @@ namespace EduTestService.Controllers
                 if (await _userRepository.ExistsUser(student.User.PersonalDetail.Email))
                     return Conflict();
 
-                student.User.Roles = new[] {"Student"};
+                student.User.Roles = new[] {"Student"};                
 
                 var id = await _studentsRepository.AddStudent(student);
                 return CreatedAtRoute("GetStudent", new { id = id }, student);

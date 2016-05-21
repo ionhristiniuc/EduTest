@@ -71,8 +71,8 @@ namespace TeacherWebApp.Controllers
                 }
                 else
                 {
-                    ViewBag.error = "Failed to add student";
-                    return View(s);
+                    TempData["error"] = "Failed to add student";
+                    return RedirectToAction("AddStudent");
                 }
             }
             catch (Exception e)

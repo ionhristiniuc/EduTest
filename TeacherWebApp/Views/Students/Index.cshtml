@@ -1,41 +1,45 @@
 ﻿@model EduTestContract.Models.Items<EduTestContract.Models.StudentModel>
 
 @{
-    ViewBag.Title = "Students";    
+    ViewBag.Title = "Students";
 }
 <head>
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
-    <link href="/Content/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-    <link href="/Content/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
-    <link href="/Content/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-    <link href="/Content/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
-    <link href="/Content/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+    <link href="/Content/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
     <!-- END GLOBAL MANDATORY STYLES -->
     <!-- BEGIN THEME GLOBAL STYLES -->
-    <link href="/Content/assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css"/>
-    <link href="/Content/assets/global/css/plugins.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/Content/assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
+    <link href="/Content/assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
     <!-- END THEME GLOBAL STYLES -->
     <!-- BEGIN THEME LAYOUT STYLES -->
-    <link href="/Content/assets/layouts/layout4/css/layout.min.css" rel="stylesheet" type="text/css"/>
-    <link href="/Content/assets/layouts/layout4/css/themes/light.min.css" rel="stylesheet" type="text/css" id="style_color"/>
-    <link href="/Content/assets/layouts/layout4/css/custom.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/Content/assets/layouts/layout4/css/layout.min.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/assets/layouts/layout4/css/themes/light.min.css" rel="stylesheet" type="text/css" id="style_color" />
+    <link href="/Content/assets/layouts/layout4/css/custom.min.css" rel="stylesheet" type="text/css" />
     <!-- END THEME LAYOUT STYLES -->
 </head>
 <body>
-@*<ul>
-    @foreach (var student in Model.Data)
-    {
-        <li>@student.User.Id</li>
-        <li>@student.User.PersonalDetail.Email</li>
-        <li>@student.User.PersonalDetail.FirstName</li>
-        <li>@student.User.PersonalDetail.LastName</li>
-    }
-</ul>*@
+    @*<ul>
+            @foreach (var student in Model.Data)
+            {
+                <li>@student.User.Id</li>
+                <li>@student.User.PersonalDetail.Email</li>
+                <li>@student.User.PersonalDetail.FirstName</li>
+                <li>@student.User.PersonalDetail.LastName</li>
+            }
+        </ul>*@
 <div>
-    
+
 </div>
+<br/>
+<br/>
+<br/>
     <div class="col-md-12">
+        @Html.ActionLink("Add new student", "AddStudent")
         <!-- BEGIN SAMPLE TABLE PORTLET-->
         <div class="portlet light bordered">
             <div class="portlet-title">
@@ -68,18 +72,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach (var student in Model.Data)
-                        {
-                            <tr>
-                                <td> @student.User.Id </td>
-                                <td> @student.User.PersonalDetail.FirstName </td>
-                                <td> <li>@student.User.PersonalDetail.LastName</td>
-                                <td> @student.User.PersonalDetail.Email </td>
-                                <td>
-                                    <span class="label label-sm label-success"> Approved </span>
-                                </td>
-                            </tr>
-                        }
+                            @foreach (var student in Model.Data)
+                            {
+                                <tr>
+                                    <td> @student.User.Id </td>
+                                    <td> @student.User.PersonalDetail.FirstName </td>
+                                    <td> <li>@student.User.PersonalDetail.LastName</td>
+                                    <td> @student.User.PersonalDetail.Email </td>
+                                    <td>
+                                        <span class="label label-sm label-success"> Approved </span>
+                                    </td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>

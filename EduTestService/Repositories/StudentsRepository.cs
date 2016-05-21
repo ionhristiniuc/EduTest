@@ -80,6 +80,12 @@ namespace EduTestService.Repositories
             using (var dbModel = new EduTestEntities())
             {
                 var dbStud = Mapper.Map<Student>(student);
+                dbStud.User.Password = "Default";   // TODO add logic for generating and sharing password
+                if (dbStud.User.Roles != null && dbStud.User.Roles.Any())
+                {
+                    foreach (var role in dbStud.User.Roles)
+                        dbModel.Entry(role).State = EntityState.Unchanged;
+                }
                 dbModel.Students.Add(dbStud);
                 await dbModel.SaveChangesAsync();
                 return dbStud.UserId;
