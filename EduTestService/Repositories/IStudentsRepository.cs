@@ -14,5 +14,6 @@ namespace EduTestService.Repositories
         Task<int> GetTotalCount();
         Task<StudentModel> GetStudent(int id);
         Task<int> GetTotalCount4Teacher(int teacherId);
+        Task<int> AddStudent(StudentModel student);
     }
 }

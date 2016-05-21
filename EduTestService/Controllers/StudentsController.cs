@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Web.Http;
+using EduTestContract.Models;
 using EduTestService.Core;
 using EduTestService.Repositories;
 using EduTestService.Security;
@@ -17,15 +18,15 @@ namespace EduTestService.Controllers
     [RoutePrefix("students")]
     public class StudentsController : ApiController
     {
-        private IUserRepository UserRepository { get; set; }
-        private IStudentsRepository StudentsRepository { get; set; }
+        private readonly IUserRepository _userRepository;
+        private readonly IStudentsRepository _studentsRepository;
         private static readonly ILog Log =
             LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         public StudentsController(IUserRepository userRepository, IStudentsRepository studentsRepository)
         {
-            UserRepository = userRepository;
-            StudentsRepository = studentsRepository;
+            _userRepository = userRepository;
+            _studentsRepository = studentsRepository;
         }
                 
         [Route("")]
@@ -35,16 +36,16 @@ namespace EduTestService.Controllers
             {
                 if (User.IsInRole("Admin"))
                 {                                     
-                    var students = await StudentsRepository.GetStudents(page, perPage);
-                    var count = await StudentsRepository.GetTotalCount();
+                    var students = await _studentsRepository.GetStudents(page, perPage);
+                    var count = await _studentsRepository.GetTotalCount();
                     var result = ObjectMapper.ToItems(students, page, perPage, count);
                     return Ok(result);
                 }
                 else if (User.IsInRole("Teacher"))
                 {
                     var userId = SecurityHelper.GetUserId(User.Identity);
-                    var students = await StudentsRepository.GetStudents4Teacher(userId, page, perPage);
-                    var count = await StudentsRepository.GetTotalCount4Teacher(userId);
+                    var students = await _studentsRepository.GetStudents4Teacher(userId, page, perPage);
+                    var count = await _studentsRepository.GetTotalCount4Teacher(userId);
 
                     var result = ObjectMapper.ToItems(students, page, perPage, count);
                     return Ok(result);
@@ -64,7 +65,7 @@ namespace EduTestService.Controllers
         {
             try
             {
-                var student = await StudentsRepository.GetStudent(id);
+                var student = await _studentsRepository.GetStudent(id);
 
                 if (student == null)
                     return NotFound();
@@ -75,6 +76,28 @@ namespace EduTestService.Controllers
             {
                 Log.Error(e.ToString());
                 return InternalServerError();
+            }
+        }
+
+        [Route("")]
+        public async Task<IHttpActionResult> PostStudent([FromBody] StudentModel student)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest();
+
+                if (await _userRepository.ExistsUser(student.User.PersonalDetail.Email))
+                    return Conflict();
+
+                student.User.Roles = new[] {"Student"};
+
+                var id = await _studentsRepository.AddStudent(student);
+                return CreatedAtRoute("GetStudent", new { id = id }, student);
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
             }
         }
     }

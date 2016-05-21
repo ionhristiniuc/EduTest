@@ -74,5 +74,16 @@ namespace EduTestService.Repositories
                         c => c.Users.Any(u => u.Id == teacherId)));
             }
         }
+
+        public async Task<int> AddStudent(StudentModel student)
+        {
+            using (var dbModel = new EduTestEntities())
+            {
+                var dbStud = Mapper.Map<Student>(student);
+                dbModel.Students.Add(dbStud);
+                await dbModel.SaveChangesAsync();
+                return dbStud.UserId;
+            }
+        }
     }
 }

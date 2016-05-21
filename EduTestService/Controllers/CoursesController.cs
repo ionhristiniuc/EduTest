@@ -43,20 +43,18 @@ namespace EduTestService.Controllers
             try
             {
                 var currentUserId = SecurityHelper.GetUserId(User.Identity);
-                if (true || User.IsInRole("Admin"))
+                if (User.IsInRole("Admin"))
                 {                    
                     var courses = await CoursesRepository.GetCourses(page, perPage);
                     var total = await CoursesRepository.GetNumberOfCourses();
-                    var result = ObjectMapper.ToItems(courses, page,
-                        total % perPage == 0 ? total / perPage : total / perPage + 1, total);
+                    var result = ObjectMapper.ToItems(courses, page, perPage, total);
                     return Ok(result);
                 }
                 else
                 {
                     var courses = await CoursesRepository.GetCourses(currentUserId, page, perPage);
                     var total = await CoursesRepository.GetNumberOfCourses(currentUserId);
-                    var result = ObjectMapper.ToItems(courses, page,
-                        total % perPage == 0 ? total / perPage : total / perPage + 1, total);
+                    var result = ObjectMapper.ToItems(courses, page, perPage, total);
                     return Ok(result);
                 }
             }
