@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using EduTestClient.Services.Entities;
 using EduTestContract.Models;
 
@@ -16,7 +17,7 @@ namespace EduTestClient.Services.Base
         /// <returns></returns>
         Task<Items<T>> GetList(int page = 0, int perPage = 10);
 
-        Task<bool> Add(T entity);
+        Task<bool> Add(T entity, params KeyValuePair<string, object>[] addParams);
 
         void Update(T entity, int id);
 

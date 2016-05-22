@@ -56,7 +56,7 @@ namespace EduTestService.Controllers
             catch (Exception e)
             {
                 Log.Error(e.ToString());
-                return InternalServerError();
+                return InternalServerError(e);
             }
         }
 

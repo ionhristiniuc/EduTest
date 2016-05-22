@@ -237,6 +237,7 @@
     <Compile Include="Core\Converters\PolymorphicQuestionConverter.cs" />
     <Compile Include="Core\Factories\QuestionsFactory.cs" />
     <Compile Include="Core\Logging\FileLogger.cs" />
+    <Compile Include="Core\ObjectMapping\Profilers\CourseMappingProfile.cs" />
     <Compile Include="Core\ObjectMapping\Profilers\UserMappingProfile.cs" />
     <Compile Include="Core\Reflection\PatchHelper.cs" />
     <Compile Include="Global.asax.cs">

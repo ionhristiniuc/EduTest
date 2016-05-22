@@ -46,13 +46,18 @@ namespace EduTestClient.Services.Base
             }
         }
 
-        public async Task<bool> Add(T entity)
+        public async Task<bool> Add(T entity, params KeyValuePair<string, object>[] addParams)
         {
             using (var client = new HttpClient())
             {
                 PrepareHeaders(client);
                 var path = $"{ConfigManager.ServiceUrl}{ServicePath}";
-                var response = await client.PostAsJsonAsync(path, entity);
+
+                var pathStr = new StringBuilder(path);
+                foreach (var pair in addParams)                
+                    pathStr.AppendFormat("?{0}={1}", pair.Key, pair.Value);                
+
+                var response = await client.PostAsJsonAsync(pathStr.ToString(), entity);
                 return response.IsSuccessStatusCode;    // TODO should change to return resource id
             }
         }

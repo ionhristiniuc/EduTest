@@ -11,26 +11,23 @@ using System.Data.Entity;
 
 namespace EduTestService.Repositories
 {
-    public class CoursesRepository : ICoursesRepository
+    public class CoursesRepository : BaseRepository, ICoursesRepository
     {
         public async Task<IEnumerable<CourseModel>> GetCourses(int userId, int page, int perPage)
         {
             using (var dbContext = new EduTestEntities())
             {
-                //var courses = await dbContext.Users
-                //    .Include(u => u.Courses
-                //        .Select(c => c.Modules
-                //            .Select(m => m.Chapters
-                //                .Select(ch => ch.Topics))))
-                //    .First(usr => usr.Id == userId)
-                //    .Courses
-                //    .OrderBy(c => c.Name)
-                //    .Skip(page * perPage)
-                //    .Take(perPage)
-                //    .ToListAsync();
+                var courses = await dbContext.Courses                    
+                        .Include(c => c.Modules
+                            .Select(m => m.Chapters
+                                .Select(ch => ch.Topics)))
+                    .Where(c => c.Users.Any(u => u.Id == userId))
+                    .OrderBy(c => c.Name)
+                    .Skip(page * perPage)
+                    .Take(perPage)
+                    .ToListAsync();
 
-                return null;
-
+                return Mapper.Map<IEnumerable<CourseModel>>(courses);
                 //return courses.Select(ObjectMapper.MapCourse);
             }
         }

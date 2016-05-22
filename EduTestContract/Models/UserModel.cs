@@ -8,6 +8,7 @@ namespace EduTestContract.Models
         [Required]
         public string Username { get; set; }       
         public string[] Roles { get; set; }
+        public int[] Courses { get; set; }
         [Required]
         public PersonalDetailModel PersonalDetail { get; set; }
     }

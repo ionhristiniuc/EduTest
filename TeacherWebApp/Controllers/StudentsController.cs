@@ -33,10 +33,7 @@ namespace TeacherWebApp.Controllers
 
         public async Task<ActionResult> AddStudent()
         {            
-            _coursesService.SetAuthData(AuthHelper.GetTokens(User));
-            var courses = await _coursesService.GetList();
-            ViewBag.Courses = courses.Data.ToDictionary(c => c.Id, c => c.Name);            
-
+            await PopulateCoursesList();
             return View();
         }
 
@@ -44,7 +41,10 @@ namespace TeacherWebApp.Controllers
         public async Task<ActionResult> AddStudent(StudentViewModel s)
         {
             if (!ModelState.IsValid)
+            {
+                await PopulateCoursesList();
                 return View(s);
+            }                
 
             try
             {
@@ -58,7 +58,8 @@ namespace TeacherWebApp.Controllers
                             Email = s.Email,
                             FirstName = s.FirstName,
                             LastName = s.LastName
-                        }
+                        },
+                        Courses = new int[] {s.CourseId}
                     }
                 };
 
@@ -81,6 +82,13 @@ namespace TeacherWebApp.Controllers
                 TempData["error"] = "An error occurred while adding new student";
                 return RedirectToAction("AddStudent");
             }                        
+        }
+
+        private async Task PopulateCoursesList()
+        {
+            _coursesService.SetAuthData(AuthHelper.GetTokens(User));
+            var courses = await _coursesService.GetList();
+            ViewBag.Courses = courses.Data?.ToDictionary(c => c.Id, c => c.Name) ?? new Dictionary<int, string>();
         }
     }
 }

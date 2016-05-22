@@ -14,13 +14,14 @@ namespace EduTestService.Core.ObjectMapping.Profilers
         {
             //base.Configure();        
 
-            CreateMap<User, UserModel>();
+            CreateMap<User, UserModel>()
+                .ForMember(u => u.Courses, c => c.Ignore());
             CreateMap<UserModel, User>()
                 .ForMember(u => u.Password, c => c.Ignore())
                 .ForMember(u => u.QuestionBases, c => c.Ignore())
                 .ForMember(u => u.Tests, c => c.Ignore())
                 .ForMember(u => u.TestInstances, c => c.Ignore())
-                .ForMember(u => u.Courses, c => c.Ignore())
+                //.ForMember(u => u.Courses, c => c.Ignore)
                 .ForMember(u => u.Student, c => c.Ignore())
                 .ForMember(u => u.Teacher, c => c.Ignore());
 
@@ -33,7 +34,9 @@ namespace EduTestService.Core.ObjectMapping.Profilers
             CreateMap<StudentModel, Student>();
 
             CreateMap<Role, string>().ConvertUsing(role => role.Name);
-            CreateMap<string, Role>().ConvertUsing((string role) => new Role() {Name = role});                 
+            CreateMap<string, Role>().ConvertUsing((string role) => new Role() {Name = role});
+            
+            //CreateMap<IEnumerable<int>, ICollection<Course>>();
         }
     }
 }

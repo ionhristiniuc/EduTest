@@ -32,10 +32,13 @@ namespace EduTestService.Repositories
         {
             using (var dbModel = new EduTestEntities())
             {
+                var teacherCourses = (await GetUserCoursesAsync(dbModel, teacherId))
+                    .Select(c => c.Id);
+
                 var students = await dbModel.Students
                     .Include(s => s.User)
                     .Include(s => s.User.PersonalDetail)
-                    .Where(s => s.User.Courses.Any(c => c.Users.Any(u => u.Id == teacherId)))
+                    .Where(s => s.User.Courses.Any(c => teacherCourses.Contains(c.Id)))
                     .OrderBy(s => s.UserId)
                     .Skip(page * perPage)
                     .Take(perPage)
@@ -65,13 +68,16 @@ namespace EduTestService.Repositories
             }
         }
 
-        public Task<int> GetTotalCount4Teacher(int teacherId)
+        public async Task<int> GetTotalCount4Teacher(int teacherId)
         {
             using (var dbModel = new EduTestEntities())
             {
-                return dbModel.Students
+                var teacherCourses = (await GetUserCoursesAsync(dbModel, teacherId))
+                    .Select(c => c.Id);
+
+                return await dbModel.Students
                     .CountAsync(s => s.User.Courses.Any(
-                        c => c.Users.Any(u => u.Id == teacherId)));
+                        c => teacherCourses.Contains(c.Id)));
             }
         }
 
@@ -86,10 +92,22 @@ namespace EduTestService.Repositories
                     foreach (var role in dbStud.User.Roles)
                         dbModel.Entry(role).State = EntityState.Unchanged;
                 }
+                if (dbStud.User.Courses != null && dbStud.User.Courses.Any())
+                {
+                    foreach (var course in dbStud.User.Courses)
+                        dbModel.Entry(course).State = EntityState.Unchanged;
+                }
                 dbModel.Students.Add(dbStud);
                 await dbModel.SaveChangesAsync();
                 return dbStud.UserId;
             }
+        }
+
+        private async Task<IEnumerable<Course>> GetUserCoursesAsync(EduTestEntities dbModel, int userId)
+        {
+            return await dbModel.Courses
+                .Where(c => c.Users.Any(u => u.Id == userId))
+                .ToListAsync();
         }
     }
 }

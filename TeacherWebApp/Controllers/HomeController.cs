@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace TeacherWebApp.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Teacher")]
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -14,7 +14,7 @@ namespace TeacherWebApp.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
