@@ -1,24 +1,20 @@
 ﻿@if (Request.IsAuthenticated)
 {
-
-    <li class="dropdown">
-        <a href="#" role="button" class="dropdown-toggle" data-hover="dropdown">
-            <i class="glyphicon glyphicon-user"></i>
-            @*@User.GetUserName()*@            
-
-            <i class="caret"></i>
-        </a>
-        <ul class="dropdown-menu">
-            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-            <li>@Html.ActionLink("Manage my account", "Manage", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
-            <li><a href="#">Something else here</a></li>
-            <li role="presentation" class="divider"></li>
-        </ul>
-    </li>
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        <div class="top-menu">
+            <ul class="nav navbar-nav pull-right">
+                <li class="separator hide"> </li>
+                <!-- BEGIN NOTIFICATION DROPDOWN -->
+                <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->                
+                <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+            </ul>
+        </div>
+    }
 }
 else
 {
-
-    @*<li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>*@
-    <li>@Html.ActionLink("Log in", "LogOn", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Log in", "LogOn", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
 }
