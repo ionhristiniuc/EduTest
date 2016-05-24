@@ -149,7 +149,9 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\QuestionsController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
+    <Compile Include="Controllers\TestsController.cs" />
     <Compile Include="Core\Authentication\CustomPrincipal.cs" />
     <Compile Include="Core\Authentication\Extensions.cs" />
     <Compile Include="Core\Authentication\HttpResponseBaseExtensions.cs" />
@@ -631,6 +633,8 @@
     <Folder Include="Content\Site\" />
     <Folder Include="Content\Theme\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Questions\" />
+    <Folder Include="Views\Tests\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

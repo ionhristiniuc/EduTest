@@ -250,10 +250,12 @@
     <Compile Include="Repositories\IChaptersRepository.cs" />
     <Compile Include="Repositories\ICoursesRepository.cs" />
     <Compile Include="Repositories\IModulesRepository.cs" />
+    <Compile Include="Repositories\IQuestionsRepository.cs" />
     <Compile Include="Repositories\IStudentsRepository.cs" />
     <Compile Include="Repositories\ITopicsRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
     <Compile Include="Repositories\ModulesRepository.cs" />
+    <Compile Include="Repositories\QuestionsRepository.cs" />
     <Compile Include="Repositories\StudentsRepository.cs" />
     <Compile Include="Repositories\TopicsRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />

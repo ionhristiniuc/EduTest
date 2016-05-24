@@ -15,7 +15,7 @@ namespace EduTestService
             // Web API configuration and services
             log4net.Config.XmlConfigurator.Configure();
             config.Services.Replace(typeof(ITraceWriter), new FileLogger());
-            //config.Formatters.JsonFormatter.SerializerSettings.Converters.Add(new PolymorphicQuestionConverter());
+            config.Formatters.JsonFormatter.SerializerSettings.Converters.Add(new PolymorphicQuestionConverter());
             // Web API routes
             config.MapHttpAttributeRoutes();
 

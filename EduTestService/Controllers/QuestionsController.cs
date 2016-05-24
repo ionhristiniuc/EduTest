@@ -11,13 +11,15 @@ using log4net;
 
 namespace EduTestService.Controllers
 {
+    [Authorize(Roles = "Admin,Teacher,Student")]
+    [RoutePrefix("questions")]
     public class QuestionsController : ApiController
     {
         private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
-        [Route("topics/{topicId:int}/questions")]
+        
         [Authorize(Roles = "Teacher,Admin")]
-        public async Task<IHttpActionResult> PostQuestion(int topicId, [FromBody]QuestionBaseModel question)
+        [Route("")]
+        public async Task<IHttpActionResult> PostQuestion([FromBody]QuestionBaseModel question)
         {
             try
             {
@@ -34,8 +36,8 @@ namespace EduTestService.Controllers
             }
         }
 
-        [Route("questions/{questionId:int}", Name = "GetQuestion")]
-        public async Task<IHttpActionResult> GetQuestion(int questionId)
+        [Route("{id:int}", Name = "GetQuestion")]
+        public async Task<IHttpActionResult> GetQuestion(int id)
         {
             try
             {
@@ -43,9 +45,9 @@ namespace EduTestService.Controllers
 
                 return Unauthorized();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return InternalServerError();
+                return InternalServerError(e);
             }
         }
     }
