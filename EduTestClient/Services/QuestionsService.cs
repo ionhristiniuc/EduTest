@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EduTestClient.Services.Base;
 using EduTestClient.Services.Utils;
 using EduTestContract.Models;
 
 namespace EduTestClient.Services
 {
-    public class QuestionsService : IQuestionsService
+    public class QuestionsService : GenericService<QuestionBaseModel>, IQuestionsService
     {
         private string AccessToken { get; set; }
         private ISerializer Serializer { get; set; }
@@ -20,17 +21,6 @@ namespace EduTestClient.Services
             AccessToken = accessToken;
             Serializer = serializer;
             HttpHelper = new HttpHelper(AccessToken, Serializer);
-        }
-
-        public async Task<bool> AddQuestion(int topicId, QuestionBaseModel question)
-        {
-            var path = $"{ConfigManager.ServiceUrl}/topics/{topicId}{ServicePath}";
-            return await HttpHelper.PostEntity(question, path);
-        }
-
-        public Task<bool> DeleteQuestion(int id)
-        {
-            throw new NotImplementedException();
-        }
+        }                
     }
 }

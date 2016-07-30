@@ -40,7 +40,7 @@ namespace EduTestClient.Services.Base
             using (var client = new HttpClient())
             {
                 PrepareHeaders(client);
-                var path = $"{ConfigManager.ServiceUrl}{ServicePath}";
+                var path = $"{ConfigManager.ServiceUrl}{ServicePath}?page={page}&perPage={perPage}";
                 var result = await client.GetStringAsync(path);
                 return Serializer.Deserialize<Items<T>>(result);
             }

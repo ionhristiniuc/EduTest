@@ -68,7 +68,7 @@ namespace EduTestService.Core
                 Data = data,
                 Page = page,
                 TotalPages = count % perPage == 0 ? count / perPage : count / perPage + 1,
-                TotalElements = count / perPage + 1
+                TotalElements = count
             };
         }
     }

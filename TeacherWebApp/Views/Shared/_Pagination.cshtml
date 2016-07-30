@@ -1,0 +1,37 @@
+﻿
+@{
+    var page = (int) ViewData["Page"];
+    var totalPages = (int) ViewData["TotalPages"];
+}
+
+<ul class="pagination">
+    @for (int pageNr = 0; pageNr < totalPages; ++pageNr)
+    {
+        if (pageNr == page)
+        {
+            <li class="active">
+                <a href="@Url.Action("Index", "Students", new {page = pageNr})">@(pageNr + 1)</a>
+            </li>
+        }
+        else
+        {
+
+            <li>
+                <a href="@Url.Action("Index", "Students", new {page = pageNr})">@(pageNr + 1)</a>
+            </li>
+        }
+    }
+</ul>
+
+@*<ul class="pager">
+        <li @if (Model.Page <= 0)
+            {<text>class="disabled"</text>
+            }>
+            <a href="@Url.Action("Index", "Students", new {page = Model.Page - 1})">Previous</a>
+        </li>
+        <li @if (Model.Page >= Model.TotalPages - 1)
+            {<text>class="disabled"</text>
+            } >
+            <a href="@Url.Action("Index", "Students", new {page = Model.Page + 1})">Next</a>
+        </li>
+    </ul>*@                

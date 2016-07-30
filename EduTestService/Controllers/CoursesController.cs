@@ -22,7 +22,7 @@ namespace EduTestService.Controllers
 {
     //[Authorize]
     [RoutePrefix("courses")]    
-    public class CoursesController : ApiController
+    public class CoursesController : BaseApiController
     {
         private ICoursesRepository CoursesRepository { get; set; }
         private IUserRepository UserRepository { get; set; }

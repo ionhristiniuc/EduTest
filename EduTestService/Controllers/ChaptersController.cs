@@ -13,7 +13,7 @@ using EduTestService.Security;
 namespace EduTestService.Controllers
 {
     [Authorize]
-    public class ChaptersController : ApiController
+    public class ChaptersController : BaseApiController
     {
         private IModulesRepository ModulesRepository { get; set; }
         private IChaptersRepository ChaptersRepository { get; set; }        

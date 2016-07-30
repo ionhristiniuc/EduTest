@@ -17,11 +17,9 @@ namespace EduTestService.Controllers
 {
     [RoutePrefix("users")]
     [Authorize]
-    public class UsersController : ApiController
+    public class UsersController : BaseApiController
     {
         private IUserRepository UserRepository { get; set; }
-        private static readonly ILog Log =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         public UsersController(IUserRepository userRepository)
         {
@@ -39,7 +37,7 @@ namespace EduTestService.Controllers
         [Authorize(Roles = "Teacher,Admin,Student")]
         public async Task<IHttpActionResult> GetUser()
         {
-            Log.DebugFormat("Get current user called");
+            Logger.DebugFormat("Get current user called");
 
             try
             {
@@ -59,7 +57,7 @@ namespace EduTestService.Controllers
             catch (Exception e)
             {
                 Trace.WriteLine(e.ToString());
-                Log.Error("An exception occurred", e);
+                Logger.Error("An exception occurred", e);
                 return InternalServerError();
             }            
         }

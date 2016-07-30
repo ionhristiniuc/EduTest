@@ -16,12 +16,10 @@ namespace EduTestService.Controllers
 {
     [Authorize(Roles = "Teacher,Admin")]
     [RoutePrefix("students")]
-    public class StudentsController : ApiController
+    public class StudentsController : BaseApiController
     {
         private readonly IUserRepository _userRepository;
-        private readonly IStudentsRepository _studentsRepository;
-        private static readonly ILog Log =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly IStudentsRepository _studentsRepository;        
 
         public StudentsController(IUserRepository userRepository, IStudentsRepository studentsRepository)
         {
@@ -55,7 +53,7 @@ namespace EduTestService.Controllers
             }
             catch (Exception e)
             {
-                Log.Error(e.ToString());
+                Logger.Error(e.ToString());
                 return InternalServerError(e);
             }
         }
@@ -74,7 +72,7 @@ namespace EduTestService.Controllers
             }
             catch (Exception e)
             {
-                Log.Error(e.ToString());
+                Logger.Error(e.ToString());
                 return InternalServerError();
             }
         }

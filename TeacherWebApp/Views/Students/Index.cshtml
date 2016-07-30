@@ -1,4 +1,5 @@
-﻿@model EduTestContract.Models.Items<EduTestContract.Models.StudentModel>
+﻿@using EduTestContract.Models
+@model EduTestContract.Models.Items<EduTestContract.Models.StudentModel>
 
 @{
     ViewBag.Title = "Students";
@@ -15,7 +16,7 @@
             <div class="portlet-title">
                 <div class="caption">
                     <i class="icon-social-dribbble font-green"></i>
-                    <span class="caption-subject font-green bold uppercase">Simple Table</span>
+                    <span class="caption-subject font-green bold uppercase">Students</span>
                 </div>
                 <div class="actions">
                     <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
@@ -33,31 +34,32 @@
                 <div class="table-scrollable">
                     <table class="table table-hover">
                         <thead>
-                            <tr>
-                                <th> #</th>
-                                <th> First Name </th>
-                                <th> Last Name </th>
-                                <th> Email</th>
-                                <th> Actions</th>
-                            </tr>
+                        <tr>
+                            <th> #</th>
+                            <th> First Name </th>
+                            <th> Last Name </th>
+                            <th> Email</th>
+                            <th> Actions</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            @foreach (var student in Model.Data)
-                            {
-                                <tr>
-                                    <td> @student.User.Id </td>
-                                    <td> @student.User.PersonalDetail.FirstName </td>
-                                    <td> @student.User.PersonalDetail.LastName</td>
-                                    <td> @student.User.PersonalDetail.Email </td>
-                                    <td>
-                                        <span class="label label-sm label-default"> Edit </span>
-                                        <span class="label label-sm label-danger"> Delete </span>
-                                    </td>
-                                </tr>
-                            }
+                        @foreach (var student in Model.Data)
+                        {
+                            <tr>
+                                <td> @student.User.Id </td>
+                                <td> @student.User.PersonalDetail.FirstName </td>
+                                <td> @student.User.PersonalDetail.LastName</td>
+                                <td> @student.User.PersonalDetail.Email </td>
+                                <td>
+                                    <span class="label label-sm label-default"> Edit </span>
+                                    <span class="label label-sm label-danger"> Delete </span>
+                                </td>
+                            </tr>
+                        }
                         </tbody>
                     </table>
-                </div>
+                </div>                
+                @Html.Partial("_Pagination", new ViewDataDictionary() { {"Page", Model.Page}, {"TotalPages", Model.TotalPages} })
             </div>
         </div>
         <!-- END SAMPLE TABLE PORTLET-->

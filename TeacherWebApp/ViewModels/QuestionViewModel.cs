@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 using EduTestContract.Models.Enums;
 
-namespace EduTestContract.Models
+namespace TeacherWebApp.ViewModels
 {
-    public class QuestionBaseModel
+    public class QuestionViewModel
     {
         public int Id { get; set; }
         public string Content { get; set; }
         public bool Enabled { get; set; }
         public QuestionType Type { get; set; }
-        public int UserId { get; set; }       
-        public int TopicId { get; set; }       
+        public int UserId { get; set; }
+        public int TopicId { get; set; }
     }
 }

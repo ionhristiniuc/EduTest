@@ -24,10 +24,10 @@ namespace TeacherWebApp.Controllers
             _coursesService = coursesService;            
         }
 
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int page = 0, int perPage = 10)
         {
             _studentsService.SetAuthData(AuthHelper.GetTokens(User));
-            var students = await _studentsService.GetList(0, 10);
+            var students = await _studentsService.GetList(page, perPage);
             return View(students);
         }
 

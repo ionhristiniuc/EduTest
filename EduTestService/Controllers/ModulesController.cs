@@ -14,7 +14,7 @@ using EduTestService.Security;
 namespace EduTestService.Controllers
 {
     [Authorize]
-    public class ModulesController : ApiController
+    public class ModulesController : BaseApiController
     {
         private IModulesRepository ModulesRepository { get; set; }
         private IUserRepository UserRepository { get; set; }

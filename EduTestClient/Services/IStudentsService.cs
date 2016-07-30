@@ -5,6 +5,6 @@ namespace EduTestClient.Services
 {
     public interface IStudentsService : IGenericService<StudentModel>
     {
-
+         
     }
 }

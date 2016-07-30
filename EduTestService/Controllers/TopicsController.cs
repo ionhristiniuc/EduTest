@@ -12,7 +12,7 @@ using EduTestService.Security;
 
 namespace EduTestService.Controllers
 {
-    public class TopicsController : ApiController
+    public class TopicsController : BaseApiController
     {
         private IChaptersRepository ChaptersRepository { get; set; }
         private ITopicsRepository TopicsRepository { get; set; }

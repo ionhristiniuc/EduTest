@@ -11,20 +11,19 @@ using log4net;
 
 namespace EduTestService.Controllers
 {
-    [Authorize(Roles = "Admin,Teacher,Student")]
+    [Authorize(Roles = "Admin,Teacher")]
     [RoutePrefix("questions")]
-    public class QuestionsController : ApiController
-    {
-        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        
-        [Authorize(Roles = "Teacher,Admin")]
+    public class QuestionsController : BaseApiController
+    {        
         [Route("")]
         public async Task<IHttpActionResult> PostQuestion([FromBody]QuestionBaseModel question)
         {
             try
             {
                 if (question is VariantQuestionModel)
-                    Log.DebugFormat("Question of type {0} posted!", question.Type);
+                {
+                    Logger.DebugFormat("Question of type {0} posted!", question.Type);
+                }
 
                 return Ok();
 
