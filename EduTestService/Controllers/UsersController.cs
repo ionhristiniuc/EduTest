@@ -43,15 +43,7 @@ namespace EduTestService.Controllers
             {
                 var currentUserId = SecurityHelper.GetUserId(User.Identity);
                 var user = await UserRepository.GetUser(currentUserId);
-                //var user = new UserModel()
-                //{
-                //    Username = "ionh",
-                //    Email = "ionhristiniuc@yahoo.com",
-                //    Id = 1,
-                //    Roles = new string[] {"Admin"},
-                //    FirstName = "Ion",
-                //    LastName = "Hristiniuc"
-                //};
+                
                 return Ok(user);
             }
             catch (Exception e)
